@@ -7,14 +7,14 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
 // import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
-import { useResendOtp } from '@/hooks/auth/use-resend-otp';
+// import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 
 export default function VerifyOtpForm() {
   const { email } = useLocalSearchParams<{ email: string }>();
   const [timer, setTimer] = useState(180); // 3 minutes
 
   // const verifyOtp = useVerifyOtp();
-  const resendOtp = useResendOtp();
+  // const resendOtp = useResendOtp();
 
   const {
     control,
@@ -63,7 +63,7 @@ export default function VerifyOtpForm() {
 
   const handleResend = async () => {
     try {
-      await resendOtp.mutateAsync(email as string);
+      // await resendOtp.mutateAsync(email as string);
       setTimer(180);
       reset({ otpCode: '' });
     } catch (err: any) {
@@ -126,11 +126,11 @@ export default function VerifyOtpForm() {
 
         <Button
           onPress={handleSubmit(onSubmit)}
-          isDisabled={!isValid || timer === 0 || verifyOtp.isPending}
+          isDisabled={!isValid || timer === 0}
           className="w-full"
           size="lg"
         >
-          {verifyOtp.isPending ? (
+          {timer === 0 ? (
             <Spinner size="sm" className="text-primary-foreground" />
           ) : (
             <Button.Label>Verify</Button.Label>
@@ -139,11 +139,12 @@ export default function VerifyOtpForm() {
 
         <Button
           onPress={handleResend}
-          isDisabled={timer > 0 || resendOtp.isPending}
+          variant='tertiary'
+          isDisabled={timer > 0}
           className="w-full border-white/30"
           size="lg"
         >
-          {resendOtp.isPending ? (
+          {timer > 0 ? (
             <Spinner size="sm" className="text-white" />
           ) : (
             <Button.Label className="text-white">Resend code</Button.Label>
