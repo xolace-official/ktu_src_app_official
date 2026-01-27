@@ -15,7 +15,7 @@ export default function RootLayout() {
 }
 
 const RootLayoutNav = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <Stack>
         <Stack.Protected guard={isAuthenticated}>

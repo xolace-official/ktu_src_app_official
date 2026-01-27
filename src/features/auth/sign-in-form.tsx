@@ -1,12 +1,16 @@
-import { View, Text } from 'react-native';
+import { useRef } from 'react';
+import { View, Text, TextInput } from 'react-native';
 import { TextField, Button, Spinner } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 import { SigninSchema, type SigninFormType } from '@/lib/schemas/auth';
 import { useSignInWithEmailPassword } from '@/hooks/auth/use-signin-with-email-password';
 
 export default function SignInForm() {
+  const passwordRef = useRef<TextInput>(null);
+
   const {
     control,
     handleSubmit,
@@ -33,7 +37,11 @@ export default function SignInForm() {
   };
 
   return (
-    <View className="px-5 py-8">
+    <KeyboardAwareScrollView
+      bottomOffset={20}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 32 }}
+    >
       <View className="mb-8 gap-5">
         {/* Email Field */}
         <Controller
@@ -50,6 +58,9 @@ export default function SignInForm() {
                 keyboardType="email-address"
                 autoComplete="email"
                 autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordRef.current?.focus()}
+                blurOnSubmit={false}
               />
               {errors.email && (
                 <TextField.ErrorMessage>{errors.email.message}</TextField.ErrorMessage>
@@ -66,12 +77,15 @@ export default function SignInForm() {
             <TextField isInvalid={!!errors.password} isRequired>
               <TextField.Label>Password</TextField.Label>
               <TextField.Input
+                ref={passwordRef}
                 placeholder="Enter your password"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 secureTextEntry
                 textContentType="password"
+                returnKeyType="done"
+                onSubmitEditing={handleSubmit(onSubmit)}
               />
               {errors.password && (
                 <TextField.ErrorMessage>{errors.password.message}</TextField.ErrorMessage>
@@ -101,6 +115,6 @@ export default function SignInForm() {
           <Button.Label>Sign in</Button.Label>
         )}
       </Button>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }

@@ -19,3 +19,9 @@ export const SigninSchema = z.object({
 });
 
 export type SigninFormType = z.infer<typeof SigninSchema>;
+
+export const OTPSchema = z.object({
+  otpCode: z.string().length(6, 'Please enter all 6 digits'),
+});
+
+export type OTPFormType = z.infer<typeof OTPSchema>;

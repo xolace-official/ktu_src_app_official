@@ -1,15 +1,18 @@
-import { useState } from 'react';
-import { View } from 'react-native';
+import { useState, useRef } from 'react';
+import { View, TextInput } from 'react-native';
 import { TextField, Button, FormField, Spinner } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 import { SignupSchema, type SignupFormType } from '@/lib/schemas/auth';
 import { useSignUpWithEmail } from '@/hooks/auth/use-signup-with-email-password';
 
 export default function SignUpForm() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const passwordRef = useRef<TextInput>(null);
+  const confirmPasswordRef = useRef<TextInput>(null);
 
   const {
     control,
@@ -36,7 +39,7 @@ export default function SignUpForm() {
 
       if (signUp.isSuccess || res.user) {
         router.push({
-          pathname: '/',
+          pathname: '/auth/verify-screen',
           params: { email: data.email },
         });
       }
@@ -46,7 +49,11 @@ export default function SignUpForm() {
   };
 
   return (
-    <View className="px-5 py-8">
+    <KeyboardAwareScrollView
+      bottomOffset={20}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 32 }}
+    >
       <View className="mb-8 gap-5">
         {/* Email Field */}
         <Controller
@@ -64,6 +71,9 @@ export default function SignUpForm() {
                 textContentType="emailAddress"
                 autoComplete="email"
                 autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordRef.current?.focus()}
+                blurOnSubmit={false}
               />
               {errors.email && (
                 <TextField.ErrorMessage>{errors.email.message}</TextField.ErrorMessage>
@@ -80,12 +90,16 @@ export default function SignUpForm() {
             <TextField isInvalid={!!errors.password} isRequired>
               <TextField.Label>Password</TextField.Label>
               <TextField.Input
+                ref={passwordRef}
                 placeholder="Enter your password"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 secureTextEntry
                 textContentType="newPassword"
+                returnKeyType="next"
+                onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+                blurOnSubmit={false}
               />
               {errors.password && (
                 <TextField.ErrorMessage>{errors.password.message}</TextField.ErrorMessage>
@@ -102,12 +116,14 @@ export default function SignUpForm() {
             <TextField isInvalid={!!errors.confirmPassword} isRequired>
               <TextField.Label>Confirm Password</TextField.Label>
               <TextField.Input
+                ref={confirmPasswordRef}
                 placeholder="Repeat your password"
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 secureTextEntry
                 textContentType="newPassword"
+                returnKeyType="done"
               />
               {errors.confirmPassword && (
                 <TextField.ErrorMessage>{errors.confirmPassword.message}</TextField.ErrorMessage>
@@ -141,6 +157,6 @@ export default function SignUpForm() {
           )}
         </Button>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
