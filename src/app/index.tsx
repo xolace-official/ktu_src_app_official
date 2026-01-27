@@ -7,6 +7,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { ExampleHeroComponent } from '@/components/extras/example-hero-comp';
 
 export default function HomeScreen() {
   return (
@@ -17,7 +18,8 @@ export default function HomeScreen() {
           <ThemedText type="title" style={styles.title}>
             Welcome to&nbsp;Expo
           </ThemedText>
-          <Text className="text-2xl font-bold">Hello World</Text>
+          <Text className="text-4xl font-bold text-foreground">Hello World</Text>
+          <ExampleHeroComponent />
         </ThemedView>
 
         <ThemedText type="code" style={styles.code}>
