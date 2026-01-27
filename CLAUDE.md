@@ -25,6 +25,7 @@ bun run lint           # Run ESLint
 - **Framework**: Expo v55 (preview) with Expo Router v55 (beta) for file-based routing
 - **React**: React 19 with React Compiler enabled
 - **Styling**: Tailwind CSS v4 + Uniwind for universal styling, HeroUI Native components
+- **UI Components**: Use HeroUI Native documentation from https://v3.heroui.com/native/llms.txt
 - **State**: Zustand (client state), React Query (server state)
 - **Forms**: React Hook Form + Zod validation
 - **Backend**: Supabase
