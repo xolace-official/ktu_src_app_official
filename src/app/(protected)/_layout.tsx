@@ -11,7 +11,7 @@ const ProtectedLayout = () => {
 //   if (!hydrated || completed === null) {
 //     return null; // or splash screen
 //   }
-const completed = false;
+const completed = true;
 
   return (
     <Stack>
