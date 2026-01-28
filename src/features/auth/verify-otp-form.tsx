@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import { View, Text, Keyboard } from 'react-native';
-import { InputOTP, Button, Spinner } from 'heroui-native';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalSearchParams } from 'expo-router';
+import { Button, InputOTP, Spinner } from 'heroui-native';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Keyboard, Text, View } from 'react-native';
 
+import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
-// import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 // import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 
 export default function VerifyOtpForm() {
   const { email } = useLocalSearchParams<{ email: string }>();
   const [timer, setTimer] = useState(180); // 3 minutes
 
-  // const verifyOtp = useVerifyOtp();
+  const verifyOtp = useVerifyOtp();
   // const resendOtp = useResendOtp();
 
   const {
@@ -126,12 +126,14 @@ export default function VerifyOtpForm() {
 
         <Button
           onPress={handleSubmit(onSubmit)}
-          isDisabled={!isValid || timer === 0}
+          isDisabled={!isValid || timer === 0 || verifyOtp.isPending}
           className="w-full"
           size="lg"
         >
-          {timer === 0 ? (
+          {verifyOtp.isPending ? (
             <Spinner size="sm" className="text-primary-foreground" />
+          ) : timer === 0 ? (
+            <Button.Label>Code expired</Button.Label>
           ) : (
             <Button.Label>Verify</Button.Label>
           )}
