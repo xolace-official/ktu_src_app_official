@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { View, Text, TextInput, Keyboard } from 'react-native';
 import { TextField, Select, Button, Spinner } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
@@ -14,6 +14,25 @@ import { useFaculties } from '@/hooks/profile/use-faculties';
 import { useDepartments } from '@/hooks/profile/use-departments';
 import { usePrograms } from '@/hooks/profile/use-programs';
 import { AnimatedSelectTrigger } from '@/components/ui/animated-select-trigger';
+
+// SelectOption type as defined by HeroUI Native
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
+// Helper to convert API data to SelectOption format
+function toSelectOption(id: string | number, name: string): SelectOption {
+  return { value: String(id), label: name };
+}
+
+// Helper to find SelectOption from ID
+function findSelectOption(
+  options: SelectOption[] | undefined,
+  id: string
+): SelectOption | undefined {
+  return options?.find((opt) => opt.value === id);
+}
 
 interface CompleteProfileFormProps {
   onSubmit: (data: CompleteProfileFormType) => void;
@@ -51,22 +70,36 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
   const { data: departments, isLoading: isLoadingDepartments } = useDepartments(selectedFaculty);
   const { data: programs, isLoading: isLoadingPrograms } = usePrograms(selectedDepartment);
 
-  const handleFacultyChange = (value: string) => {
-    setValue('faculty', value);
+  // Convert API data to SelectOption arrays
+  const facultyOptions = useMemo(
+    () => faculties?.map((f) => toSelectOption(f.id, f.name)),
+    [faculties]
+  );
+
+  const departmentOptions = useMemo(
+    () => departments?.map((d) => toSelectOption(d.id, d.name)),
+    [departments]
+  );
+
+  const programOptions = useMemo(
+    () => programs?.map((p) => toSelectOption(p.id, p.name)),
+    [programs]
+  );
+
+  const levelOptions = useMemo(
+    () => LEVEL_OPTIONS.map((l) => toSelectOption(l.value, l.label)),
+    []
+  );
+
+  const handleFacultyChange = (option: SelectOption | undefined) => {
+    setValue('faculty', option?.value ?? '');
     setValue('department', '');
     setValue('program', '');
   };
 
-  const handleDepartmentChange = (value: string) => {
-    setValue('department', value);
+  const handleDepartmentChange = (option: SelectOption | undefined) => {
+    setValue('department', option?.value ?? '');
     setValue('program', '');
-  };
-
-  const getSelectedLabel = (
-    options: { id: string; name: string }[] | undefined,
-    value: string
-  ) => {
-    return options?.find((opt) => opt.id === value)?.name;
   };
 
   return (
@@ -174,7 +207,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   Faculty <Text className="text-danger">*</Text>
                 </Text>
                 <Select
-                  value={value}
+                  value={findSelectOption(facultyOptions, value)}
                   onValueChange={handleFacultyChange}
                   isDisabled={isLoadingFaculties}
                 >
@@ -188,8 +221,8 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   <Select.Portal>
                     <Select.Overlay />
                     <Select.Content presentation="bottom-sheet">
-                      {faculties?.map((faculty) => (
-                        <Select.Item key={faculty.id} value={faculty.id} label={faculty.name} />
+                      {facultyOptions?.map((option) => (
+                        <Select.Item key={option.value} value={option.value} label={option.label} />
                       ))}
                     </Select.Content>
                   </Select.Portal>
@@ -211,7 +244,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   Department <Text className="text-danger">*</Text>
                 </Text>
                 <Select
-                  value={value}
+                  value={findSelectOption(departmentOptions, value)}
                   onValueChange={handleDepartmentChange}
                   isDisabled={!selectedFaculty || isLoadingDepartments}
                 >
@@ -222,21 +255,13 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                       }
                       isInvalid={!!errors.department}
                       isDisabled={!selectedFaculty || isLoadingDepartments}
-                    >
-                      <Select.Value
-                        placeholder={
-                          !selectedFaculty ? 'Select a faculty first' : 'Select your department'
-                        }
-                      >
-                        {getSelectedLabel(departments ?? [], value)}
-                      </Select.Value>
-                    </AnimatedSelectTrigger>
+                    />
                   </Select.Trigger>
                   <Select.Portal>
                     <Select.Overlay />
                     <Select.Content presentation="bottom-sheet">
-                      {departments?.map((dept) => (
-                        <Select.Item key={dept.id} value={dept.id} label={dept.name} />
+                      {departmentOptions?.map((option) => (
+                        <Select.Item key={option.value} value={option.value} label={option.label} />
                       ))}
                     </Select.Content>
                   </Select.Portal>
@@ -252,14 +277,14 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
           <Controller
             control={control}
             name="program"
-            render={({ field: { value, onChange } }) => (
+            render={({ field: { value } }) => (
               <View className="gap-1.5">
                 <Text className="text-sm font-medium text-foreground">
                   Program of Study <Text className="text-danger">*</Text>
                 </Text>
                 <Select
-                  value={value}
-                  onValueChange={onChange}
+                  value={findSelectOption(programOptions, value)}
+                  onValueChange={(option) => setValue('program', option?.value ?? '')}
                   isDisabled={!selectedDepartment || isLoadingPrograms}
                 >
                   <Select.Trigger>
@@ -269,24 +294,16 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                       }
                       isInvalid={!!errors.program}
                       isDisabled={!selectedDepartment || isLoadingPrograms}
-                    >
-                      <Select.Value
-                        placeholder={
-                          !selectedDepartment ? 'Select a department first' : 'Select your program'
-                        }
-                      >
-                        {getSelectedLabel(programs ?? [], value)}
-                      </Select.Value>
-                    </AnimatedSelectTrigger>
+                    />
                   </Select.Trigger>
                   <Select.Portal>
                     <Select.Overlay />
                     <Select.Content presentation="bottom-sheet">
-                      {programs?.map((prog) => (
+                      {programOptions?.map((option) => (
                         <Select.Item
-                          key={prog.id}
-                          value={prog.id.toString()}
-                          label={prog.name}
+                          key={option.value}
+                          value={option.value}
+                          label={option.label}
                         />
                       ))}
                     </Select.Content>
@@ -303,27 +320,26 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
           <Controller
             control={control}
             name="level"
-            render={({ field: { value, onChange } }) => (
+            render={({ field: { value } }) => (
               <View className="gap-1.5">
                 <Text className="text-sm font-medium text-foreground">
                   Level <Text className="text-danger">*</Text>
                 </Text>
-                <Select value={value} onValueChange={onChange}>
+                <Select
+                  value={findSelectOption(levelOptions, value)}
+                  onValueChange={(option) => setValue('level', option?.value ?? '')}
+                >
                   <Select.Trigger>
                     <AnimatedSelectTrigger
                       placeholder="Select your level"
                       isInvalid={!!errors.level}
-                    >
-                      <Select.Value placeholder="Select your level">
-                        {LEVEL_OPTIONS.find((opt) => opt.value === value)?.label}
-                      </Select.Value>
-                    </AnimatedSelectTrigger>
+                    />
                   </Select.Trigger>
                   <Select.Portal>
                     <Select.Overlay />
                     <Select.Content presentation="bottom-sheet">
-                      {LEVEL_OPTIONS.map((level) => (
-                        <Select.Item key={level.value} value={level.value} label={level.label} />
+                      {levelOptions.map((option) => (
+                        <Select.Item key={option.value} value={option.value} label={option.label} />
                       ))}
                     </Select.Content>
                   </Select.Portal>
