@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import type { NewsArticle } from '@/types/home';
+import { useQuery } from '@tanstack/react-query';
 
 const mockNews: NewsArticle[] = [
   {
@@ -26,11 +26,12 @@ const mockNews: NewsArticle[] = [
 ];
 
 export function useCampusNews(limit = 3) {
+  const safeLimit = Math.max(0, Math.floor(limit));
   return useQuery({
-    queryKey: ['campus-news', limit],
+    queryKey: ['campus-news', safeLimit],
     queryFn: async (): Promise<NewsArticle[]> => {
       await new Promise((resolve) => setTimeout(resolve, 350));
-      return mockNews.slice(0, limit);
+      return mockNews.slice(0, safeLimit);
     },
     staleTime: 5 * 60 * 1000,
   });

@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { View } from 'react-native';
 import { Image } from 'expo-image';
 import { Card, PressableFeedback } from 'heroui-native';
-import { ThemedText } from '@/components/themed-text';
+import { Text } from 'react-native';
 import type { Representative } from '@/types/home';
 
 interface RepresentativeCardProps {
@@ -38,9 +38,9 @@ export const RepresentativeCard = memo(function RepresentativeCard({
                   {description}
                 </Card.Description>
                 <Card.Footer>
-                  <ThemedText className="text-xs font-semibold text-[#FFEDAC]">
+                  <Text className="text-xs font-semibold text-accent">
                     {position}
-                  </ThemedText>
+                  </Text>
                 </Card.Footer>
           </Card.Body>
           </View>

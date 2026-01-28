@@ -1,9 +1,6 @@
 import { View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { Button, Skeleton } from 'heroui-native';
-import { Newspaper } from 'lucide-react-native';
-import { ThemedText } from '@/components/themed-text';
 import { NewsCard } from '../cards/news-card';
 import { useCampusNews } from '@/hooks/home/use-campus-news';
 import { Image } from 'expo-image';
@@ -20,7 +17,7 @@ export function CampusNewsSection() {
 
   const handleViewAll = () => {
     router.push({
-      pathname: '/info-center',
+      pathname: '/',
       params: { type: 'announcements' },
     });
   };

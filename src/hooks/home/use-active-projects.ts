@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import type { Project } from '@/types/home';
+import { useQuery } from '@tanstack/react-query';
 
 const mockProjects: Project[] = [
   {
@@ -33,11 +33,12 @@ const mockProjects: Project[] = [
 ];
 
 export function useActiveProjects(limit = 4) {
+  const safeLimit = Math.max(0, limit);
   return useQuery({
-    queryKey: ['active-projects', limit],
+    queryKey: ['active-projects', safeLimit],
     queryFn: async (): Promise<Project[]> => {
       await new Promise((resolve) => setTimeout(resolve, 300));
-      return mockProjects.slice(0, limit);
+      return mockProjects.slice(0, safeLimit);
     },
     staleTime: 5 * 60 * 1000,
   });

@@ -1,14 +1,12 @@
 import { View, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { PressableFeedback } from 'heroui-native';
-import { ArrowRight, ShoppingBag, Store } from 'lucide-react-native';
-import { ThemedText } from '@/components/themed-text';
 import { Image } from 'expo-image';
+import { ShoppingBag } from 'lucide-react-native';
 
 export function MarketCTA() {
   const handlePress = () => {
-    router.push('/marketplace-screen');
+    router.push('/');
   };
 
   return (
