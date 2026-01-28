@@ -1,0 +1,357 @@
+import { useRef } from 'react';
+import { View, Text, TextInput, Keyboard } from 'react-native';
+import { TextField, Select, Button, Spinner } from 'heroui-native';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+
+import {
+  CompleteProfileSchema,
+  LEVEL_OPTIONS,
+  type CompleteProfileFormType,
+} from '@/lib/schemas/profile';
+import { useFaculties } from '@/hooks/profile/use-faculties';
+import { useDepartments } from '@/hooks/profile/use-departments';
+import { usePrograms } from '@/hooks/profile/use-programs';
+import { AnimatedSelectTrigger } from '@/components/ui/animated-select-trigger';
+
+interface CompleteProfileFormProps {
+  onSubmit: (data: CompleteProfileFormType) => void;
+  isSubmitting: boolean;
+}
+
+export default function CompleteProfileForm({ onSubmit, isSubmitting }: CompleteProfileFormProps) {
+  const indexNumberRef = useRef<TextInput>(null);
+  const phoneNumberRef = useRef<TextInput>(null);
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm<CompleteProfileFormType>({
+    resolver: zodResolver(CompleteProfileSchema),
+    defaultValues: {
+      fullName: '',
+      indexNumber: '',
+      phoneNumber: '',
+      faculty: '',
+      department: '',
+      program: '',
+      level: '',
+    },
+    mode: 'onChange',
+  });
+
+  const selectedFaculty = watch('faculty');
+  const selectedDepartment = watch('department');
+
+  const { data: faculties, isLoading: isLoadingFaculties } = useFaculties();
+  const { data: departments, isLoading: isLoadingDepartments } = useDepartments(selectedFaculty);
+  const { data: programs, isLoading: isLoadingPrograms } = usePrograms(selectedDepartment);
+
+  const handleFacultyChange = (value: string) => {
+    setValue('faculty', value);
+    setValue('department', '');
+    setValue('program', '');
+  };
+
+  const handleDepartmentChange = (value: string) => {
+    setValue('department', value);
+    setValue('program', '');
+  };
+
+  const getSelectedLabel = (
+    options: { id: string; name: string }[] | undefined,
+    value: string
+  ) => {
+    return options?.find((opt) => opt.id === value)?.name;
+  };
+
+  return (
+    <View>
+      <KeyboardAwareScrollView
+        bottomOffset={20}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20}}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <View className="mb-6">
+          <Text className="text-2xl font-bold text-foreground">Complete Your Profile</Text>
+          <Text className="mt-2 text-base text-foreground">
+            Please fill in your student details to finish registration.
+          </Text>
+        </View>
+
+        {/* Form Fields */}
+        <View className="gap-5">
+          {/* Full Name */}
+          <Controller
+            control={control}
+            name="fullName"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextField isInvalid={!!errors.fullName} isRequired>
+                <TextField.Label>Full Name</TextField.Label>
+                <TextField.Input
+                  placeholder="John Doe"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  textContentType="name"
+                  autoComplete="name"
+                  autoCapitalize="words"
+                  returnKeyType="next"
+                  onSubmitEditing={() => indexNumberRef.current?.focus()}
+                  blurOnSubmit={false}
+                />
+                {errors.fullName && (
+                  <TextField.ErrorMessage>{errors.fullName.message}</TextField.ErrorMessage>
+                )}
+              </TextField>
+            )}
+          />
+
+          {/* Index Number */}
+          <Controller
+            control={control}
+            name="indexNumber"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextField isInvalid={!!errors.indexNumber} isRequired>
+                <TextField.Label>Index Number</TextField.Label>
+                <TextField.Input
+                  ref={indexNumberRef}
+                  placeholder="B202210330"
+                  value={value}
+                  onChangeText={(text) => onChange(text.toUpperCase())}
+                  onBlur={onBlur}
+                  autoCapitalize="characters"
+                  returnKeyType="next"
+                  onSubmitEditing={() => phoneNumberRef.current?.focus()}
+                  blurOnSubmit={false}
+                />
+                {errors.indexNumber && (
+                  <TextField.ErrorMessage>{errors.indexNumber.message}</TextField.ErrorMessage>
+                )}
+              </TextField>
+            )}
+          />
+
+          {/* Phone Number */}
+          <Controller
+            control={control}
+            name="phoneNumber"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextField isInvalid={!!errors.phoneNumber} isRequired>
+                <TextField.Label>Phone Number</TextField.Label>
+                <TextField.Input
+                  ref={phoneNumberRef}
+                  placeholder="0241234567"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  keyboardType="phone-pad"
+                  textContentType="telephoneNumber"
+                  autoComplete="tel"
+                  returnKeyType="done"
+                  onSubmitEditing={() => Keyboard.dismiss()}
+                />
+                {errors.phoneNumber && (
+                  <TextField.ErrorMessage>{errors.phoneNumber.message}</TextField.ErrorMessage>
+                )}
+              </TextField>
+            )}
+          />
+
+          {/* Faculty Select */}
+          <Controller
+            control={control}
+            name="faculty"
+            render={({ field: { value } }) => (
+              <View className="gap-1.5">
+                <Text className="text-sm font-medium text-foreground">
+                  Faculty <Text className="text-danger">*</Text>
+                </Text>
+                <Select
+                  value={value}
+                  onValueChange={handleFacultyChange}
+                  isDisabled={isLoadingFaculties}
+                >
+                  <Select.Trigger>
+                    <AnimatedSelectTrigger
+                      placeholder="Select your faculty"
+                      isInvalid={!!errors.faculty}
+                      isDisabled={isLoadingFaculties}
+                    />
+                  </Select.Trigger>
+                  <Select.Portal>
+                    <Select.Overlay />
+                    <Select.Content presentation="bottom-sheet">
+                      {faculties?.map((faculty) => (
+                        <Select.Item key={faculty.id} value={faculty.id} label={faculty.name} />
+                      ))}
+                    </Select.Content>
+                  </Select.Portal>
+                </Select>
+                {errors.faculty && (
+                  <Text className="text-sm text-danger">{errors.faculty.message}</Text>
+                )}
+              </View>
+            )}
+          />
+
+          {/* Department Select */}
+          <Controller
+            control={control}
+            name="department"
+            render={({ field: { value } }) => (
+              <View className="gap-1.5">
+                <Text className="text-sm font-medium text-foreground">
+                  Department <Text className="text-danger">*</Text>
+                </Text>
+                <Select
+                  value={value}
+                  onValueChange={handleDepartmentChange}
+                  isDisabled={!selectedFaculty || isLoadingDepartments}
+                >
+                  <Select.Trigger>
+                    <AnimatedSelectTrigger
+                      placeholder={
+                        !selectedFaculty ? 'Select a faculty first' : 'Select your department'
+                      }
+                      isInvalid={!!errors.department}
+                      isDisabled={!selectedFaculty || isLoadingDepartments}
+                    >
+                      <Select.Value
+                        placeholder={
+                          !selectedFaculty ? 'Select a faculty first' : 'Select your department'
+                        }
+                      >
+                        {getSelectedLabel(departments ?? [], value)}
+                      </Select.Value>
+                    </AnimatedSelectTrigger>
+                  </Select.Trigger>
+                  <Select.Portal>
+                    <Select.Overlay />
+                    <Select.Content presentation="bottom-sheet">
+                      {departments?.map((dept) => (
+                        <Select.Item key={dept.id} value={dept.id} label={dept.name} />
+                      ))}
+                    </Select.Content>
+                  </Select.Portal>
+                </Select>
+                {errors.department && (
+                  <Text className="text-sm text-danger">{errors.department.message}</Text>
+                )}
+              </View>
+            )}
+          />
+
+          {/* Program Select */}
+          <Controller
+            control={control}
+            name="program"
+            render={({ field: { value, onChange } }) => (
+              <View className="gap-1.5">
+                <Text className="text-sm font-medium text-foreground">
+                  Program of Study <Text className="text-danger">*</Text>
+                </Text>
+                <Select
+                  value={value}
+                  onValueChange={onChange}
+                  isDisabled={!selectedDepartment || isLoadingPrograms}
+                >
+                  <Select.Trigger>
+                    <AnimatedSelectTrigger
+                      placeholder={
+                        !selectedDepartment ? 'Select a department first' : 'Select your program'
+                      }
+                      isInvalid={!!errors.program}
+                      isDisabled={!selectedDepartment || isLoadingPrograms}
+                    >
+                      <Select.Value
+                        placeholder={
+                          !selectedDepartment ? 'Select a department first' : 'Select your program'
+                        }
+                      >
+                        {getSelectedLabel(programs ?? [], value)}
+                      </Select.Value>
+                    </AnimatedSelectTrigger>
+                  </Select.Trigger>
+                  <Select.Portal>
+                    <Select.Overlay />
+                    <Select.Content presentation="bottom-sheet">
+                      {programs?.map((prog) => (
+                        <Select.Item
+                          key={prog.id}
+                          value={prog.id.toString()}
+                          label={prog.name}
+                        />
+                      ))}
+                    </Select.Content>
+                  </Select.Portal>
+                </Select>
+                {errors.program && (
+                  <Text className="text-sm text-danger">{errors.program.message}</Text>
+                )}
+              </View>
+            )}
+          />
+
+          {/* Level Select */}
+          <Controller
+            control={control}
+            name="level"
+            render={({ field: { value, onChange } }) => (
+              <View className="gap-1.5">
+                <Text className="text-sm font-medium text-foreground">
+                  Level <Text className="text-danger">*</Text>
+                </Text>
+                <Select value={value} onValueChange={onChange}>
+                  <Select.Trigger>
+                    <AnimatedSelectTrigger
+                      placeholder="Select your level"
+                      isInvalid={!!errors.level}
+                    >
+                      <Select.Value placeholder="Select your level">
+                        {LEVEL_OPTIONS.find((opt) => opt.value === value)?.label}
+                      </Select.Value>
+                    </AnimatedSelectTrigger>
+                  </Select.Trigger>
+                  <Select.Portal>
+                    <Select.Overlay />
+                    <Select.Content presentation="bottom-sheet">
+                      {LEVEL_OPTIONS.map((level) => (
+                        <Select.Item key={level.value} value={level.value} label={level.label} />
+                      ))}
+                    </Select.Content>
+                  </Select.Portal>
+                </Select>
+                {errors.level && (
+                  <Text className="text-sm text-danger">{errors.level.message}</Text>
+                )}
+              </View>
+            )}
+          />
+        </View>
+
+        {/* Submit Button */}
+        <View className="pb-6 pt-8">
+          <Button
+            onPress={handleSubmit(onSubmit)}
+            isDisabled={!isValid || isSubmitting}
+            className="w-full"
+            size="lg"
+          >
+            {isSubmitting ? (
+              <Spinner size="sm" className="text-primary-foreground" />
+            ) : (
+              <Button.Label>Continue</Button.Label>
+            )}
+          </Button>
+        </View>
+      </KeyboardAwareScrollView>
+    </View>
+  );
+}
