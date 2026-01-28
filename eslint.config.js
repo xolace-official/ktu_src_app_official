@@ -7,4 +7,11 @@ module.exports = defineConfig([
   {
     ignores: ['dist/*'],
   },
+  {
+    rules: {
+      'react/display-name': 'off',
+      'import/no-unresolved': 'off',
+      'import/namespace': 'off',
+    },
+  },
 ]);

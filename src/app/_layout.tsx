@@ -1,16 +1,29 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import React from 'react';
-import { useColorScheme } from 'react-native';
+import '../global.css'
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import RootProvider from '@/providers/root-provider';
+import { Stack } from 'expo-router';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <RootProvider>
       <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+      <RootLayoutNav />
+    </RootProvider>
+  );
+}
+
+const RootLayoutNav = () => {
+  const isAuthenticated = false;
+  return (
+    <Stack>
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!isAuthenticated}>
+          <Stack.Screen name="auth" options={{ headerShown: false }} />
+        </Stack.Protected>
+      </Stack>
   );
 }
