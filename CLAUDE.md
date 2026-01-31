@@ -30,6 +30,13 @@ bun run lint           # Run ESLint
 - **Forms**: React Hook Form + Zod validation
 - **Backend**: Supabase
 
+Auth flow uses `Stack.Protected` guards - routes render based on `isAuthenticated` state.
+
+### State Management
+- **Zustand** (`store/store.ts`): Single store with slices for auth, theme, profile draft, preferences
+- **React Query**: Server state, caching, mutations
+- Auth state is NOT persisted; only theme and toggles are persisted via AsyncStorage
+
 ### Project Structure
 ```
 src/

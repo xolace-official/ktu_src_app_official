@@ -41,19 +41,20 @@ export default function MarketplaceStack() {
           headerTitle: 'New Product',
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="search"
         options={{
           headerTitle: 'Search',
         }}
-      />
-      {/* <Stack.Screen
+      /> */}
+       <Stack.Screen
         name="categories"
         options={{
           headerTitle: 'Categories',
+          headerBackButtonDisplayMode: 'minimal'
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="category/[id]"
         options={{
           headerTitle: 'Category',
