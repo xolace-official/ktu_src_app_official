@@ -1,19 +1,19 @@
-import { useRef, useMemo } from 'react';
-import { View, Text, TextInput, Keyboard } from 'react-native';
-import { TextField, Select, Button, Spinner } from 'heroui-native';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
-import { router } from 'expo-router';
+import { ThemedText } from '@/components/themed-text';
+import { AnimatedSelectTrigger } from '@/components/ui/animated-select-trigger';
+import { useCreateListing } from '@/hooks/marketplace/use-create-listing';
+import { useMarketCategories } from '@/hooks/marketplace/use-market-categories';
 import {
-  NewProductSchema,
   CONDITION_OPTIONS,
+  NewProductSchema,
   type NewProductFormType,
 } from '@/lib/schemas/marketplace';
-import { useMarketCategories } from '@/hooks/marketplace/use-market-categories';
-import { useCreateListing } from '@/hooks/marketplace/use-create-listing';
-import { AnimatedSelectTrigger } from '@/components/ui/animated-select-trigger';
-import { ThemedText } from '@/components/themed-text';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { router } from 'expo-router';
+import { Button, Select, Spinner, TextField } from 'heroui-native';
+import { useMemo, useRef } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Keyboard, Text, TextInput, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 type SelectOption = {
   value: string;
@@ -188,7 +188,7 @@ export default function NewProductForm() {
                 </Text>
                 <Select
                   value={findSelectOption(categoryOptions, value)}
-                  onValueChange={(option) => setValue('category_id', option?.value ?? '')}
+                  onValueChange={(option) => setValue('category_id', option?.value ?? '', { shouldValidate: true })}
                   isDisabled={isCategoriesLoading}
                 >
                   <Select.Trigger>
@@ -230,7 +230,7 @@ export default function NewProductForm() {
                 <Select
                   value={value ? findSelectOption(conditionOptions, value) : undefined}
                   onValueChange={(option) =>
-                    setValue('condition', option?.value as 'new' | 'used' | 'refurbished' | undefined)
+                    setValue('condition', option?.value as 'new' | 'used' | 'refurbished' | undefined, { shouldValidate: true })
                   }
                 >
                   <Select.Trigger>
