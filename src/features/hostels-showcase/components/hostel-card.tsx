@@ -63,7 +63,6 @@ export const HostelCard = memo(function HostelCard({ hostel, onPress }: HostelCa
           width: '100%',
           height: 160,
           borderRadius: 8,
-          borderCurve: 'continuous',
         }}
         contentFit="cover"
         transition={200}

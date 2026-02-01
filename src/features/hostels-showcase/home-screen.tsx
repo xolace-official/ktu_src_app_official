@@ -246,7 +246,10 @@ export function HostelsHomeScreen() {
   }));
 
   const handleHostelPress = useCallback((id: string) => {
-    router.push(`/hostels-showcase/${id}`);
+    router.push({
+      pathname: '/hostels-showcase/hostel/[id]',
+      params: { id },
+    });
   }, []);
 
   const handleSeeAllPress = useCallback(() => {

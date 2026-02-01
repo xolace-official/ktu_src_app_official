@@ -6,7 +6,7 @@ import { useColorScheme } from 'react-native';
 import { Colors } from '@/constants/theme';
 
 // Routes where the tab bar should be hidden
-const HIDDEN_TAB_ROUTES = ['product'];
+const HIDDEN_TAB_ROUTES = ['product', 'hostel'];
 
 export default function AppTabs() {
   const scheme = useColorScheme();

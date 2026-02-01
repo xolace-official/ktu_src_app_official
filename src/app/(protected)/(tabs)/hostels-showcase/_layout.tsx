@@ -22,10 +22,9 @@ export default function HostelShowcaseLayout() {
         }}
       />
       <Stack.Screen
-        name="[id]"
+        name="hostel/[id]"
         options={{
-          headerTitle: '',
-          headerTransparent: true,
+          headerShown: false, // Using custom header in the screen
         }}
       />
       <Stack.Screen

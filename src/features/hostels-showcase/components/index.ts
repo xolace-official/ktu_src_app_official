@@ -7,3 +7,4 @@ export {
   RecommendedHostelsSkeleton,
   HostelsHomeSkeleton,
 } from './hostels-skeleton';
+export * from './hostel-details';
