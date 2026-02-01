@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { HostelDetails, HostelGalleryItem } from '@/types/hostels';
+import { useQuery } from '@tanstack/react-query';
 
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
@@ -51,13 +51,12 @@ export function useHostelDetails(hostelId?: string) {
       if (error) throw error;
       if (!data) return null;
 
-      const gallery: HostelGalleryItem[] =
-        (data.hostel_photos ?? []).map((p: Record<string, unknown>) => ({
-          id: p.id as string,
-          image: p.storage_path as string,
-          caption: (p.caption as string) ?? null,
-          position: (p.position as number) ?? 0,
-        })) ?? [];
+      const gallery: HostelGalleryItem[] = (data.hostel_photos ?? []).map((p) => ({
+        id: p.id as string,
+        image: p.storage_path as string,
+        caption: (p.caption as string) ?? null,
+        position: (p.position as number) ?? 0,
+      }));
 
       const facilities = (data.facilities ?? []) as string[];
 
@@ -67,7 +66,7 @@ export function useHostelDetails(hostelId?: string) {
         rating: data.rating,
         name: data.name,
         address: data.address,
-        price: Number(data.price),
+        price: Number(data.price) || 0,
         description: data.description,
         bedrooms: data.bedrooms,
         bathrooms: data.bathrooms,
