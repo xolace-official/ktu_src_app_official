@@ -20,10 +20,24 @@ type SelectOption = {
   label: string;
 };
 
+/**
+ * Create a SelectOption object from an identifier and display name.
+ *
+ * @param id - The option identifier to use as `value`
+ * @param name - The display text to use as `label`
+ * @returns A SelectOption whose `value` is `id` and `label` is `name`
+ */
 function toSelectOption(id: string, name: string): SelectOption {
   return { value: id, label: name };
 }
 
+/**
+ * Finds a select option whose `value` matches the provided `id`.
+ *
+ * @param options - Array of select options to search, or `undefined`
+ * @param id - The option `value` to match
+ * @returns The matching `SelectOption` if found, `undefined` otherwise
+ */
 function findSelectOption(
   options: SelectOption[] | undefined,
   id: string
@@ -31,6 +45,16 @@ function findSelectOption(
   return options?.find((opt) => opt.value === id);
 }
 
+/**
+ * Render a form for creating a new marketplace product.
+ *
+ * The form manages product fields (title, price, stock quantity, category, condition, description,
+ * and WhatsApp contact), validates input with the NewProductSchema, and submits a create-listing
+ * request. While submission is pending the submit button is disabled and displays a spinner.
+ * On successful creation the router navigates back; submission errors are logged to the console.
+ *
+ * @returns A JSX element containing the new product creation form
+ */
 export default function NewProductForm() {
   const priceRef = useRef<TextInput>(null);
   const stockRef = useRef<TextInput>(null);
