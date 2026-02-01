@@ -61,12 +61,14 @@ export default function MarketplaceStack() {
           headerLargeTitle: false,
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="product/[id]"
         options={{
-          headerTitle: 'Product',
+          headerTitle: '',
+          headerBackButtonDisplayMode: 'minimal',
+          headerTransparent: true,
         }}
-      /> */}
+      />
     </Stack>
   );
 }
