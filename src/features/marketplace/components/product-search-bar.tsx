@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import { TextField, PressableFeedback } from 'heroui-native';
-import { Search, SlidersHorizontal, X } from 'lucide-react-native';
+import { Search, SlidersHorizontal } from 'lucide-react-native';
 import { useTheme } from '@/hooks/use-theme';
 
 interface ProductSearchBarProps {

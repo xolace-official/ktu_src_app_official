@@ -1,30 +1,31 @@
-import { useState, useMemo, useCallback } from 'react';
-import {
-  View,
-  ScrollView,
-  Platform,
-  ActionSheetIOS,
-  Linking,
-  useWindowDimensions,
-  Share,
-} from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, { FadeIn, FadeInUp, FadeInDown } from 'react-native-reanimated';
-import {
-  Avatar,
-  Button,
-  Chip,
-  SkeletonGroup,
-  PressableFeedback,
-  BottomSheet,
-} from 'heroui-native';
-import { Star, Heart, ChevronRight, Phone, MessageCircle } from 'lucide-react-native';
-import { useTheme } from '@/hooks/use-theme';
-import { useProductDetails } from '@/hooks/marketplace';
 import { ThemedText } from '@/components/themed-text';
-import { ProductImageCarousel } from './components';
+import { useProductDetails } from '@/hooks/marketplace';
+import { useTheme } from '@/hooks/use-theme';
 import type { MarketListingVariant } from '@/types/marketplace';
+import { useLocalSearchParams } from 'expo-router';
+import {
+    Avatar,
+    BottomSheet,
+    Button,
+    Chip,
+    PressableFeedback,
+    SkeletonGroup,
+} from 'heroui-native';
+import { ChevronRight, Heart, MessageCircle, Phone, Star } from 'lucide-react-native';
+import { useCallback, useMemo, useState } from 'react';
+import {
+    ActionSheetIOS,
+    Alert,
+    Linking,
+    Platform,
+    ScrollView,
+    Share,
+    useWindowDimensions,
+    View,
+} from 'react-native';
+import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ProductImageCarousel } from './components';
 
 // Stock status colors using semantic approach
 function getStockStatus(isInStock: boolean, stockQty: number | null) {
@@ -172,12 +173,38 @@ export function ProductScreen() {
 
       if (hasWhatsApp) {
         options.push('Chat on WhatsApp');
-        actions.push(() => Linking.openURL(`https://wa.me/${whatsappNumber}`));
+        actions.push(async () => {
+          const url = `https://wa.me/${whatsappNumber}`;
+          try {
+            const canOpen = await Linking.canOpenURL(url);
+            if (canOpen) {
+              await Linking.openURL(url);
+            } else {
+              Alert.alert('Error', 'WhatsApp is not installed or cannot be opened.');
+            }
+          } catch (error) {
+            console.error('Error opening WhatsApp:', error);
+            Alert.alert('Error', 'An unexpected error occurred while trying to open WhatsApp.');
+          }
+        });
       }
 
       if (hasPhone) {
         options.push('Voice Call');
-        actions.push(() => Linking.openURL(`tel:${phoneNumber}`));
+        actions.push(async () => {
+          const url = `tel:${phoneNumber}`;
+          try {
+            const canOpen = await Linking.canOpenURL(url);
+            if (canOpen) {
+              await Linking.openURL(url);
+            } else {
+              Alert.alert('Error', 'Phone dialer is not available.');
+            }
+          } catch (error) {
+            console.error('Error opening phone dialer:', error);
+            Alert.alert('Error', 'An unexpected error occurred while trying to make a call.');
+          }
+        });
       }
 
       ActionSheetIOS.showActionSheetWithOptions(
@@ -196,17 +223,39 @@ export function ProductScreen() {
     }
   }, [hasContactInfo, hasWhatsApp, hasPhone, whatsappNumber, phoneNumber]);
 
-  const handleWhatsAppPress = useCallback(() => {
+  const handleWhatsAppPress = useCallback(async () => {
     setIsContactSheetOpen(false);
     if (whatsappNumber) {
-      Linking.openURL(`https://wa.me/${whatsappNumber}`);
+      const url = `https://wa.me/${whatsappNumber}`;
+      try {
+        const canOpen = await Linking.canOpenURL(url);
+        if (canOpen) {
+          await Linking.openURL(url);
+        } else {
+          Alert.alert('Error', 'WhatsApp is not installed or cannot be opened.');
+        }
+      } catch (error) {
+        console.error('Error opening WhatsApp:', error);
+        Alert.alert('Error', 'An unexpected error occurred while trying to open WhatsApp.');
+      }
     }
   }, [whatsappNumber]);
 
-  const handlePhonePress = useCallback(() => {
+  const handlePhonePress = useCallback(async () => {
     setIsContactSheetOpen(false);
     if (phoneNumber) {
-      Linking.openURL(`tel:${phoneNumber}`);
+      const url = `tel:${phoneNumber}`;
+      try {
+        const canOpen = await Linking.canOpenURL(url);
+        if (canOpen) {
+          await Linking.openURL(url);
+        } else {
+          Alert.alert('Error', 'Phone dialer is not available.');
+        }
+      } catch (error) {
+        console.error('Error opening phone dialer:', error);
+        Alert.alert('Error', 'An unexpected error occurred while trying to make a call.');
+      }
     }
   }, [phoneNumber]);
 

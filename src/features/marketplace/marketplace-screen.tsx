@@ -16,10 +16,9 @@ import { ThemedText } from '@/components/themed-text';
 
 function ListHeaderContent() {
   const { data: categories = [], isLoading: categoriesLoading } = useMarketCategories();
-  const theme = useTheme();
 
   const handleSearchPress = () => {
-    router.push('/marketplace-screen/search');
+    router.push('/');
   };
 
   const handleSeeAllCategories = () => {
