@@ -1,11 +1,12 @@
-import { View, useWindowDimensions } from 'react-native';
 import { Image } from 'expo-image';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 import { PressableFeedback } from 'heroui-native';
-import { Heart, Share2, ChevronLeft } from 'lucide-react-native';
+import { ChevronLeft, Heart, Share2 } from 'lucide-react-native';
+import { View, useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useTheme } from '@/hooks/use-theme';
 import { blurhash } from '@/constants';
+import { useTheme } from '@/hooks/use-theme';
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800';
 
@@ -41,13 +42,9 @@ export function HeaderSection({
       />
 
       {/* Gradient overlay for navigation buttons */}
-      <View
+      <LinearGradient
+        colors={['rgba(0,0,0,0.4)', 'transparent']}
         className="absolute top-0 h-32 w-full"
-        style={{
-          backgroundColor: 'transparent',
-          experimental_backgroundImage:
-            'linear-gradient(to bottom, rgba(0,0,0,0.4), transparent)',
-        }}
       />
 
       {/* Navigation buttons */}

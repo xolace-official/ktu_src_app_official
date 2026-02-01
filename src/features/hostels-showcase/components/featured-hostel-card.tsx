@@ -1,19 +1,19 @@
-import { memo } from 'react';
-import { View } from 'react-native';
-import { PressableFeedback, Chip } from 'heroui-native';
-import { Image } from 'expo-image';
-import { Star } from 'lucide-react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { ThemedText } from '@/components/themed-text';
 import type { HostelCard } from '@/types/hostels';
+import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
+import { PressableFeedback } from 'heroui-native';
+import { Star } from 'lucide-react-native';
+import { memo } from 'react';
+import { View } from 'react-native';
 
 interface FeaturedHostelCardProps {
   hostel: HostelCard;
   onPress?: () => void;
 }
 
-const CARD_WIDTH = 240;
-const CARD_HEIGHT = 288;
+export const CARD_WIDTH = 240;
+export const CARD_HEIGHT = 288;
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400';
 

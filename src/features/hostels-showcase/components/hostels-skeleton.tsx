@@ -1,5 +1,10 @@
-import { View } from 'react-native';
 import { Skeleton, SkeletonGroup } from 'heroui-native';
+import { View } from 'react-native';
+
+import {
+  CARD_HEIGHT,
+  CARD_WIDTH,
+} from './featured-hostel-card';
 
 /**
  * Skeleton loader for the featured hostels horizontal carousel
@@ -8,7 +13,7 @@ export function FeaturedHostelsSkeleton() {
   return (
     <SkeletonGroup isLoading className="flex-row gap-4">
       {[1, 2].map((i) => (
-        <View key={i} style={{ width: 280, height: 200 }}>
+        <View key={i} style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}>
           <SkeletonGroup.Item className="h-full w-full rounded-2xl" />
         </View>
       ))}
