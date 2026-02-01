@@ -6,7 +6,7 @@ import { useColorScheme } from 'react-native';
 import { Colors } from '@/constants/theme';
 
 // Routes where the tab bar should be hidden
-const HIDDEN_TAB_ROUTES = ['product'];
+const HIDDEN_TAB_ROUTES = ['product', 'hostel'];
 
 export default function AppTabs() {
   const scheme = useColorScheme();
@@ -30,6 +30,11 @@ export default function AppTabs() {
 
       <NativeTabs.Trigger name="marketplace-screen">
         <NativeTabs.Trigger.Label>Marketplace</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/explore.png')} />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="hostels-showcase">
+        <NativeTabs.Trigger.Label>Hostels</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/explore.png')} />
       </NativeTabs.Trigger>
 

@@ -52,7 +52,7 @@ src/
 
 **Routing**: Routes defined by file structure in `src/app/`. Layout files (`_layout.tsx`) define navigation hierarchy.
 
-**Theming**: Uses `@react-navigation/native` ThemeProvider with automatic dark/light mode via `useColorScheme()`. Theme constants in `src/constants/theme.ts`.
+**Theming**: Uses `@react-navigation/native` ThemeProvider with automatic dark/light mode via `useColorScheme()`. use uniwind/heroui-native theming - [llms.txt](https://docs.uniwind.dev/llms.txt) .
 
 **Styling**: Three layers work together:
 1. Tailwind/Uniwind utility classes in JSX (`className="flex-1 justify-center"`)
