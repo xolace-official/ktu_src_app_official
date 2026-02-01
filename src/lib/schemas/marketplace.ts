@@ -6,11 +6,11 @@ export const NewProductSchema = z.object({
     .string()
     .min(3, 'Product name must be at least 3 characters')
     .max(100, 'Product name is too long'),
-  price: z.coerce
+  price: z
     .number()
     .positive('Price must be greater than 0')
     .max(100000, 'Price seems too high'),
-  stock_qty: z.coerce
+  stock_qty: z
     .number()
     .int('Stock must be a whole number')
     .min(0, 'Stock cannot be negative')

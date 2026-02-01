@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
 import { Button, Select, Spinner, TextField } from 'heroui-native';
 import { useMemo, useRef } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Keyboard, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
@@ -69,16 +69,17 @@ export default function NewProductForm() {
     []
   );
 
-  const onSubmit = async (data: NewProductFormType) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const formData = data as NewProductFormType;
     try {
       await createListing.mutateAsync({
-        title: data.title,
-        price: data.price,
-        stock_qty: data.stock_qty,
-        category_id: data.category_id,
-        description: data.description || null,
-        condition: data.condition || null,
-        whatsapp_contact: data.whatsapp_contact || null,
+        title: formData.title,
+        price: formData.price,
+        stock_qty: formData.stock_qty,
+        category_id: formData.category_id,
+        description: formData.description || null,
+        condition: formData.condition || null,
+        whatsapp_contact: formData.whatsapp_contact || null,
       });
       router.back();
     } catch (error) {
