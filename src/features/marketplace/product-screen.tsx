@@ -26,7 +26,13 @@ import { ThemedText } from '@/components/themed-text';
 import { ProductImageCarousel } from './components';
 import type { MarketListingVariant } from '@/types/marketplace';
 
-// Stock status colors using semantic approach
+/**
+ * Determine the stock status label and associated semantic color for a product or variant.
+ *
+ * @param isInStock - Whether the item is available for sale
+ * @param stockQty - The available quantity, or `null` if unknown
+ * @returns An object with `label` (human-readable status) and `color` (`'danger' | 'warning' | 'success'`)
+ */
 function getStockStatus(isInStock: boolean, stockQty: number | null) {
   if (!isInStock) {
     return { label: 'Out of stock', color: 'danger' as const };
@@ -37,6 +43,11 @@ function getStockStatus(isInStock: boolean, stockQty: number | null) {
   return { label: 'In stock', color: 'success' as const };
 }
 
+/**
+ * Renders a full-screen skeleton placeholder for the product detail screen (image area, content rows, and seller row).
+ *
+ * @returns A JSX element containing skeleton placeholders that mirror the product page layout
+ */
 function LoadingSkeleton() {
   const { width: screenWidth } = useWindowDimensions();
 
@@ -72,6 +83,11 @@ function LoadingSkeleton() {
   );
 }
 
+/**
+ * Renders a centered empty state indicating the product is missing or has been removed.
+ *
+ * @returns A view containing a centered, secondary-styled message informing the user that the product was not found or has been removed.
+ */
 function NotFoundState() {
   return (
     <View className="flex-1 items-center justify-center bg-background p-8">
@@ -82,6 +98,13 @@ function NotFoundState() {
   );
 }
 
+/**
+ * Renders a 5-star rating visualization with filled stars corresponding to the rating's integer part.
+ *
+ * @param rating - The numeric rating; stars up to the integer part of this value are filled.
+ * @param size - Pixel size for each star icon (default: 16).
+ * @returns A horizontal row of five star icons where filled and unfilled states reflect the rating.
+ */
 function RatingStars({ rating, size = 16 }: { rating: number; size?: number }) {
   const theme = useTheme();
 
@@ -99,6 +122,14 @@ function RatingStars({ rating, size = 16 }: { rating: number; size?: number }) {
   );
 }
 
+/**
+ * Renders the product details screen including images, price, variants, seller info, and contact actions.
+ *
+ * The screen derives current price and stock from the selected variant (if any), supports sharing and favoriting,
+ * and provides platform-specific contact flows (iOS action sheet, Android bottom sheet) for WhatsApp and phone calls.
+ *
+ * @returns A JSX element representing the product details screen
+ */
 export function ProductScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();

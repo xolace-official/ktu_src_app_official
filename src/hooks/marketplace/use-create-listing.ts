@@ -2,6 +2,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { MarketListingInsert, MarketListing } from '@/types/marketplace';
 
+/**
+ * Create a React Query mutation for inserting a marketplace listing associated with the current user.
+ *
+ * The mutation sets `seller_id` to the authenticated user's id, marks the listing active, requires admin approval,
+ * and applies default flags (`is_featured = false`, `placement_type = 'normal'`). On success it invalidates the
+ * `featured-listings` and `market-listings` queries to trigger refetch.
+ *
+ * @returns A mutation object that accepts a `MarketListingInsert` payload and resolves to the inserted `MarketListing`.
+ *          The mutation will throw if there is no authenticated user or if the insert operation fails.
+ */
 export function useCreateListing() {
   const client = useSupabase();
   const queryClient = useQueryClient();

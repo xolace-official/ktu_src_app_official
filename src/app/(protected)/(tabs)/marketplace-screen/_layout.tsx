@@ -3,6 +3,13 @@ import { PressableFeedback } from 'heroui-native';
 import { Plus } from 'lucide-react-native';
 import { useTheme } from '@/hooks/use-theme';
 
+/**
+ * Renders a themed pressable button that opens the New Product screen.
+ *
+ * The button displays a plus icon colored from the current theme. When pressed, it navigates to '/marketplace-screen/new-product'.
+ *
+ * @returns A pressable element containing a plus icon; pressing it navigates to the New Product screen.
+ */
 function AddProductButton() {
   const theme = useTheme();
 
@@ -16,6 +23,15 @@ function AddProductButton() {
   );
 }
 
+/**
+ * Renders the Marketplace navigation stack with themed headers and route configuration.
+ *
+ * Provides screens for the marketplace index (with an Add Product button), a "New Product" modal,
+ * categories listing, category detail, and product detail with a transparent header. Header
+ * colors and shadow visibility are derived from the current theme.
+ *
+ * @returns The configured Stack navigator for the marketplace screens
+ */
 export default function MarketplaceStack() {
   const theme = useTheme();
 

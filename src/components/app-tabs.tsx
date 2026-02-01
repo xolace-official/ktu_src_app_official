@@ -16,6 +16,11 @@ import { IconSymbol } from './ui/icon-symbol';
 
 import { Colors, MaxContentWidth, Spacing } from '@/constants/theme';
 
+/**
+ * Render the application's main tab container and top tab bar.
+ *
+ * @returns A React element containing a Tabs container with a full-height TabSlot and a custom tab bar that exposes Home, Marketplace, and Explore tab triggers.
+ */
 export default function AppTabs() {
   return (
     <Tabs>

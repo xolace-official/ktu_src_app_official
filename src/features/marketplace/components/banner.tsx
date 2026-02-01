@@ -12,6 +12,16 @@ interface BannerProps {
   image?: ImageSource;
 }
 
+/**
+ * Renders a promotional banner with a diagonal orange-to-brown gradient, a title, an optional subtitle, a pill-shaped call-to-action button, and an optional image on the right.
+ *
+ * @param title - The banner title text; supports newlines for multi-line headings.
+ * @param subtitle - Optional secondary text displayed below the title.
+ * @param ctaText - Text displayed inside the call-to-action button.
+ * @param onPress - Optional callback invoked when the call-to-action button is pressed.
+ * @param image - Optional image source rendered on the right side of the banner.
+ * @returns A React element containing the configured promotional banner.
+ */
 export function Banner({
   title = 'Shop Smarter,\nSave More!',
   subtitle,

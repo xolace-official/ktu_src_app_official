@@ -5,7 +5,10 @@ import type { MarketListingDetails } from '@/types/marketplace';
 const STALE_TIME = 5 * 60 * 1000; // 5 minutes
 
 /**
- * Fetches detailed product information including photos, variants, and seller.
+ * Load product details for a given product ID.
+ *
+ * @param productId - The ID of the product to fetch; if falsy the query is disabled.
+ * @returns Query result whose `data` is a `MarketListingDetails` object (with `photos` and `variants` as arrays, and `category`/`seller` possibly `null`) or `null` when the product is not found. 
  */
 export function useProductDetails(productId: string) {
   const client = useSupabase();

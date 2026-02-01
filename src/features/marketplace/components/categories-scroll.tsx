@@ -9,6 +9,11 @@ interface CategoriesScrollProps {
   maxItems?: number;
 }
 
+/**
+ * Renders a horizontal row of four square skeleton placeholders used while categories load.
+ *
+ * @returns A JSX element containing four 24x24 rounded skeletons arranged in a horizontal layout with spacing.
+ */
 function CategoriesSkeleton() {
   return (
     <View className="flex-row gap-3">
@@ -21,6 +26,14 @@ function CategoriesSkeleton() {
   );
 }
 
+/**
+ * Render a horizontal list of category cards or a compact loading skeleton.
+ *
+ * @param categories - Categories to display; only the first `maxItems` entries are shown.
+ * @param isLoading - When `true`, renders a placeholder skeleton row instead of the categories.
+ * @param maxItems - Maximum number of categories to render from `categories`.
+ * @returns A React element containing either a horizontal ScrollView of `CategoryCard` components or a skeleton row.
+ */
 export function CategoriesScroll({
   categories,
   isLoading = false,

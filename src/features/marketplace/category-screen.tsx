@@ -12,6 +12,12 @@ import type { FeaturedListing } from '@/types/marketplace';
 const GRID_GAP = 16;
 const HORIZONTAL_PADDING = 16;
 
+/**
+ * Renders a static skeleton placeholder for a product card sized to the given width.
+ *
+ * @param width - The pixel width to apply to the skeleton card container
+ * @returns A React element representing the product card loading skeleton
+ */
 function ProductCardSkeleton({ width }: { width: number }) {
   return (
     <SkeletonGroup isLoading isSkeletonOnly className="rounded-2xl bg-surface-secondary" style={{ width }}>
@@ -27,6 +33,12 @@ function ProductCardSkeleton({ width }: { width: number }) {
   );
 }
 
+/**
+ * Renders a two-column wrapping row of product card skeletons used as a loading placeholder.
+ *
+ * @param cardWidth - The width, in pixels, to apply to each product card skeleton.
+ * @returns A React element containing six product card skeletons arranged in a wrapped row.
+ */
 function LoadingSkeleton({ cardWidth }: { cardWidth: number }) {
   return (
     <View className="flex-row flex-wrap justify-between px-4 pt-4">
@@ -39,6 +51,12 @@ function LoadingSkeleton({ cardWidth }: { cardWidth: number }) {
   );
 }
 
+/**
+ * Displays a centered message when no products are available for the current category or search.
+ *
+ * @param search - Current search query; when non-empty the message includes the query
+ * @returns A view containing a centered, themed message indicating no products were found
+ */
 function EmptyState({ search }: { search: string }) {
   return (
     <View className="flex-1 items-center justify-center py-20">
@@ -51,6 +69,11 @@ function EmptyState({ search }: { search: string }) {
   );
 }
 
+/**
+ * Renders a centered small spinner intended for the list footer while additional items load.
+ *
+ * @returns A View containing a centered `Spinner` used as a loading footer.
+ */
 function LoadingFooter() {
   return (
     <View className="items-center py-6">
@@ -59,6 +82,13 @@ function LoadingFooter() {
   );
 }
 
+/**
+ * Displays a two-column grid of product listings for a category, including a debounced header search, infinite scrolling, pull-to-refresh, and loading/empty states.
+ *
+ * The header search is wired to the native header search bar and clears on cancel; the native header title is updated to include the total result count when available. Initial loading shows a skeleton grid, additional pages show a footer spinner, and an empty state message is shown when there are no results.
+ *
+ * @returns A React element rendering the category listings screen.
+ */
 export function CategoryScreen() {
   const theme = useTheme();
   const navigation = useNavigation();

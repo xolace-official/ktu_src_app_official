@@ -12,6 +12,19 @@ interface ProductSearchBarProps {
   editable?: boolean;
 }
 
+/**
+ * Render a product search bar that switches between an interactive text input and a non-editable pressable bar.
+ *
+ * When `editable` is false the component renders a single pressable row that invokes `onPress`; when `editable` is true it renders a text input bound to `value` and `onChangeText`. If `onFilterPress` is provided a filter button is shown; tapping the filter button does not trigger the bar's `onPress`.
+ *
+ * @param placeholder - Placeholder text shown inside the input or non-editable bar
+ * @param value - Current input value (used in editable mode)
+ * @param onChangeText - Callback invoked with the new text when the input changes (editable mode)
+ * @param onPress - Callback invoked when the non-editable bar is pressed (non-editable mode)
+ * @param onFilterPress - Callback invoked when the filter button is pressed; does not propagate to the bar press
+ * @param editable - If true, render an editable text input; otherwise render a non-editable pressable bar
+ * @returns A React element representing the product search bar in the selected mode
+ */
 export function ProductSearchBar({
   placeholder = 'Search products...',
   value,

@@ -10,6 +10,14 @@ interface SectionHeaderProps {
   onActionPress?: () => void;
 }
 
+/**
+ * Render a horizontal section header with a bold title and an optional right-aligned action.
+ *
+ * @param title - The header title text.
+ * @param actionText - Label for the action button when present; defaults to `"See all"`.
+ * @param onActionPress - If provided, the action area is rendered and called when pressed.
+ * @returns A React element containing the title and, when `onActionPress` is set, a pressable action with the label and chevron icon.
+ */
 export function SectionHeader({
   title,
   actionText = 'See all',
