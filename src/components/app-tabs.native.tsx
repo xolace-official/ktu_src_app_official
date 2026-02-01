@@ -1,21 +1,36 @@
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { useSegments } from 'expo-router';
 import React from 'react';
 import { useColorScheme } from 'react-native';
 
 import { Colors } from '@/constants/theme';
 
+// Routes where the tab bar should be hidden
+const HIDDEN_TAB_ROUTES = ['product'];
+
 export default function AppTabs() {
   const scheme = useColorScheme();
   const colors = Colors[scheme === 'unspecified' ? 'light' : scheme];
+  const segments = useSegments();
+
+  // Check if current route should hide tabs
+  // segments will be like: ['(protected)', '(tabs)', 'marketplace-screen', 'product', '[id]']
+  const shouldHideTabs = segments.some((segment) => HIDDEN_TAB_ROUTES.includes(segment));
 
   return (
     <NativeTabs
+      hidden={shouldHideTabs}
       backgroundColor={colors.background}
       indicatorColor={colors.backgroundElement}
       labelStyle={{ selected: { color: colors.text } }}>
       <NativeTabs.Trigger name="(home)">
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/home.png')} />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="marketplace-screen">
+        <NativeTabs.Trigger.Label>Marketplace</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/explore.png')} />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="explore">

@@ -25,6 +25,9 @@ export default function AppTabs() {
           <TabTrigger name="home" href="/(protected)/(tabs)/(home)" asChild>
             <TabButton>Home</TabButton>
           </TabTrigger>
+          <TabTrigger name="marketplace" href="/(protected)/(tabs)/marketplace-screen" asChild>
+            <TabButton>Marketplace</TabButton>
+          </TabTrigger>
           <TabTrigger name="explore" href="/explore" asChild>
             <TabButton>Explore</TabButton>
           </TabTrigger>
