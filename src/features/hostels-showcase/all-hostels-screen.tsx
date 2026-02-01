@@ -84,7 +84,7 @@ function EmptyState({
         </ThemedText>
         <Button
           size="sm"
-          variant="bordered"
+          variant="tertiary"
           onPress={onRetry}
           className="mt-2"
           style={{ borderColor: theme.accent }}
@@ -146,8 +146,7 @@ function SectionHeader({
       </View>
       <PressableFeedback
         onPress={onToggleViewMode}
-        className="size-10 items-center justify-center rounded-lg"
-        style={{ backgroundColor: theme.surfaceSecondary }}
+        className="size-10 items-center justify-center rounded-lg bg-surface"
       >
         {viewMode === 2 ? (
           <LayoutList size={20} color={theme.text} />
