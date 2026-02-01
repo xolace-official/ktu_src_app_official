@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { View, useWindowDimensions } from 'react-native';
+import { View } from 'react-native';
 import { PressableFeedback } from 'heroui-native';
 import { Image } from 'expo-image';
 import { Star } from 'lucide-react-native';
@@ -17,13 +17,10 @@ const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d
 /**
  * Hostel card for the recommendations grid
  * Displays hostel image, name, rating, address, and price
+ * Width is determined by parent container - use flex-1 or explicit width on parent
  */
 export const HostelCard = memo(function HostelCard({ hostel, onPress }: HostelCardProps) {
-  const { width } = useWindowDimensions();
   const theme = useTheme();
-
-  // Calculate card width for 2-column grid with padding and gap
-  const cardWidth = (width - 48) / 2; // 16px padding on each side + 16px gap
 
   const formattedPrice = new Intl.NumberFormat('en-GH', {
     style: 'currency',
@@ -36,8 +33,6 @@ export const HostelCard = memo(function HostelCard({ hostel, onPress }: HostelCa
     <PressableFeedback
       onPress={onPress}
       style={{
-        width: cardWidth,
-        marginTop: 16,
         borderRadius: 12,
         borderCurve: 'continuous',
         backgroundColor: theme.background,

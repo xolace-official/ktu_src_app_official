@@ -31,10 +31,13 @@ export default function HostelShowcaseLayout() {
       <Stack.Screen
         name="all"
         options={{
-          headerTitle: 'All Hostels',
+          headerTitle: 'Hostels',
           headerLargeTitle: true,
           headerTransparent: false,
+          headerBlurEffect: 'regular',
           headerStyle: { backgroundColor: theme.background },
+          headerLargeTitleStyle: { color: theme.text },
+          headerTitleStyle: { color: theme.text },
         }}
       />
     </Stack>
