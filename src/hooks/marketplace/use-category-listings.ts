@@ -11,8 +11,14 @@ interface CategoryListingsPage {
 }
 
 /**
- * Fetches paginated listings for a category with optional search.
- * Uses infinite query for seamless pagination.
+ * Provide an infinite query that loads marketplace listings for a category with optional text search.
+ *
+ * The hook fetches pages of active, approved listings ordered by newest first, supports optional category filtering
+ * (omit or pass `"all"` to disable category restriction) and a case-insensitive trimmed search applied to title and description.
+ *
+ * @param categoryId - Category identifier to filter listings; use `"all"` to include every category
+ * @param search - Optional search string (trimmed and lowercased before querying)
+ * @returns The TanStack Query infinite query result for pages of listings (`CategoryListingsPage`) including pagination helpers and status fields
  */
 export function useCategoryListings(categoryId: string, search: string = '') {
   const client = useSupabase();
