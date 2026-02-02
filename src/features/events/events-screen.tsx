@@ -1,25 +1,27 @@
-import { FlashList, type ListRenderItem } from '@shopify/flash-list';
-import { Spinner } from 'heroui-native';
 import { useCallback, useMemo, useState } from 'react';
 import { RefreshControl, View } from 'react-native';
+import { FlashList, type ListRenderItem } from '@shopify/flash-list';
+import { Spinner } from 'heroui-native';
 import Animated, {
-    Extrapolation,
-    interpolate,
-    useAnimatedScrollHandler,
-    useAnimatedStyle,
-    useSharedValue,
-    type SharedValue,
+  Extrapolation,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  type SharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 
 import { ThemedText } from '@/components/themed-text';
 import { useTheme } from '@/hooks/use-theme';
+import { useInfiniteEvents, useFeaturedEvent } from '@/hooks/events';
 import type { EventCard as EventCardType, TabKeys } from '@/types/events';
 import {
-    EventCard,
-    EventsHeader,
-    EventsListSkeleton,
-    EventsTabs,
+  EventCard,
+  EventsHeader,
+  EventsListSkeleton,
+  EventsTabs,
 } from './components';
 
 // Create animated FlashList
@@ -29,46 +31,6 @@ const AnimatedFlashList = Animated.createAnimatedComponent(
 
 // Header height for scroll-based animations
 const HEADER_SCROLL_THRESHOLD = 280;
-
-// Mock data - replace with actual hook when available
-const MOCK_EVENTS: EventCardType[] = [
-  {
-    id: '1',
-    title: 'Annual Tech Conference 2025',
-    starts_at: '2025-03-15T09:00:00Z',
-    location: 'Main Auditorium, Engineering Block',
-    hero_image_url: null,
-    category: 'Technology',
-    attendees_count: 150,
-  },
-  {
-    id: '2',
-    title: 'Student Government Elections',
-    starts_at: '2025-03-20T08:00:00Z',
-    location: 'Student Union Building',
-    hero_image_url: null,
-    category: 'Campus',
-    attendees_count: 500,
-  },
-  {
-    id: '3',
-    title: 'Career Fair & Networking Event',
-    starts_at: '2025-03-25T10:00:00Z',
-    location: 'Sports Complex',
-    hero_image_url: null,
-    category: 'Career',
-    attendees_count: 320,
-  },
-  {
-    id: '4',
-    title: 'Cultural Night Festival',
-    starts_at: '2025-04-01T18:00:00Z',
-    location: 'Open Air Theatre',
-    hero_image_url: null,
-    category: 'Cultural',
-    attendees_count: 800,
-  },
-];
 
 /**
  * Floating header that appears when scrolling past the main header
@@ -129,9 +91,17 @@ function FloatingHeader({
 /**
  * Empty state component
  */
-function EmptyState({ isLoading }: { isLoading: boolean }) {
+function EmptyState({ isLoading, isError }: { isLoading: boolean; isError: boolean }) {
   if (isLoading) {
     return <EventsListSkeleton count={3} />;
+  }
+
+  if (isError) {
+    return (
+      <View className="items-center justify-center py-16">
+        <ThemedText themeColor="textSecondary">Failed to load events</ThemedText>
+      </View>
+    );
   }
 
   return (
@@ -163,13 +133,27 @@ export function EventsScreen() {
   const scrollOffset = useSharedValue(0);
 
   const [selectedTab, setSelectedTab] = useState<TabKeys>('featured');
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // TODO: Replace with actual data hook
-  // const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useInfiniteEvents(selectedTab);
-  const isLoading = false;
-  const isFetchingNextPage = false;
-  const events = MOCK_EVENTS;
+  // Fetch events data with infinite query
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+    isRefetching,
+  } = useInfiniteEvents(selectedTab);
+
+  // Fetch featured event for header
+  const { data: featuredEvent } = useFeaturedEvent();
+
+  // Flatten paginated data into a single array
+  const events = useMemo(() => {
+    if (!data?.pages) return [];
+    return data.pages.flatMap((page) => page.items);
+  }, [data]);
 
   // Scroll handler for animations
   const scrollHandler = useAnimatedScrollHandler({
@@ -182,32 +166,39 @@ export function EventsScreen() {
     setSelectedTab(tab);
   }, []);
 
-  const handleRefresh = useCallback(async () => {
-    setIsRefreshing(true);
-    // TODO: Replace with actual refetch
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsRefreshing(false);
-  }, []);
+  const handleRefresh = useCallback(() => {
+    refetch();
+  }, [refetch]);
 
   const handleLoadMore = useCallback(() => {
-    // TODO: Implement with actual pagination
-    // if (hasNextPage) {
-    //   fetchNextPage();
-    // }
-  }, []);
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const handleFeaturedPress = useCallback(() => {
-    // TODO: Navigate to featured event details
-    console.log('Featured event pressed');
+    if (featuredEvent?.id) {
+      router.push({
+        pathname: '/events/[id]',
+        params: { id: featuredEvent.id },
+      });
+    }
+  }, [featuredEvent?.id]);
+
+  const handleEventPress = useCallback((eventId: string) => {
+    router.push({
+      pathname: '/events/[id]',
+      params: { id: eventId },
+    });
   }, []);
 
   const renderItem: ListRenderItem<EventCardType> = useCallback(
     ({ item }) => (
       <View className="px-4">
-        <EventCard event={item} />
+        <EventCard event={item} onPress={() => handleEventPress(item.id)} />
       </View>
     ),
-    []
+    [handleEventPress]
   );
 
   const keyExtractor = useCallback((item: EventCardType) => item.id, []);
@@ -217,17 +208,26 @@ export function EventsScreen() {
       <View style={{ paddingTop: insets.top }}>
         <EventsHeader
           scrollOffset={scrollOffset}
+          featuredEventImage={featuredEvent?.hero_image_url}
+          featuredEventDate={featuredEvent?.starts_at ? new Date(featuredEvent.starts_at) : undefined}
           onFeaturedPress={handleFeaturedPress}
         />
         <EventsTabs selected={selectedTab} onTabChange={handleTabChange} />
       </View>
     ),
-    [scrollOffset, selectedTab, handleTabChange, handleFeaturedPress, insets.top]
+    [
+      scrollOffset,
+      selectedTab,
+      handleTabChange,
+      handleFeaturedPress,
+      featuredEvent,
+      insets.top,
+    ]
   );
 
   const ListEmptyComponent = useMemo(
-    () => <EmptyState isLoading={isLoading} />,
-    [isLoading]
+    () => <EmptyState isLoading={isLoading} isError={isError} />,
+    [isLoading, isError]
   );
 
   const ListFooterComponent = useMemo(
@@ -259,7 +259,7 @@ export function EventsScreen() {
         }}
         refreshControl={
           <RefreshControl
-            refreshing={isRefreshing}
+            refreshing={isRefetching}
             onRefresh={handleRefresh}
             tintColor={theme.accent}
             progressViewOffset={insets.top + 100}
