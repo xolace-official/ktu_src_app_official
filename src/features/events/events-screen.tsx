@@ -1,25 +1,26 @@
-import { useState, useCallback, useMemo } from 'react';
-import { View, RefreshControl } from 'react-native';
 import { FlashList, type ListRenderItem } from '@shopify/flash-list';
 import { Spinner } from 'heroui-native';
+import { useCallback, useMemo, useState } from 'react';
+import { RefreshControl, View } from 'react-native';
 import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolate,
-  Extrapolation,
+    Extrapolation,
+    interpolate,
+    useAnimatedScrollHandler,
+    useAnimatedStyle,
+    useSharedValue,
+    type SharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useTheme } from '@/hooks/use-theme';
-import {
-  EventCard,
-  EventsHeader,
-  EventsTabs,
-  EventsListSkeleton,
-} from './components';
 import { ThemedText } from '@/components/themed-text';
-import type { TabKeys, EventCard as EventCardType } from '@/types/events';
+import { useTheme } from '@/hooks/use-theme';
+import type { EventCard as EventCardType, TabKeys } from '@/types/events';
+import {
+    EventCard,
+    EventsHeader,
+    EventsListSkeleton,
+    EventsTabs,
+} from './components';
 
 // Create animated FlashList
 const AnimatedFlashList = Animated.createAnimatedComponent(
@@ -76,7 +77,7 @@ function FloatingHeader({
   scrollOffset,
   title,
 }: {
-  scrollOffset: Animated.SharedValue<number>;
+  scrollOffset: SharedValue<number>;
   title: string;
 }) {
   const insets = useSafeAreaInsets();
