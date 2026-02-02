@@ -13,6 +13,12 @@ export default function EventsLayout() {
           title: 'Events',
         }}
       />
+      <Stack.Screen
+        name="[id]"
+        options={{
+          title: 'Event',
+        }}
+      />
     </Stack>
   );
 }
