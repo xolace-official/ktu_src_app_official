@@ -2,7 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { MarketCategory } from '@/types/marketplace';
 
-const STALE_TIME = 10 * 60 * 1000; // 10 minutes
+const STALE_TIME = 10 * 60 * 1000; /**
+ * Fetches marketplace categories from Supabase and exposes them via React Query.
+ *
+ * @returns The React Query result whose `data` is an array of market categories ordered by name; `data` is an empty array when no categories are found.
+ */
 
 export function useMarketCategories() {
   const client = useSupabase();

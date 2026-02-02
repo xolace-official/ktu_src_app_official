@@ -8,6 +8,16 @@ interface ProductImageCarouselProps {
   images: string[];
 }
 
+/**
+ * Renders a horizontal, paged carousel of product images sized to the device screen width.
+ *
+ * Displays each image in a full-width square, updates the active page as the user scrolls,
+ * and shows pagination indicators when more than one image is provided. If `images` is empty,
+ * a centered placeholder graphic is rendered instead.
+ *
+ * @param images - Array of image URIs to display in the carousel; an empty array shows a placeholder
+ * @returns The rendered product image carousel element
+ */
 export function ProductImageCarousel({ images }: ProductImageCarouselProps) {
   const theme = useTheme();
   const { width: screenWidth } = useWindowDimensions();

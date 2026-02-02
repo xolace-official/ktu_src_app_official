@@ -14,6 +14,13 @@ import {
 import type { FeaturedListing } from '@/types/marketplace';
 import { ThemedText } from '@/components/themed-text';
 
+/**
+ * Render the marketplace screen's list header containing search, promotional banner, categories, and the featured items title.
+ *
+ * The search bar navigates to the marketplace search screen when pressed. The categories header action navigates to the categories screen. Categories and their loading state are provided to the categories scroller and limited to six visible items.
+ *
+ * @returns A React element containing the composed header UI for the marketplace list
+ */
 function ListHeaderContent() {
   const { data: categories = [], isLoading: categoriesLoading } = useMarketCategories();
 
@@ -60,6 +67,11 @@ function ListHeaderContent() {
   );
 }
 
+/**
+ * Renders a centered empty-state message shown when there are no featured items.
+ *
+ * @returns A React element containing a themed text message "No featured items found".
+ */
 function EmptyState() {
   return (
     <View className="items-center justify-center py-10">
@@ -68,6 +80,13 @@ function EmptyState() {
   );
 }
 
+/**
+ * Render the marketplace screen with a search bar, promotional banner, categories section, and a two-column grid of featured items.
+ *
+ * The component shows a skeleton while initial featured items are loading (unless a refetch is in progress), supports pull-to-refresh to reload featured items, and renders an empty state when no featured items are available.
+ *
+ * @returns A React element representing the marketplace screen
+ */
 export function MarketplaceScreen() {
   const theme = useTheme();
   const {

@@ -12,6 +12,12 @@ interface CategoryRowProps {
   category: MarketCategory;
 }
 
+/**
+ * Render a pressable category row that navigates to the category detail screen.
+ *
+ * @param category - The category to display; should include `id`, `name`, optional `icon`, and optional `color`.
+ * @returns A JSX element representing a pressable row for the given category.
+ */
 function CategoryRow({ category }: CategoryRowProps) {
   const theme = useTheme();
 
@@ -46,6 +52,11 @@ function CategoryRow({ category }: CategoryRowProps) {
   );
 }
 
+/**
+ * Render a skeleton placeholder that matches the visual layout of a category row.
+ *
+ * @returns A JSX element containing a horizontal skeleton row with a circular leading avatar placeholder, a rectangular title placeholder, and a small circular trailing placeholder.
+ */
 function CategoryRowSkeleton() {
   return (
     <SkeletonGroup
@@ -62,6 +73,13 @@ function CategoryRowSkeleton() {
   );
 }
 
+/**
+ * Render a vertical stack of skeleton placeholders for category rows.
+ *
+ * Renders eight CategoryRowSkeleton items inside a padded container to indicate loading state.
+ *
+ * @returns A view containing eight skeleton rows used as a loading placeholder for the categories list.
+ */
 function LoadingSkeleton() {
   return (
     <View className="flex-1 px-4 py-5">
@@ -72,6 +90,11 @@ function LoadingSkeleton() {
   );
 }
 
+/**
+ * Render a centered empty-state view indicating no categories are available.
+ *
+ * @returns A view containing centered text "No categories found" styled with the theme's secondary text color.
+ */
 function EmptyState() {
   return (
     <View className="flex-1 items-center justify-center py-10">
@@ -80,6 +103,11 @@ function EmptyState() {
   );
 }
 
+/**
+ * Displays a scrollable list of marketplace categories with loading, empty, and pull-to-refresh states.
+ *
+ * @returns The categories screen UI: a FlatList of categories, a loading skeleton during initial load, or an empty-state view when no categories are available; supports pull-to-refresh.
+ */
 export function CategoriesScreen() {
   const theme = useTheme();
   const { data: categories = [], isLoading, refetch, isRefetching } = useMarketCategories();
