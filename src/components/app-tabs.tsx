@@ -39,8 +39,8 @@ export default function AppTabs() {
           <TabTrigger name="events" href="/(protected)/(tabs)/events" asChild>
             <TabButton>Events</TabButton>
           </TabTrigger>
-          <TabTrigger name="explore" href="/explore" asChild>
-            <TabButton>Explore</TabButton>
+          <TabTrigger name="settings" href="/(protected)/(tabs)/settings" asChild>
+            <TabButton>Settings</TabButton>
           </TabTrigger>
         </CustomTabList>
       </TabList>
