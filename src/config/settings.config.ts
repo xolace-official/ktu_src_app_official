@@ -59,8 +59,8 @@ export const settingSections: SettingSection[] = [
         icon: HelpCircle,
         iconBgClass: 'bg-accent',
         iconColor: '#fff',
-        type: 'external',
-        externalUrl: 'https://help.ktusrc.com',
+        type: 'navigate',
+        route: '/settings/help-center',
       },
       {
         id: 'contact-rep',

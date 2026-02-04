@@ -1,12 +1,12 @@
-import { PROGRAM_OPTIONS, LEVEL_OPTIONS } from '@/constants/profile.constants';
+// import { PROGRAM_OPTIONS, LEVEL_OPTIONS } from '@/constants/profile.constants';
 
-export const getProgramLabel = (value: string): string => {
-  return PROGRAM_OPTIONS.find((opt) => opt.value === value)?.label || value;
-};
+// export const getProgramLabel = (value: string): string => {
+//   return PROGRAM_OPTIONS.find((opt) => opt.value === value)?.label || value;
+// };
 
-export const getLevelLabel = (value: string): string => {
-  return LEVEL_OPTIONS.find((opt) => opt.value === value)?.label || value;
-};
+// export const getLevelLabel = (value: string): string => {
+//   return LEVEL_OPTIONS.find((opt) => opt.value === value)?.label || value;
+// };
 
 export const getInitials = (fullName: string): string => {
   const names = fullName.trim().split(' ');

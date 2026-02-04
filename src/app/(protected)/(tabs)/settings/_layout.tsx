@@ -16,7 +16,7 @@ const SettingsLayout = () => {
         }}
       />
       <Stack.Screen
-        name="profile-account"
+        name="profile-account/index"
         options={{
           title: 'Profile',
           headerBackTitle: '',
