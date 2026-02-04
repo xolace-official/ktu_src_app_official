@@ -1,7 +1,8 @@
+import { FlashList, type ListRenderItem } from '@shopify/flash-list';
+import { router } from 'expo-router';
+import { Spinner } from 'heroui-native';
 import { useCallback, useMemo, useState } from 'react';
 import { RefreshControl, View } from 'react-native';
-import { FlashList, type ListRenderItem } from '@shopify/flash-list';
-import { Spinner } from 'heroui-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -11,11 +12,10 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
 
 import { ThemedText } from '@/components/themed-text';
+import { useFeaturedEvent, useInfiniteEvents } from '@/hooks/events';
 import { useTheme } from '@/hooks/use-theme';
-import { useInfiniteEvents, useFeaturedEvent } from '@/hooks/events';
 import type { EventCard as EventCardType, TabKeys } from '@/types/events';
 import {
   EventCard,

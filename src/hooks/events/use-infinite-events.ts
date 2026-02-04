@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { EventCard, TabKeys } from '@/types/events';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const PAGE_SIZE = 10;
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
@@ -40,7 +40,7 @@ export function useInfiniteEvents(filter: TabKeys) {
             .order('starts_at', { ascending: true });
           break;
 
-        case 'popular':
+        case 'popular': {
           // Popular events: most attendees_count in the next 7 days
           const nextWeek = new Date();
           nextWeek.setDate(nextWeek.getDate() + 7);
@@ -49,6 +49,7 @@ export function useInfiniteEvents(filter: TabKeys) {
             .lte('starts_at', nextWeek.toISOString())
             .order('going_count', { ascending: false });
           break;
+        }
 
         case 'upcoming':
           query = query.gte('starts_at', now).order('starts_at', { ascending: true });
