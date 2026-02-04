@@ -26,6 +26,17 @@ const SettingsLayout = () => {
           headerBackButtonDisplayMode: 'minimal',
         }}
       />
+      <Stack.Screen
+        name="help-center/index"
+        options={{
+          title: 'Help Center',
+          headerBackTitle: '',
+          headerLargeTitleShadowVisible: true,
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+          headerBackButtonDisplayMode: 'minimal',
+        }}
+      />
     </Stack>
   );
 };
