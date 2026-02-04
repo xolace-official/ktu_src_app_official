@@ -36,6 +36,9 @@ export default function AppTabs() {
           <TabTrigger name="hostels" href="/(protected)/(tabs)/hostels-showcase" asChild>
             <TabButton>Hostels</TabButton>
           </TabTrigger>
+          <TabTrigger name="events" href="/(protected)/(tabs)/events" asChild>
+            <TabButton>Events</TabButton>
+          </TabTrigger>
           <TabTrigger name="explore" href="/explore" asChild>
             <TabButton>Explore</TabButton>
           </TabTrigger>
