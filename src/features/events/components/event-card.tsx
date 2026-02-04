@@ -1,12 +1,12 @@
-import { memo } from 'react';
-import { View, useWindowDimensions } from 'react-native';
-import { Card, Chip, PressableFeedback } from 'heroui-native';
-import { Image } from 'expo-image';
-import { MapPin, Users, Calendar } from 'lucide-react-native';
-import { router } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { useTheme } from '@/hooks/use-theme';
 import type { EventCard as EventCardType } from '@/types/events';
+import { Image } from 'expo-image';
+import { router } from 'expo-router';
+import { Card, Chip, PressableFeedback } from 'heroui-native';
+import { Calendar, MapPin, Users } from 'lucide-react-native';
+import { memo } from 'react';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 
 interface EventCardProps {
   event: EventCardType;
@@ -54,7 +54,7 @@ export const EventCard = memo(function EventCard({ event, onPress }: EventCardPr
                 ? { uri: event.hero_image_url }
                 : require('@/assets/images/events/img.png')
             }
-            style={{ width: '100%', height: 160, borderTopLeftRadius: 16, borderTopRightRadius: 16 }}
+            style={styles.image}
             contentFit="cover"
             transition={200}
           />
@@ -62,20 +62,17 @@ export const EventCard = memo(function EventCard({ event, onPress }: EventCardPr
           {/* Date Badge */}
           <View
             className="absolute left-3 top-3 items-center rounded-lg px-2.5 py-1.5"
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              borderCurve: 'continuous',
-            }}
+            style={styles.dateBadge}
           >
             <ThemedText
               className="text-xs font-semibold"
-              style={{ color: '#fff' }}
+              style={styles.dateText}
             >
               {month}
             </ThemedText>
             <ThemedText
               className="text-xl font-bold leading-tight"
-              style={{ color: '#fff', fontVariant: ['tabular-nums'] }}
+              style={[styles.dateText, styles.dateNumber]}
             >
               {day}
             </ThemedText>
@@ -131,4 +128,23 @@ export const EventCard = memo(function EventCard({ event, onPress }: EventCardPr
       </Card>
     </PressableFeedback>
   );
+});
+
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: 160,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  dateBadge: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderCurve: 'continuous',
+  },
+  dateText: {
+    color: '#fff',
+  },
+  dateNumber: {
+    fontVariant: ['tabular-nums'],
+  },
 });

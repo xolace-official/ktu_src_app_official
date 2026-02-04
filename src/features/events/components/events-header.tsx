@@ -1,7 +1,7 @@
-import { View, useWindowDimensions, Pressable } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { Image } from 'expo-image';
 import { MapPin, ArrowRight } from 'lucide-react-native';
-import { Button } from 'heroui-native';
+import { Button, PressableFeedback } from 'heroui-native';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -117,7 +117,7 @@ export function EventsHeader({
         className="relative z-10 px-4"
         style={{ marginTop: -overlap }}
       >
-        <Pressable onPress={onFeaturedPress} className="relative">
+        <PressableFeedback onPress={onFeaturedPress} className="relative">
           <Image
             source={
               featuredEventImage
@@ -128,7 +128,6 @@ export function EventsHeader({
               width: '100%',
               height: imageHeight,
               borderRadius: 16,
-              borderCurve: 'continuous',
             }}
             contentFit="cover"
           />
@@ -180,7 +179,7 @@ export function EventsHeader({
               <ArrowRight size={24} color="#fff" />
             </Button>
           </View>
-        </Pressable>
+        </PressableFeedback>
       </View>
     </View>
   );
