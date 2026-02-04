@@ -1,4 +1,4 @@
-import { View, Text, Linking } from 'react-native';
+import { View, Text, Linking, ScrollView } from 'react-native';
 import { Surface, PressableFeedback, Avatar } from 'heroui-native';
 import {
   Mail,
@@ -66,7 +66,7 @@ interface SRCOfficerProps {
 function SRCOfficerCard({ name, role, initials }: SRCOfficerProps) {
   return (
     <View className="items-center gap-2" style={{ width: 100 }}>
-      <Avatar size="lg" name={initials}>
+      <Avatar size="lg" alt={initials}>
         <Avatar.Fallback />
       </Avatar>
       <View className="items-center gap-0.5">
@@ -121,17 +121,25 @@ export function ContactSupportSection() {
       </View>
 
       {/* SRC Officers */}
-      <View className="gap-2 px-4">
-        <Text className="text-xs font-medium uppercase tracking-wide text-muted">
+      <View className="gap-2">
+        <Text className="px-4 text-xs font-medium uppercase tracking-wide text-muted">
           SRC Executives
         </Text>
-        <Surface variant="secondary" className="overflow-hidden rounded-xl p-4">
-          <View className="flex-row justify-between">
-            {srcOfficers.map((officer) => (
-              <SRCOfficerCard key={officer.initials} {...officer} />
-            ))}
-          </View>
-        </Surface>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerClassName="gap-3 px-4"
+        >
+          {srcOfficers.map((officer) => (
+            <Surface
+              key={officer.initials}
+              variant="secondary"
+              className="overflow-hidden rounded-xl p-4"
+            >
+              <SRCOfficerCard {...officer} />
+            </Surface>
+          ))}
+        </ScrollView>
       </View>
 
       {/* Contact Channels */}

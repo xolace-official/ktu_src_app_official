@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { View, Text } from 'react-native';
-import { Accordion, Chip, PressableFeedback } from 'heroui-native';
+import { View, Text, Pressable, ScrollView } from 'react-native';
+import { Accordion, Chip } from 'heroui-native';
 import { faqCategories, type FAQCategory } from './faq-data';
 
 function FAQCategoryFilter({
@@ -13,8 +13,12 @@ function FAQCategoryFilter({
   onSelect: (id: string | null) => void;
 }) {
   return (
-    <View className="flex-row flex-wrap gap-2 px-4">
-      <PressableFeedback onPress={() => onSelect(null)}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerClassName="gap-2 px-4"
+    >
+      <Pressable onPress={() => onSelect(null)}>
         <Chip
           variant={selectedId === null ? 'soft' : 'primary'}
           color={selectedId === null ? 'default' : 'accent'}
@@ -22,19 +26,19 @@ function FAQCategoryFilter({
         >
           <Chip.Label>All</Chip.Label>
         </Chip>
-      </PressableFeedback>
+      </Pressable>
       {categories.map((cat) => (
-        <PressableFeedback key={cat.id} onPress={() => onSelect(cat.id)}>
+        <Pressable key={cat.id} onPress={() => onSelect(cat.id)}>
           <Chip
-            variant={selectedId === cat.id ? 'secondary' : 'tertiary'}
-            color={selectedId === cat.id ? 'success' : 'default'}
+            variant={selectedId === cat.id ? 'primary' : 'secondary'}
+            color={selectedId === cat.id ? 'accent' : 'default'}
             size="sm"
           >
             <Chip.Label>{cat.title}</Chip.Label>
           </Chip>
-        </PressableFeedback>
+        </Pressable>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
