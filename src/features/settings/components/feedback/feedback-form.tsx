@@ -210,7 +210,7 @@ export function FeedbackForm() {
               </View>
               <Switch
                 isSelected={isAnonymous}
-                onValueChange={setIsAnonymous}
+                onSelectedChange={setIsAnonymous}
               />
             </View>
           </Surface>

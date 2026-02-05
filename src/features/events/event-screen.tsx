@@ -1,29 +1,29 @@
-import { useCallback, useMemo } from 'react';
-import { View, ScrollView, useWindowDimensions, Platform } from 'react-native';
-import { useLocalSearchParams, router } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
+import { router, useLocalSearchParams } from 'expo-router';
 import {
-  MapPin,
-  Calendar,
-  Users,
-  ArrowLeft,
-  Star,
-  Check,
-  X,
-} from 'lucide-react-native';
-import {
-  Avatar,
-  Button,
-  Chip,
-  Divider,
-  PressableFeedback,
-  Skeleton,
+    Avatar,
+    Button,
+    Chip,
+    PressableFeedback,
+    Separator,
+    Skeleton,
 } from 'heroui-native';
+import {
+    ArrowLeft,
+    Calendar,
+    Check,
+    MapPin,
+    Star,
+    Users,
+    X,
+} from 'lucide-react-native';
+import { useCallback, useMemo } from 'react';
+import { Platform, ScrollView, useWindowDimensions, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
-import { useTheme } from '@/hooks/use-theme';
 import { useEventDetails, useUpdateAttendance } from '@/hooks/events';
+import { useTheme } from '@/hooks/use-theme';
 import type { EventAttendanceStatus } from '@/types/events';
 
 /**
@@ -84,14 +84,14 @@ function EventDetailsSkeleton() {
           <Skeleton className="h-4 w-24 rounded-md" />
         </View>
         <Skeleton className="h-4 w-28 rounded-md" />
-        <Divider className="my-2" />
+        <Separator className="my-2" />
         <Skeleton className="h-5 w-24 rounded-md" />
         <View className="flex-row gap-2">
           <Skeleton className="h-10 w-24 rounded-full" />
           <Skeleton className="h-10 w-28 rounded-full" />
           <Skeleton className="h-10 w-28 rounded-full" />
         </View>
-        <Divider className="my-2" />
+        <Separator className="my-2" />
         <Skeleton className="h-5 w-28 rounded-md" />
         <Skeleton className="h-24 w-full rounded-lg" />
       </View>
@@ -423,7 +423,7 @@ export function EventScreen() {
             </View>
           </View>
 
-          <Divider />
+          <Separator />
 
           {/* Attendance Status */}
           <AttendanceSection
@@ -446,7 +446,7 @@ export function EventScreen() {
             </Button>
           )}
 
-          <Divider />
+          <Separator />
 
           {/* About Event */}
           <View className="gap-2">
@@ -466,7 +466,7 @@ export function EventScreen() {
           {/* Organizer */}
           {event.organizer && (
             <>
-              <Divider />
+              <Separator />
               <View className="gap-3">
                 <ThemedText className="text-base font-semibold">
                   Organizer

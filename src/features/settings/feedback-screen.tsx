@@ -1,6 +1,6 @@
-import { ScrollView, View, Text } from 'react-native';
-import { Divider } from 'heroui-native';
-import { FeedbackHeader, FeedbackForm } from './components/feedback';
+import { Separator } from 'heroui-native';
+import { ScrollView, Text, View } from 'react-native';
+import { FeedbackForm, FeedbackHeader } from './components/feedback';
 
 export const FeedbackScreen = () => {
   return (
@@ -19,7 +19,7 @@ export const FeedbackScreen = () => {
 
       {/* Footer Info */}
       <View className="gap-4 px-4">
-        <Divider />
+        <Separator />
         <View className="gap-2">
           <Text className="text-xs font-medium uppercase tracking-wide text-muted">
             What happens next?

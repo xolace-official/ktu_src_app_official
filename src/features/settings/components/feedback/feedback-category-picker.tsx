@@ -1,8 +1,10 @@
-import { View, Text, ScrollView } from 'react-native';
-import { Select, Button } from 'heroui-native';
-import { ChevronDown } from 'lucide-react-native';
-import { feedbackCategories, type FeedbackCategory } from './feedback-data';
 import { useTheme } from '@/hooks/use-theme';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { Button, Select } from 'heroui-native';
+import { ChevronDown } from 'lucide-react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { feedbackCategories, type FeedbackCategory } from './feedback-data';
 
 interface FeedbackCategoryPickerProps {
   selectedCategory: FeedbackCategory | null;
@@ -28,11 +30,12 @@ export function FeedbackCategoryPicker({
         </Text>
       </View>
       <Select
-        value={selectedCategory}
-        onValueChange={(value) => {
+        value={selectedCategory ?? undefined}
+        onValueChange={(value: any) => {
           const selected = feedbackCategories.find((c) => c.value === value?.value);
           onSelectCategory(selected ?? null);
         }}
+        presentation="bottom-sheet"
       >
         <Select.Trigger asChild>
           <Button
@@ -51,7 +54,19 @@ export function FeedbackCategoryPicker({
           <Select.Overlay />
           <Select.Content
             presentation="bottom-sheet"
-            snapPoints={['45%']}
+            snapPoints={['35%', '50%']}
+            detached
+            enableDynamicSizing={false}
+            enableOverDrag={false}
+            backgroundClassName="bg-transparent shadow-none"
+            handleClassName="h-1"
+            handleIndicatorClassName="w-12 h-[3px]"
+            contentContainerClassName="h-full pt-1 pb-1 mx-2.5 rounded-t-[36px] border border-separator/20 bg-overlay overflow-hidden"
+            contentContainerProps={{
+                style: {
+                  borderCurve: 'continuous',
+                },
+              }}
           >
             <View className="px-4 pb-2 pt-4">
               <Text className="text-lg font-semibold text-foreground">
@@ -61,18 +76,21 @@ export function FeedbackCategoryPicker({
                 Choose the area related to your feedback
               </Text>
             </View>
-            <ScrollView className="flex-1">
+            <BottomSheetScrollView
+                  contentContainerClassName="p-4"
+                  showsVerticalScrollIndicator={false}>
               {feedbackCategories.map((category) => (
+                <React.Fragment key={category.value}>
                 <Select.Item
-                  key={category.value}
                   value={category.value}
                   label={category.label}
                 >
                   <Select.ItemLabel className="text-foreground" />
                   <Select.ItemIndicator />
                 </Select.Item>
+                </React.Fragment>
               ))}
-            </ScrollView>
+            </BottomSheetScrollView>
           </Select.Content>
         </Select.Portal>
       </Select>

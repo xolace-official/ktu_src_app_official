@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native';
-import { Surface, Divider} from 'heroui-native';
+import type { SettingItem, SettingSection } from '@/types/settings.types';
+import { Separator, Surface } from 'heroui-native';
+import { Text, View } from 'react-native';
 import { SettingItemRow } from './setting-item';
-import type { SettingSection, SettingItem } from '@/types/settings.types';
 
 interface SettingSectionGroupProps {
   section: SettingSection;
@@ -19,7 +19,7 @@ export function SettingSectionGroup({ section, onItemPress }: SettingSectionGrou
       <Surface variant="secondary" className="overflow-hidden rounded-xl p-0">
         {section.items.map((item, index) => (
           <View key={item.id}>
-            {index > 0 && <Divider />}
+            {index > 0 && <Separator />}
             <SettingItemRow item={item} onPress={() => onItemPress(item)} />
           </View>
         ))}

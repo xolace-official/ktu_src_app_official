@@ -1,6 +1,6 @@
+import { Separator, Surface } from 'heroui-native';
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Surface, Divider } from 'heroui-native';
+import { Text, View } from 'react-native';
 
 interface ProfileInfoSectionProps {
   title: string;
@@ -18,7 +18,7 @@ export function ProfileInfoSection({ title, children }: ProfileInfoSectionProps)
       <Surface variant="secondary" className="overflow-hidden rounded-xl p-0">
         {childArray.map((child, index) => (
           <View key={index}>
-            {index > 0 && <Divider className="ml-[54px]" />}
+            {index > 0 && <Separator className="ml-[54px]" />}
             {child}
           </View>
         ))}

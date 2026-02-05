@@ -1,5 +1,5 @@
-import { View, ScrollView } from 'react-native';
-import { SkeletonGroup, Surface, Divider } from 'heroui-native';
+import { Separator, SkeletonGroup, Surface } from 'heroui-native';
+import { ScrollView, View } from 'react-native';
 
 function SkeletonRow() {
   return (
@@ -20,7 +20,7 @@ function SkeletonSection({ rows }: { rows: number }) {
       <Surface variant="secondary" className="overflow-hidden rounded-xl p-0">
         {Array.from({ length: rows }).map((_, index) => (
           <View key={index}>
-            {index > 0 && <Divider className="ml-[54px]" />}
+            {index > 0 && <Separator className="ml-[54px]" />}
             <SkeletonRow />
           </View>
         ))}

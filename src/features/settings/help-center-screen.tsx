@@ -1,12 +1,12 @@
-import { ScrollView, View, Text } from 'react-native';
-import { Divider } from 'heroui-native';
 import Constants from 'expo-constants';
+import { Separator } from 'heroui-native';
+import { ScrollView, Text, View } from 'react-native';
 import {
-  EmergencyBanner,
-  FAQSection,
-  AppGuideSection,
-  ContactSupportSection,
-  QuickLinksSection,
+    AppGuideSection,
+    ContactSupportSection,
+    EmergencyBanner,
+    FAQSection,
+    QuickLinksSection,
 } from './components/help-center';
 
 export const HelpCenterScreen = () => {
@@ -24,21 +24,21 @@ export const HelpCenterScreen = () => {
       <FAQSection />
 
       <View className="px-4">
-        <Divider />
+        <Separator />
       </View>
 
       {/* App Guide */}
       <AppGuideSection />
 
       <View className="px-4">
-        <Divider />
+        <Separator />
       </View>
 
       {/* Contact Support */}
       <ContactSupportSection />
 
       <View className="px-4">
-        <Divider />
+        <Separator />
       </View>
 
       {/* Quick Links & Resources */}
