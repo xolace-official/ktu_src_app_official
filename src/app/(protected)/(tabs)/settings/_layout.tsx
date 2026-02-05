@@ -48,6 +48,24 @@ const SettingsLayout = () => {
           headerBackButtonDisplayMode: 'minimal',
         }}
       />
+      <Stack.Screen
+        name="terms-of-service/index"
+        options={{
+          title: 'Terms of Service',
+          presentation: 'modal',
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="privacy-policy/index"
+        options={{
+          title: 'Privacy Policy',
+          presentation: 'modal',
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+        }}
+      />
     </Stack>
   );
 };

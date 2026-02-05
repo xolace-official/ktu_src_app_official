@@ -101,8 +101,8 @@ export const settingSections: SettingSection[] = [
         icon: FileText,
         iconBgClass: 'bg-accent',
         iconColor: '#fff',
-        type: 'external',
-        externalUrl: 'https://ktusrc.com/terms',
+        type: 'navigate',
+        route: '/settings/terms-of-service',
       },
       {
         id: 'privacy-policy',
@@ -110,8 +110,8 @@ export const settingSections: SettingSection[] = [
         icon: Lock,
         iconBgClass: 'bg-success',
         iconColor: '#fff',
-        type: 'external',
-        externalUrl: 'https://ktusrc.com/privacy',
+        type: 'navigate',
+        route: '/settings/privacy-policy',
       },
       {
         id: 'about',
