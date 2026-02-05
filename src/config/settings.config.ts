@@ -77,8 +77,8 @@ export const settingSections: SettingSection[] = [
         icon: Send,
         iconBgClass: 'bg-accent',
         iconColor: '#fff',
-        type: 'external',
-        externalUrl: 'https://ktusrc.com/feedback',
+        type: 'navigate',
+        route: '/settings/feedback',
       },
       {
         id: 'report-bug',

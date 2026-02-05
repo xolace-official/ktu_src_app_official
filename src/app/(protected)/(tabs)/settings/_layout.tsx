@@ -37,6 +37,17 @@ const SettingsLayout = () => {
           headerBackButtonDisplayMode: 'minimal',
         }}
       />
+      <Stack.Screen
+        name="feedback/index"
+        options={{
+          title: 'Send Feedback',
+          headerBackTitle: '',
+          headerLargeTitleShadowVisible: true,
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+          headerBackButtonDisplayMode: 'minimal',
+        }}
+      />
     </Stack>
   );
 };
