@@ -1,5 +1,5 @@
-import { View, Text, Linking, ScrollView } from 'react-native';
-import { Surface, PressableFeedback, Avatar } from 'heroui-native';
+import { View, Text, Linking } from 'react-native';
+import { Surface, PressableFeedback } from 'heroui-native';
 import {
   Mail,
   Phone,
@@ -57,42 +57,42 @@ function ContactItem({
   );
 }
 
-interface SRCOfficerProps {
-  name: string;
-  role: string;
-  initials: string;
-}
+// interface SRCOfficerProps {
+//   name: string;
+//   role: string;
+//   initials: string;
+// }
 
-function SRCOfficerCard({ name, role, initials }: SRCOfficerProps) {
-  return (
-    <View className="items-center gap-2" style={{ width: 100 }}>
-      <Avatar size="lg" alt={initials}>
-        <Avatar.Fallback />
-      </Avatar>
-      <View className="items-center gap-0.5">
-        <Text
-          className="text-center text-xs font-medium text-foreground"
-          numberOfLines={1}
-        >
-          {name}
-        </Text>
-        <Text
-          className="text-center text-[11px] text-muted"
-          numberOfLines={2}
-        >
-          {role}
-        </Text>
-      </View>
-    </View>
-  );
-}
+// function SRCOfficerCard({ name, role, initials }: SRCOfficerProps) {
+//   return (
+//     <View className="items-center gap-2" style={{ width: 100 }}>
+//       <Avatar size="lg" alt={initials}>
+//         <Avatar.Fallback />
+//       </Avatar>
+//       <View className="items-center gap-0.5">
+//         <Text
+//           className="text-center text-xs font-medium text-foreground"
+//           numberOfLines={1}
+//         >
+//           {name}
+//         </Text>
+//         <Text
+//           className="text-center text-[11px] text-muted"
+//           numberOfLines={2}
+//         >
+//           {role}
+//         </Text>
+//       </View>
+//     </View>
+//   );
+// }
 
-const srcOfficers: SRCOfficerProps[] = [
-  { name: 'SRC President', role: 'Student Leadership', initials: 'SP' },
-  { name: 'Gen. Secretary', role: 'Administration', initials: 'GS' },
-  { name: 'Finance Sec.', role: 'Finance & Budget', initials: 'FS' },
-  { name: 'Welfare Chair', role: 'Student Welfare', initials: 'WC' },
-];
+// const srcOfficers: SRCOfficerProps[] = [
+//   { name: 'SRC President', role: 'Student Leadership', initials: 'SP' },
+//   { name: 'Gen. Secretary', role: 'Administration', initials: 'GS' },
+//   { name: 'Finance Sec.', role: 'Finance & Budget', initials: 'FS' },
+//   { name: 'Welfare Chair', role: 'Student Welfare', initials: 'WC' },
+// ];
 
 export function ContactSupportSection() {
   const handleEmail = () => {
@@ -121,7 +121,7 @@ export function ContactSupportSection() {
       </View>
 
       {/* SRC Officers */}
-      <View className="gap-2">
+      {/* <View className="gap-2">
         <Text className="px-4 text-xs font-medium uppercase tracking-wide text-muted">
           SRC Executives
         </Text>
@@ -140,7 +140,7 @@ export function ContactSupportSection() {
             </Surface>
           ))}
         </ScrollView>
-      </View>
+      </View> */}
 
       {/* Contact Channels */}
       <View className="gap-1.5 px-4">
