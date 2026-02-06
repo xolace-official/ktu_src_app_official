@@ -11,7 +11,7 @@ import {
   SettingsProfileHeader,
   SettingSectionGroup,
   ExternalServicesSection,
-  DeveloperCredits,
+  DeveloperCreditsCard,
 } from './components';
 
 export const ScreenSettings = () => {
@@ -65,7 +65,7 @@ export const ScreenSettings = () => {
             ))}
         </View>
         <ExternalServicesSection />
-        <DeveloperCredits />
+        <DeveloperCreditsCard />
         <Text className="text-center text-xs text-muted">Version {appVersion}</Text>
       </ScrollView>
 

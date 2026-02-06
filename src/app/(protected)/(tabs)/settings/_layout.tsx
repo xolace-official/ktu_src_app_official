@@ -77,6 +77,17 @@ const SettingsLayout = () => {
           headerBackButtonDisplayMode: 'minimal',
         }}
       />
+      <Stack.Screen
+        name="developer-credit/index"
+        options={{
+          title: 'Developer Credit',
+          headerBackTitle: '',
+          headerLargeTitleShadowVisible: true,
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+          headerBackButtonDisplayMode: 'minimal',
+        }}
+      />
     </Stack>
   );
 };

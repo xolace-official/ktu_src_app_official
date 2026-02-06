@@ -2,11 +2,12 @@ import { View, Text } from 'react-native';
 import { PressableFeedback } from 'heroui-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Code, Rocket, Lightbulb } from 'lucide-react-native';
+import { router } from 'expo-router';
 
-export function DeveloperCredits() {
+export function DeveloperCreditsCard() {
   return (
     <View className="px-4">
-      <PressableFeedback className="overflow-hidden rounded-2xl">
+      <PressableFeedback className="overflow-hidden rounded-2xl" onPress={() => router.push('/settings/developer-credit')}>
         <LinearGradient
           colors={['#7C3AED', '#DB2777']}
           start={{ x: 0, y: 0 }}
