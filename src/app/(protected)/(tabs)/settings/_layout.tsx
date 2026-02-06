@@ -66,6 +66,17 @@ const SettingsLayout = () => {
           headerShadowVisible: false,
         }}
       />
+      <Stack.Screen
+        name="about/index"
+        options={{
+          title: 'About',
+          headerBackTitle: '',
+          headerLargeTitleShadowVisible: true,
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+          headerBackButtonDisplayMode: 'minimal',
+        }}
+      />
     </Stack>
   );
 };
