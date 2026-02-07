@@ -6,6 +6,7 @@ import { ThemedText } from '@/components/themed-text';
 import { useTheme } from '@/hooks/use-theme';
 import { useUserGreeting } from '@/hooks/home/use-user-greeting';
 import { useAppStore } from '@/store/store';
+import { useUnreadNotificationCount } from '@/hooks/info-center';
 
 interface HomeHeaderProps {
   onNotificationPress?: () => void;
@@ -16,6 +17,7 @@ export function HomeHeader({ onNotificationPress }: HomeHeaderProps) {
   const { fullGreeting, subtitle } = useUserGreeting();
   const avatarUrl = useAppStore((s) => s.profileSummary.avatar_url);
   const fullName = useAppStore((s) => s.profileSummary.full_name);
+  const { data: unreadCount } = useUnreadNotificationCount();
 
   const handleNotificationPress = () => {
     if (onNotificationPress) {
@@ -47,6 +49,13 @@ export function HomeHeader({ onNotificationPress }: HomeHeaderProps) {
           className="min-h-[44px] min-w-[44px] items-center justify-center rounded-full"
         >
           <BellRing color={theme.accent} size={24} />
+          {!!unreadCount && unreadCount > 0 && (
+            <View style={styles.badge}>
+              <ThemedText style={styles.badgeText}>
+                {unreadCount > 99 ? '99+' : unreadCount}
+              </ThemedText>
+            </View>
+          )}
         </PressableFeedback>
       </View>
 
@@ -60,7 +69,7 @@ export function HomeHeader({ onNotificationPress }: HomeHeaderProps) {
         </View>
 
         <View className="pl-4">
-          <Avatar size="lg" color="accent">
+          <Avatar alt={fullName || 'User'} size="lg" color="accent">
             {avatarUrl ? (
               <Avatar.Image source={{ uri: avatarUrl }} />
             ) : (
@@ -88,5 +97,23 @@ const styles = StyleSheet.create({
       width: 1,
       height: 10,
     },
+  },
+  badge: {
+    position: 'absolute',
+    top: 6,
+    right: 4,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: '#EF4444',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '700',
+    lineHeight: 12,
   },
 });

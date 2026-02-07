@@ -17,7 +17,7 @@ export function CampusNewsSection() {
 
   const handleViewAll = () => {
     router.push({
-      pathname: '/',
+      pathname: '/info-center',
       params: { type: 'announcements' },
     });
   };
@@ -26,7 +26,7 @@ export function CampusNewsSection() {
     return (
       <View className="px-4">
         <View className="w-full overflow-hidden rounded-3xl bg-[#CD8606]">
-          <Skeleton className="aspect-[16/10] w-full" />
+          <Skeleton className="aspect-16/10 w-full" />
           <View className="gap-3 p-4">
             <Skeleton className="h-20 w-full rounded-[5px]" />
             <Skeleton className="h-20 w-full rounded-[5px]" />
