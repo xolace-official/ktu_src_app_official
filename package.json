@@ -35,7 +35,7 @@
     "expo-symbols": "~55.0.1",
     "expo-system-ui": "~55.0.1",
     "expo-web-browser": "~55.0.1",
-    "heroui-native": "^1.0.0-beta.12",
+    "heroui-native": "^1.0.0-beta.13",
     "lucide-react-native": "^0.563.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",

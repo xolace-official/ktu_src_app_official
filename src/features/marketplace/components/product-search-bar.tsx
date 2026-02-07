@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import { TextField, PressableFeedback } from 'heroui-native';
+import { TextField, PressableFeedback, Input } from 'heroui-native';
 import { Search, SlidersHorizontal } from 'lucide-react-native';
 import { useTheme } from '@/hooks/use-theme';
 
@@ -70,7 +70,7 @@ export function ProductSearchBar({
     <View className="flex-row items-center gap-2">
       <View className="flex-1">
         <TextField>
-          <TextField.Input
+          <Input
             placeholder={placeholder}
             value={value}
             onChangeText={onChangeText}

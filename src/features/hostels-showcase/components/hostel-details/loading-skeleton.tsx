@@ -1,5 +1,5 @@
+import { Separator, SkeletonGroup } from 'heroui-native';
 import { View, useWindowDimensions } from 'react-native';
-import { SkeletonGroup, Divider } from 'heroui-native';
 
 import { useTheme } from '@/hooks/use-theme';
 
@@ -42,7 +42,7 @@ export function LoadingSkeleton() {
             </View>
           </View>
 
-          <Divider className="my-4" />
+          <Separator className="my-4" />
 
           {/* Agent section */}
           <SkeletonGroup.Item className="h-6 w-20 rounded-md" />

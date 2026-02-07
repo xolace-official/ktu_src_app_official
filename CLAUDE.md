@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 KTU SRC App - An Expo universal app (iOS, Android, Web) using React Native with file-based routing.
+An App for the students of Koforidua Technical University.
 
 ## Commands
 
