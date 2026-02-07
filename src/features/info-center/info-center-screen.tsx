@@ -25,6 +25,10 @@ import {
   NotificationsListSkeleton,
 } from './components';
 
+function ItemSeparator() {
+  return <View className="h-3" />;
+}
+
 function ListFooter({ isLoadingMore }: { isLoadingMore: boolean }) {
   if (!isLoadingMore) return null;
   return (
@@ -87,7 +91,7 @@ function AnnouncementsList() {
       data={announcements}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
-      ItemSeparatorComponent={() => <View className="h-3" />}
+      ItemSeparatorComponent={ItemSeparator}
       ListFooterComponent={<ListFooter isLoadingMore={isFetchingNextPage} />}
       showsVerticalScrollIndicator={false}
       onEndReached={handleLoadMore}
@@ -144,6 +148,8 @@ function NotificationsList() {
           params: { id: notification.link_id },
         });
       }
+      // Other link_type values are intentionally not handled yet.
+      // As new notification types are added, extend this with additional navigation cases.
     },
     [markRead]
   );
@@ -168,7 +174,7 @@ function NotificationsList() {
       data={notifications}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
-      ItemSeparatorComponent={() => <View className="h-3" />}
+      ItemSeparatorComponent={ItemSeparator}
       ListFooterComponent={<ListFooter isLoadingMore={isFetchingNextPage} />}
       showsVerticalScrollIndicator={false}
       onEndReached={handleLoadMore}
