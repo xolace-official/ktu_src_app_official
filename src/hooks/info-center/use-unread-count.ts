@@ -10,8 +10,7 @@ const STALE_TIME_1_MIN = 1000 * 60;
  */
 export function useUnreadNotificationCount() {
   const client = useSupabase();
-  //const userId = useAppStore((s) => s.userId);
-  const userId = "b25d86b8-29a1-4f18-9c69-b3d9c047265e";
+  const userId = useAppStore((s) => s.userId);
 
   return useQuery({
     queryKey: ['unread-notification-count', userId],

@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { useTheme } from '@/hooks/use-theme';
-import type { AnnouncementCard as AnnouncementCardType } from '@/types/info-center';
+import type { AnnouncementCardItem } from '@/types/info-center';
 import { formatRelativeTime } from '@/utils/format-relative-time';
 import { Card, Chip, PressableFeedback } from 'heroui-native';
 import { Pin } from 'lucide-react-native';
@@ -8,7 +8,7 @@ import { memo } from 'react';
 import { View } from 'react-native';
 
 interface AnnouncementCardProps {
-  announcement: AnnouncementCardType;
+  announcement: AnnouncementCardItem;
   onPress: () => void;
 }
 

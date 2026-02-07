@@ -208,9 +208,9 @@ export default function NewProductForm() {
             name="category_id"
             render={({ field: { value } }) => (
               <View className="gap-1.5">
-                <Text className="text-sm font-medium text-foreground">
+                <Label>
                   Category <Text className="text-danger">*</Text>
-                </Text>
+                </Label>
                 <Select
                   value={findSelectOption(categoryOptions, value)}
                   onValueChange={(option) => setValue('category_id', option?.value ?? '', { shouldValidate: true })}
@@ -237,7 +237,7 @@ export default function NewProductForm() {
                   </Select.Portal>
                 </Select>
                 {errors.category_id && (
-                  <Text className="text-sm text-danger">{errors.category_id.message}</Text>
+                  <FieldError>{errors.category_id.message}</FieldError>
                 )}
               </View>
             )}
@@ -249,9 +249,7 @@ export default function NewProductForm() {
             name="condition"
             render={({ field: { value } }) => (
               <View className="gap-1.5">
-                <Text className="text-sm font-medium text-foreground">
-                  Condition (Optional)
-                </Text>
+                <Label>Condition (Optional)</Label>
                 <Select
                   value={value ? findSelectOption(conditionOptions, value) : undefined}
                   onValueChange={(option) =>

@@ -18,7 +18,7 @@ export interface Attachment {
   type?: string;
 }
 
-export interface AnnouncementCard {
+export interface AnnouncementCardItem {
   id: string;
   title: string;
   summary: string | null;

@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { Avatar, Button, Chip, Separator, Skeleton } from 'heroui-native';
 import { AlertTriangle, Calendar, Clock, FileText, MapPin, Phone } from 'lucide-react-native';
 import { useCallback } from 'react';
-import { Linking, ScrollView, View } from 'react-native';
+import { Alert, Linking, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -73,8 +73,30 @@ function AttachmentsSection({ attachments }: { attachments: Attachment[] }) {
 
   if (attachments.length === 0) return null;
 
-  const handleOpen = (url: string) => {
-    Linking.openURL(url);
+  const handleOpen = async (url: string) => {
+    const ALLOWED_SCHEMES = ['https:', 'http:'];
+    try {
+      const parsed = new URL(url);
+      if (!ALLOWED_SCHEMES.includes(parsed.protocol)) {
+        Alert.alert('Unsupported link', 'This link cannot be opened.');
+        return;
+      }
+    } catch {
+      Alert.alert('Invalid link', 'This link is not valid.');
+      return;
+    }
+
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (!supported) {
+        Alert.alert('Cannot open link', 'No app is available to open this link.');
+        return;
+      }
+      await Linking.openURL(url);
+    } catch (e) {
+      console.warn('Failed to open URL:', e);
+      Alert.alert('Error', 'Something went wrong while opening the link.');
+    }
   };
 
   return (

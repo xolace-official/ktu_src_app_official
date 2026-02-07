@@ -11,6 +11,7 @@ const YEAR = 31536000; // 365 days
 export function formatRelativeTime(dateString: string): string {
   const now = Date.now();
   const then = new Date(dateString).getTime();
+  if (isNaN(then)) return '';
   const seconds = Math.floor((now - then) / 1000);
 
   if (seconds < 0) return 'just now';

@@ -1,5 +1,5 @@
 import { useSupabase } from '@/lib/supabase/use-supabase';
-import type { AnnouncementCard } from '@/types/info-center';
+import type { AnnouncementCardItem } from '@/types/info-center';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const PAGE_SIZE = 10;
@@ -35,7 +35,7 @@ export function useInfiniteAnnouncements() {
 
       if (error) throw new Error(error.message);
 
-      const items: AnnouncementCard[] = (data ?? []).map((row) => ({
+      const items: AnnouncementCardItem[] = (data ?? []).map((row) => ({
         id: row.id,
         title: row.title,
         summary: row.summary,

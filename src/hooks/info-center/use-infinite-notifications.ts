@@ -12,8 +12,8 @@ const STALE_TIME_5_MIN = 1000 * 60 * 5;
  */
 export function useInfiniteNotifications() {
   const client = useSupabase();
-  //const userId = useAppStore((s) => s.userId);
-  const userId = "b25d86b8-29a1-4f18-9c69-b3d9c047265e";
+  const userId = useAppStore((s) => s.userId);
+
   return useInfiniteQuery({
     queryKey: ['notifications', userId],
     staleTime: STALE_TIME_5_MIN,

@@ -11,7 +11,7 @@ import {
   useInfiniteNotifications,
   useMarkNotificationRead,
 } from '@/hooks/info-center';
-import type { AnnouncementCard as AnnouncementCardType, InfoCenterTabKey, NotificationItem } from '@/types/info-center';
+import type { AnnouncementCardItem, InfoCenterTabKey, NotificationItem } from '@/types/info-center';
 
 import {
   AnnouncementCard,
@@ -67,7 +67,7 @@ function AnnouncementsList() {
     });
   }, []);
 
-  const renderItem: ListRenderItem<AnnouncementCardType> = useCallback(
+  const renderItem: ListRenderItem<AnnouncementCardItem> = useCallback(
     ({ item }) => (
       <View className="px-4">
         <AnnouncementCard announcement={item} onPress={() => handlePress(item.id)} />
@@ -76,7 +76,7 @@ function AnnouncementsList() {
     [handlePress]
   );
 
-  const keyExtractor = useCallback((item: AnnouncementCardType) => item.id, []);
+  const keyExtractor = useCallback((item: AnnouncementCardItem) => item.id, []);
 
   if (isLoading) return <AnnouncementsListSkeleton />;
   if (isError) return <AnnouncementsError onRetry={refetch} />;
