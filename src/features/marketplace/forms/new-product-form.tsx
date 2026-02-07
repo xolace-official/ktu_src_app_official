@@ -9,9 +9,9 @@ import {
 } from '@/lib/schemas/marketplace';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
-import { Button, Select, Spinner, TextField } from 'heroui-native';
+import { Button, Select, Spinner, TextField, Label, Input, FieldError } from 'heroui-native';
 import { useMemo, useRef } from 'react';
-import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Keyboard, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
@@ -93,8 +93,7 @@ export default function NewProductForm() {
     []
   );
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const formData = data as NewProductFormType;
+  const onSubmit: SubmitHandler<NewProductFormType> = async (formData) => {
     try {
       await createListing.mutateAsync({
         title: formData.title,
@@ -135,8 +134,8 @@ export default function NewProductForm() {
             name="title"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.title} isRequired>
-                <TextField.Label>Product Name</TextField.Label>
-                <TextField.Input
+                <Label>Product Name</Label>
+                <Input
                   placeholder="Enter product name"
                   value={value}
                   onChangeText={onChange}
@@ -147,7 +146,7 @@ export default function NewProductForm() {
                   blurOnSubmit={false}
                 />
                 {errors.title && (
-                  <TextField.ErrorMessage>{errors.title.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.title.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -159,8 +158,8 @@ export default function NewProductForm() {
             name="price"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.price} isRequired>
-                <TextField.Label>Price (GH₵)</TextField.Label>
-                <TextField.Input
+                <Label>Price (GH₵)</Label>
+                <Input
                   ref={priceRef}
                   placeholder="0.00"
                   value={value?.toString() ?? ''}
@@ -172,7 +171,7 @@ export default function NewProductForm() {
                   blurOnSubmit={false}
                 />
                 {errors.price && (
-                  <TextField.ErrorMessage>{errors.price.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.price.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -184,8 +183,8 @@ export default function NewProductForm() {
             name="stock_qty"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.stock_qty}>
-                <TextField.Label>Stock Quantity (Optional)</TextField.Label>
-                <TextField.Input
+                <Label>Stock Quantity (Optional)</Label>
+                <Input
                   ref={stockRef}
                   placeholder="Enter available stock"
                   value={value?.toString() ?? ''}
@@ -196,7 +195,7 @@ export default function NewProductForm() {
                   onSubmitEditing={() => Keyboard.dismiss()}
                 />
                 {errors.stock_qty && (
-                  <TextField.ErrorMessage>{errors.stock_qty.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.stock_qty.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -208,9 +207,9 @@ export default function NewProductForm() {
             name="category_id"
             render={({ field: { value } }) => (
               <View className="gap-1.5">
-                <Text className="text-sm font-medium text-foreground">
+                <Label>
                   Category <Text className="text-danger">*</Text>
-                </Text>
+                </Label>
                 <Select
                   value={findSelectOption(categoryOptions, value)}
                   onValueChange={(option) => setValue('category_id', option?.value ?? '', { shouldValidate: true })}
@@ -237,7 +236,7 @@ export default function NewProductForm() {
                   </Select.Portal>
                 </Select>
                 {errors.category_id && (
-                  <Text className="text-sm text-danger">{errors.category_id.message}</Text>
+                  <FieldError>{errors.category_id.message}</FieldError>
                 )}
               </View>
             )}
@@ -249,9 +248,7 @@ export default function NewProductForm() {
             name="condition"
             render={({ field: { value } }) => (
               <View className="gap-1.5">
-                <Text className="text-sm font-medium text-foreground">
-                  Condition (Optional)
-                </Text>
+                <Label>Condition (Optional)</Label>
                 <Select
                   value={value ? findSelectOption(conditionOptions, value) : undefined}
                   onValueChange={(option) =>
@@ -287,8 +284,8 @@ export default function NewProductForm() {
             name="description"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.description}>
-                <TextField.Label>Description (Optional)</TextField.Label>
-                <TextField.Input
+                <Label>Description (Optional)</Label>
+                <Input
                   ref={descriptionRef}
                   placeholder="Describe your product..."
                   value={value ?? ''}
@@ -300,7 +297,7 @@ export default function NewProductForm() {
                   style={{ minHeight: 100 }}
                 />
                 {errors.description && (
-                  <TextField.ErrorMessage>{errors.description.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.description.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -312,8 +309,8 @@ export default function NewProductForm() {
             name="whatsapp_contact"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.whatsapp_contact}>
-                <TextField.Label>WhatsApp Number (Optional)</TextField.Label>
-                <TextField.Input
+                <Label>WhatsApp Number (Optional)</Label>
+                <Input
                   ref={whatsappRef}
                   placeholder="0241234567"
                   value={value ?? ''}
@@ -326,7 +323,7 @@ export default function NewProductForm() {
                   onSubmitEditing={() => Keyboard.dismiss()}
                 />
                 {errors.whatsapp_contact && (
-                  <TextField.ErrorMessage>{errors.whatsapp_contact.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.whatsapp_contact.message}</FieldError>
                 )}
               </TextField>
             )}
