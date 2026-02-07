@@ -1,5 +1,5 @@
-import { View, Text, Pressable } from 'react-native';
 import { Surface } from 'heroui-native';
+import { Pressable, Text, View } from 'react-native';
 import { feedbackTypes, type FeedbackType } from './feedback-data';
 
 interface FeedbackTypeSelectorProps {
@@ -22,8 +22,8 @@ function FeedbackTypeCard({
     <Pressable onPress={onPress} className="flex-1">
       <Surface
         variant="secondary"
-        className={`items-center gap-2 rounded-xl p-3 ${
-          isSelected ? 'border-2 border-accent' : 'border border-transparent'
+        className={`items-center gap-2 rounded-xl border-2 p-3 ${
+          isSelected ? 'border-accent' : 'border-transparent'
         }`}
       >
         <View

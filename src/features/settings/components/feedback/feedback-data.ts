@@ -1,9 +1,9 @@
 import type { LucideIcon } from 'lucide-react-native';
 import {
-  Lightbulb,
-  Bug,
-  Heart,
-  AlertTriangle,
+    AlertTriangle,
+    Bug,
+    Heart,
+    Lightbulb,
 } from 'lucide-react-native';
 
 export interface FeedbackType {

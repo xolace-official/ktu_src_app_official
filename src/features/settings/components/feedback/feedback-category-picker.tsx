@@ -6,6 +6,11 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { feedbackCategories, type FeedbackCategory } from './feedback-data';
 
+interface SelectOption {
+  value: string | number;
+  label: string;
+}
+
 interface FeedbackCategoryPickerProps {
   selectedCategory: FeedbackCategory | null;
   onSelectCategory: (category: FeedbackCategory | null) => void;
@@ -31,8 +36,9 @@ export function FeedbackCategoryPicker({
       </View>
       <Select
         value={selectedCategory ?? undefined}
-        onValueChange={(value: any) => {
-          const selected = feedbackCategories.find((c) => c.value === value?.value);
+        onValueChange={(val: SelectOption | null | undefined) => {
+          const cleanValue = val?.value?.toString().trim();
+          const selected = feedbackCategories.find((c) => c.value === cleanValue);
           onSelectCategory(selected ?? null);
         }}
         presentation="bottom-sheet"

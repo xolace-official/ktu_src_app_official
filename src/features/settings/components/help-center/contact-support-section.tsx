@@ -1,14 +1,14 @@
-import { View, Text, Linking } from 'react-native';
-import { Surface, PressableFeedback } from 'heroui-native';
+import { useTheme } from '@/hooks/use-theme';
+import { PressableFeedback, Surface } from 'heroui-native';
+import type { LucideIcon } from 'lucide-react-native';
 import {
-  Mail,
-  Phone,
-  MapPin,
   ChevronRight,
   ExternalLink,
+  Mail,
+  MapPin,
+  Phone,
 } from 'lucide-react-native';
-import type { LucideIcon } from 'lucide-react-native';
-import { useTheme } from '@/hooks/use-theme';
+import { Alert, Linking, Text, View } from 'react-native';
 
 interface ContactItemProps {
   icon: LucideIcon;
@@ -95,18 +95,50 @@ function ContactItem({
 // ];
 
 export function ContactSupportSection() {
-  const handleEmail = () => {
-    Linking.openURL('mailto:src@ktu.edu.gh');
+  const handleEmail = async () => {
+    const email = 'mailto:src@ktu.edu.gh';
+    try {
+      const canOpen = await Linking.canOpenURL(email);
+      if (canOpen) {
+        await Linking.openURL(email);
+      } else {
+        Alert.alert('Error', 'Could not open email client.');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'An unexpected error occurred.');
+      console.error('Error opening email:', error);
+    }
   };
 
-  const handlePhone = () => {
-    Linking.openURL('tel:+233XXXXXXXXX');
+  const handlePhone = async () => {
+    const phoneNumber = 'tel:+233XXXXXXXXX';
+    try {
+      const canOpen = await Linking.canOpenURL(phoneNumber);
+      if (canOpen) {
+        await Linking.openURL(phoneNumber);
+      } else {
+        Alert.alert('Error', 'Could not open phone dialer.');
+      }
+    } catch (error) {
+       Alert.alert('Error', 'An unexpected error occurred.');
+       console.error('Error opening phone dialer:', error);
+    }
   };
 
-  const handleLocation = () => {
-    Linking.openURL(
-      'https://maps.google.com/?q=Koforidua+Technical+University'
-    );
+  const handleLocation = async () => {
+    const location =
+      'https://maps.google.com/?q=Koforidua+Technical+University';
+    try {
+      const canOpen = await Linking.canOpenURL(location);
+      if (canOpen) {
+        await Linking.openURL(location);
+      } else {
+         Alert.alert('Error', 'Could not open maps.');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'An unexpected error occurred.');
+      console.error('Error opening maps:', error);
+    }
   };
 
   return (

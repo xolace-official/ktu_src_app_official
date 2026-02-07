@@ -1,12 +1,15 @@
-import { View, Text } from 'react-native';
+import Constants from 'expo-constants';
 import { Surface } from 'heroui-native';
 import { GraduationCap } from 'lucide-react-native';
-import Constants from 'expo-constants';
+import { Text, View } from 'react-native';
 import { aboutContent } from './about-data';
 
 export function AboutHeader() {
   const appVersion = Constants.expoConfig?.version ?? '1.0.0';
-  const buildNumber = Constants.expoConfig?.ios?.buildNumber ?? '1';
+  const buildNumber =
+    Constants.expoConfig?.ios?.buildNumber ??
+    Constants.expoConfig?.android?.versionCode?.toString() ??
+    '1';
 
   return (
     <View className="items-center gap-4 px-6 pt-2">

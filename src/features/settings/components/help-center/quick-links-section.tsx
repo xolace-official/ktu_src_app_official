@@ -1,15 +1,13 @@
-import { View, Text } from 'react-native';
-import { Surface, PressableFeedback } from 'heroui-native';
-import {
-  FileText,
-  Shield,
-  Scale,
-  Globe,
-  ExternalLink,
-} from 'lucide-react-native';
-import type { LucideIcon } from 'lucide-react-native';
-import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
 import { useTheme } from '@/hooks/use-theme';
+import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
+import { PressableFeedback, Surface } from 'heroui-native';
+import type { LucideIcon } from 'lucide-react-native';
+import {
+  ExternalLink,
+  FileText,
+  Globe
+} from 'lucide-react-native';
+import { Alert, Linking, Text, View } from 'react-native';
 
 interface QuickLinkItem {
   id: string;
@@ -65,9 +63,18 @@ function QuickLinkRow({ item }: { item: QuickLinkItem }) {
   const Icon = item.icon;
 
   const handlePress = async () => {
-    await openBrowserAsync(item.url, {
-      presentationStyle: WebBrowserPresentationStyle.AUTOMATIC,
-    });
+    try {
+      await openBrowserAsync(item.url, {
+        presentationStyle: WebBrowserPresentationStyle.AUTOMATIC,
+      });
+    } catch (error) {
+      console.error(`Failed to open browser for url: ${item.url}`, error);
+      try {
+        await Linking.openURL(item.url);
+      } catch {
+        Alert.alert('Error', 'Could not open the link.');
+      }
+    }
   };
 
   return (

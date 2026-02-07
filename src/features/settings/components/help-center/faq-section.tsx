@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
 import { Accordion, Chip } from 'heroui-native';
+import { useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { faqCategories, type FAQCategory } from './faq-data';
 
 function FAQCategoryFilter({
@@ -18,25 +18,24 @@ function FAQCategoryFilter({
       showsHorizontalScrollIndicator={false}
       contentContainerClassName="gap-2 px-4"
     >
-      <Pressable onPress={() => onSelect(null)}>
-        <Chip
-          variant={selectedId === null ? 'soft' : 'primary'}
-          color={selectedId === null ? 'default' : 'accent'}
-          size="sm"
-        >
-          <Chip.Label>All</Chip.Label>
-        </Chip>
-      </Pressable>
+      <Chip
+        variant={selectedId === null ? 'primary' : 'soft'}
+        color={selectedId === null ? 'accent' : 'default'}
+        size="sm"
+        onPress={() => onSelect(null)}
+      >
+        <Chip.Label>All</Chip.Label>
+      </Chip>
       {categories.map((cat) => (
-        <Pressable key={cat.id} onPress={() => onSelect(cat.id)}>
-          <Chip
-            variant={selectedId === cat.id ? 'primary' : 'secondary'}
-            color={selectedId === cat.id ? 'accent' : 'default'}
-            size="sm"
-          >
-            <Chip.Label>{cat.title}</Chip.Label>
-          </Chip>
-        </Pressable>
+        <Chip
+          key={cat.id}
+          variant={selectedId === cat.id ? 'primary' : 'secondary'}
+          color={selectedId === cat.id ? 'accent' : 'default'}
+          size="sm"
+          onPress={() => onSelect(cat.id)}
+        >
+          <Chip.Label>{cat.title}</Chip.Label>
+        </Chip>
       ))}
     </ScrollView>
   );

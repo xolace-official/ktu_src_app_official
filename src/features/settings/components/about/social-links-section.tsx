@@ -1,9 +1,14 @@
-import { View, Text, Pressable, Linking } from 'react-native';
+import { Alert, Linking, Pressable, Text, View } from 'react-native';
 import { socialLinks } from './about-data';
 
 export function SocialLinksSection() {
-  const handlePress = (url: string) => {
-    Linking.openURL(url);
+  const handlePress = async (url: string) => {
+    try {
+      await Linking.openURL(url);
+    } catch (error) {
+      console.error('Failed to open URL:', error);
+      Alert.alert('Error', 'Could not open the link');
+    }
   };
 
   return (
