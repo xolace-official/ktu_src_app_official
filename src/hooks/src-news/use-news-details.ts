@@ -5,7 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 /**
- * Hook to fetch a single news article with author relation
+ * Fetches a single news article by ID, including its author's name and avatar.
+ *
+ * @param newsId - The ID of the news article to fetch; the query is disabled when falsy.
+ * @returns The React Query result for the news article; `data` contains the fetched `NewsArticle` when available, and `error` contains an `Error` if the fetch fails.
  */
 export function useNewsDetails(newsId: string) {
   const client = useSupabase();

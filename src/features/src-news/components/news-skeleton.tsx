@@ -1,6 +1,11 @@
 import { View } from 'react-native';
 import { Card, Skeleton } from 'heroui-native';
 
+/**
+ * Renders a news card skeleton used as a placeholder while content loads.
+ *
+ * @returns A JSX element representing a card-shaped skeleton with a media placeholder, title and summary lines, and an author/avatar row.
+ */
 function NewsCardSkeleton() {
   return (
     <Card className="overflow-hidden rounded-2xl">
@@ -18,6 +23,12 @@ function NewsCardSkeleton() {
   );
 }
 
+/**
+ * Render a vertical list of news card skeletons.
+ *
+ * @param count - Number of skeleton cards to render (defaults to 3)
+ * @returns A container View containing `count` NewsCardSkeleton items
+ */
 export function NewsListSkeleton({ count = 3 }: { count?: number }) {
   return (
     <View className="gap-3 px-4">
@@ -28,6 +39,13 @@ export function NewsListSkeleton({ count = 3 }: { count?: number }) {
   );
 }
 
+/**
+ * Render a skeleton layout that mimics a news detail screen while content is loading.
+ *
+ * The layout includes a hero media placeholder, header meta placeholders, headline, author block, a divider, and multiple paragraph lines to simulate the article body.
+ *
+ * @returns A React element containing the composed skeleton placeholders for the news detail view.
+ */
 export function NewsDetailSkeleton() {
   return (
     <View className="gap-4 p-4">

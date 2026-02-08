@@ -4,6 +4,11 @@ import { Button } from 'heroui-native';
 import { Newspaper } from 'lucide-react-native';
 import { View } from 'react-native';
 
+/**
+ * Render an empty-state UI indicating there are no news articles.
+ *
+ * @returns A React element containing a centered newspaper icon and the text "No news articles yet" styled with the current theme's secondary text color.
+ */
 export function NewsEmpty() {
   const theme = useTheme();
 
@@ -17,6 +22,14 @@ export function NewsEmpty() {
   );
 }
 
+/**
+ * Render an error state for the news list with an optional retry action.
+ *
+ * If `onRetry` is provided, a "Try Again" button is displayed and invoked when pressed.
+ *
+ * @param onRetry - Optional callback invoked when the retry button is pressed
+ * @returns A React element displaying the error message and optional retry button
+ */
 export function NewsError({ onRetry }: { onRetry?: () => void }) {
   return (
     <View className="items-center justify-center gap-3 px-6 py-20">
