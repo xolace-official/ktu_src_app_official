@@ -10,15 +10,14 @@ export function CampusNewsSection() {
 
   const handleReadMore = (newsId: string) => {
     router.push({
-      pathname: '/info-center/info/[id]',
+      pathname: '/src-news/news/[id]',
       params: { id: newsId },
     });
   };
 
   const handleViewAll = () => {
     router.push({
-      pathname: '/info-center',
-      params: { type: 'announcements' },
+      pathname: '/src-news',
     });
   };
 
