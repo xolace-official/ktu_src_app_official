@@ -67,8 +67,8 @@ export function NewsDetailsScreen() {
   }, []);
 
   const handleLinkPress = useCallback(
-    (event: { nativeEvent: { url: string } }) => {
-      handleOpenSource(event.nativeEvent.url);
+    (event: { url: string }) => {
+      handleOpenSource(event.url);
     },
     [handleOpenSource]
   );
@@ -220,7 +220,7 @@ export function NewsDetailsScreen() {
             markdown={article.body}
             markdownStyle={markdownStyle}
             onLinkPress={handleLinkPress}
-            selectable
+            isSelectable
           />
 
           {/* Source Link */}
