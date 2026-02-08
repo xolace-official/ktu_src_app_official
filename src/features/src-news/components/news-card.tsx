@@ -44,9 +44,13 @@ export const NewsCard = memo(function NewsCard({ article, onPress }: NewsCardPro
           )}
 
           <View className="mt-1 flex-row items-center gap-2">
-            <Avatar animation="disable-all" size="sm" alt={article.publisher}>
-                <Avatar.Image source={{ uri: article.publisher_image ?? undefined }} />
-              <Avatar.Fallback>
+            <Avatar size="sm" alt={article.publisher}>
+              <Avatar.Image
+                source={{ uri: article.publisher_image ?? undefined }}
+                animation={false}
+                isAnimatedStyleActive={false}
+              />
+              <Avatar.Fallback animation="disabled">
                 {article.publisher?.charAt(0).toUpperCase() ?? 'N'}
               </Avatar.Fallback>
             </Avatar>

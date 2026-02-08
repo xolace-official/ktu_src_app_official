@@ -195,12 +195,16 @@ export function NewsDetailsScreen() {
 
           {/* Publisher */}
           <View className="flex-row items-center gap-3">
-            {/* <Avatar size="md" alt={article.publisher} color="accent">
-              <Avatar.Image source={{ uri: article.publisher_image ?? undefined }} />
-              <Avatar.Fallback>
+            <Avatar size="md" alt={article.publisher} color="accent">
+              <Avatar.Image
+                source={{ uri: article.publisher_image ?? undefined }}
+                animation={false}
+                isAnimatedStyleActive={false}
+              />
+              <Avatar.Fallback animation="disabled">
                 {article.publisher?.charAt(0).toUpperCase() ?? 'N'}
               </Avatar.Fallback>
-            </Avatar> */}
+            </Avatar>
             <View>
               <ThemedText className="font-medium">{article.publisher}</ThemedText>
               <ThemedText type="small" themeColor="textSecondary">

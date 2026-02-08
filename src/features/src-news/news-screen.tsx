@@ -76,29 +76,20 @@ export function NewsScreen() {
     [selectedCategory]
   );
 
-  if (isLoading) {
-    return (
-      <View className="flex-1" style={{ backgroundColor: theme.background }}>
-        <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
-        <NewsListSkeleton />
-      </View>
-    );
-  }
+//   if (isLoading) {
+//     return (
+//       <View className="flex-1" style={{ backgroundColor: theme.background }}>
+//         <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
+//         <NewsListSkeleton />
+//       </View>
+//     );
+//   }
 
   if (isError) {
     return (
       <View className="flex-1" style={{ backgroundColor: theme.background }}>
         <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
         <NewsError onRetry={refetch} />
-      </View>
-    );
-  }
-
-  if (articles.length === 0) {
-    return (
-      <View className="" >
-        <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
-        <NewsEmpty />
       </View>
     );
   }
@@ -116,6 +107,7 @@ export function NewsScreen() {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
+        ListEmptyComponent={isLoading ? <NewsListSkeleton /> : <NewsEmpty />}
         refreshControl={
           <RefreshControl
             refreshing={isRefetching}
