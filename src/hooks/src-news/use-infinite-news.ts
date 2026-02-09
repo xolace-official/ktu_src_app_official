@@ -6,9 +6,14 @@ const PAGE_SIZE = 10;
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 /**
- * Infinite query hook for fetching news articles with pagination.
- * Filters out drafts and orders by published_at DESC.
- * Optionally filters by category.
+ * Provides an infinite React Query for paginated news items.
+ *
+ * Each page contains an array of `NewsCardItem` objects and the total `count` of matching rows.
+ * Results exclude drafts and are ordered by `published_at` descending; when `category` is provided,
+ * results are restricted to that category.
+ *
+ * @param category - Optional category slug to filter news items
+ * @returns An infinite query result that yields pages of `{ items: NewsCardItem[]; count: number }`
  */
 export function useInfiniteNews(category?: string) {
   const client = useSupabase();

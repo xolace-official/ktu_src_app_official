@@ -9,6 +9,15 @@ interface CategoryFilterProps {
   onSelect: (category: string | undefined) => void;
 }
 
+/**
+ * Render a horizontal list of selectable category chips.
+ *
+ * Displays chips for the fixed categories and highlights the currently selected one.
+ *
+ * @param selected - The currently selected category; `undefined` represents the "All" selection.
+ * @param onSelect - Callback invoked when a category is pressed. Receives `undefined` when "All" is chosen, otherwise the chosen category string.
+ * @returns The category filter UI as a React element.
+ */
 export function CategoryFilter({ selected, onSelect }: CategoryFilterProps) {
   const handlePress = useCallback(
     (cat: string) => {

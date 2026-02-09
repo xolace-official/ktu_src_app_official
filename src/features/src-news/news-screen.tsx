@@ -11,10 +11,21 @@ import type { NewsCardItem } from '@/types/news';
 
 import { CategoryFilter, NewsCard, NewsEmpty, NewsError, NewsListSkeleton } from './components';
 
+/**
+ * Renders a fixed-height spacer used to separate list items.
+ *
+ * @returns A View element with a fixed height of 12px used as an item separator.
+ */
 function ItemSeparator() {
   return <View className="h-3" />;
 }
 
+/**
+ * Render a footer that displays a centered loading spinner when more items are being loaded.
+ *
+ * @param isLoadingMore - Whether the list is currently loading additional items
+ * @returns A View containing a centered Spinner when `isLoadingMore` is `true`, otherwise `null`
+ */
 function ListFooter({ isLoadingMore }: { isLoadingMore: boolean }) {
   if (!isLoadingMore) return null;
   return (
@@ -24,6 +35,13 @@ function ListFooter({ isLoadingMore }: { isLoadingMore: boolean }) {
   );
 }
 
+/**
+ * Render the news listing screen with a category filter, pull-to-refresh, and infinite scroll.
+ *
+ * The component displays a header category selector, a list of news articles, an empty-state or loading skeleton when appropriate, and an error view with a retry action when loading fails. Selecting an article navigates to its detail screen; reaching the list end loads more pages.
+ *
+ * @returns The screen element that renders a category-filterable, refreshable, infinitely scrollable list of news articles
+ */
 export function NewsScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();

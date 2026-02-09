@@ -14,6 +14,12 @@ import { formatRelativeTime } from '@/utils/format-relative-time';
 
 import { NewsDetailSkeleton, NewsError } from './components';
 
+/**
+ * Formats a date string into a US English long date including weekday, month, day, and year.
+ *
+ * @param dateString - A string parseable by the JavaScript Date constructor (for example, an ISO 8601 timestamp).
+ * @returns The formatted date (e.g., "Tuesday, January 2, 2024").
+ */
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
     weekday: 'long',
@@ -23,6 +29,13 @@ function formatDate(dateString: string): string {
   });
 }
 
+/**
+ * Render the news details screen showing an article's cover, metadata, publisher info, markdown body, and optional source link.
+ *
+ * Renders loading and error states, supports retrying fetches, and safely opens external source links (validates scheme and availability before opening).
+ *
+ * @returns A React element that displays the article details screen.
+ */
 export function NewsDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const articleId = Array.isArray(id) ? id[0] : (id ?? '');

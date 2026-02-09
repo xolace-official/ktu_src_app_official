@@ -5,6 +5,15 @@ import { NewsCard } from '../cards/news-card';
 import { useCampusNews } from '@/hooks/home/use-campus-news';
 import { Image } from 'expo-image';
 
+/**
+ * Render a campus news section with a header image, a "View All" button, and a list of news cards.
+ *
+ * Fetches the latest campus news (limited to three). While fetching, displays a skeleton placeholder.
+ * If no articles are available, renders nothing. Tapping a news card navigates to that article's detail page;
+ * tapping "View All" navigates to the news index.
+ *
+ * @returns A React element containing the campus news section, or `null` when there are no articles.
+ */
 export function CampusNewsSection() {
   const { data, isLoading } = useCampusNews(3);
 
