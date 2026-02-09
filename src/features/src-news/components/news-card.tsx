@@ -51,7 +51,7 @@ export const NewsCard = memo(function NewsCard({ article, onPress }: NewsCardPro
                 isAnimatedStyleActive={false}
               />
               <Avatar.Fallback animation="disabled">
-                {article.publisher?.charAt(0).toUpperCase() ?? 'N'}
+                {article.publisher?.charAt(0).toUpperCase() || 'N'}
               </Avatar.Fallback>
             </Avatar>
             <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>

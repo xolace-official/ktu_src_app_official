@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, Stack } from 'expo-router';
 import { Avatar, Button, Chip, Separator } from 'heroui-native';
 import { ExternalLink } from 'lucide-react-native';
 import { useCallback, useMemo } from 'react';
@@ -176,6 +176,7 @@ export function NewsDetailsScreen() {
 
   return (
     <View className="flex-1" style={{ backgroundColor: theme.background }}>
+      <Stack.Screen options={{ title: article.title }} />
       <ScrollView
         className="flex-1"
         showsVerticalScrollIndicator={false}
@@ -187,6 +188,8 @@ export function NewsDetailsScreen() {
             source={{ uri: article.cover_image }}
             style={{ width: '100%', aspectRatio: 16 / 9 }}
             resizeMode="cover"
+            accessibilityLabel={`Cover image for ${article.title}`}
+            accessible
           />
         )}
 
