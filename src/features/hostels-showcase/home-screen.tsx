@@ -11,7 +11,6 @@ import Animated, {
   Extrapolation,
   type SharedValue,
 } from 'react-native-reanimated';
-import { Spinner } from 'heroui-native';
 
 import { useTheme } from '@/hooks/use-theme';
 import { useFeaturedHostels, useRecommendedHostels } from '@/hooks/hostels';
@@ -21,10 +20,10 @@ import {
   SectionHeader,
   FeaturedHostelsSkeleton,
   RecommendedHostelsSkeleton,
-  HeaderButtons,
 } from './components';
 import { ThemedText } from '@/components/themed-text';
 import type { HostelCard as HostelCardType } from '@/types/hostels';
+import { useThemeColor } from 'heroui-native';
 
 const IMG_HEIGHT = 280;
 
@@ -216,6 +215,7 @@ function EmptyState({
  * Main hostels showcase home screen
  */
 export function HostelsHomeScreen() {
+  const primaryColor = useThemeColor('accent')
   const theme = useTheme();
   const navigation = useNavigation();
   const scrollOffset = useSharedValue(0);
@@ -284,12 +284,12 @@ export function HostelsHomeScreen() {
           ]}
         />
       ),
-      headerRight: () => (
-        <HeaderButtons
-          onSharePress={handleSharePress}
-          onFavoritePress={handleFavoritePress}
-        />
-      ),
+      // headerRight: () => (
+      //   <HeaderButtons
+      //     onSharePress={handleSharePress}
+      //     onFavoritePress={handleFavoritePress}
+      //   />
+      // ),
     });
   }, [navigation, headerAnimatedStyle, theme, handleSharePress, handleFavoritePress]);
 
@@ -332,7 +332,7 @@ export function HostelsHomeScreen() {
           <RefreshControl
             refreshing={isRefetching}
             onRefresh={refetch}
-            tintColor={theme.accent}
+            tintColor={primaryColor}
             progressViewOffset={100}
           />
         }

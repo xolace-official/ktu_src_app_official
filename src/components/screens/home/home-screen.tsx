@@ -38,7 +38,7 @@ export function HomeScreen() {
 
   return (
     <SafeAreaView
-      edges={['top', 'right', 'left']}
+      edges={['top', 'right', 'left', 'bottom']}
       style={{ flex: 1, backgroundColor: theme.background }}
     >
       <StatusBar style="auto" />
