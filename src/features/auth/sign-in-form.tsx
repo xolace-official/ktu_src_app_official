@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import { TextField, Button, Spinner } from 'heroui-native';
+import { TextField, Button, Spinner, Label, Input, FieldError } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
@@ -49,8 +49,8 @@ export default function SignInForm() {
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField isInvalid={!!errors.email} isRequired>
-              <TextField.Label>Institution Email</TextField.Label>
-              <TextField.Input
+              <Label>Institution Email</Label>
+              <Input
                 placeholder="example234d@ktu.edu.gh"
                 value={value}
                 onChangeText={onChange}
@@ -63,7 +63,7 @@ export default function SignInForm() {
                 blurOnSubmit={false}
               />
               {errors.email && (
-                <TextField.ErrorMessage>{errors.email.message}</TextField.ErrorMessage>
+                <FieldError>{errors.email.message}</FieldError>
               )}
             </TextField>
           )}
@@ -75,8 +75,8 @@ export default function SignInForm() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField isInvalid={!!errors.password} isRequired>
-              <TextField.Label>Password</TextField.Label>
-              <TextField.Input
+              <Label>Password</Label>
+              <Input
                 ref={passwordRef}
                 placeholder="Enter your password"
                 value={value}
@@ -88,7 +88,7 @@ export default function SignInForm() {
                 onSubmitEditing={handleSubmit(onSubmit)}
               />
               {errors.password && (
-                <TextField.ErrorMessage>{errors.password.message}</TextField.ErrorMessage>
+                <FieldError>{errors.password.message}</FieldError>
               )}
             </TextField>
           )}

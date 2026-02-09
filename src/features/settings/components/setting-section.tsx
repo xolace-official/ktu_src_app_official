@@ -16,7 +16,7 @@ export function SettingSectionGroup({ section, onItemPress }: SettingSectionGrou
           {section.title}
         </Text>
       )}
-      <Surface variant="secondary" className="overflow-hidden rounded-xl p-0">
+      <Surface variant="default" className="overflow-hidden rounded-xl p-0">
         {section.items.map((item, index) => (
           <View key={item.id}>
             {index > 0 && <Separator />}

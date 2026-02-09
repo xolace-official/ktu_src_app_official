@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react';
 import { View, Text, TextInput, Keyboard } from 'react-native';
-import { TextField, Select, Button, Spinner } from 'heroui-native';
+import { TextField, Select, Button, Spinner, Label, Input, FieldError, ControlField } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
@@ -126,8 +126,8 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
             name="fullName"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.fullName} isRequired>
-                <TextField.Label>Full Name</TextField.Label>
-                <TextField.Input
+                <Label>Full Name</Label>
+                <Input
                   placeholder="John Doe"
                   value={value}
                   onChangeText={onChange}
@@ -140,7 +140,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   blurOnSubmit={false}
                 />
                 {errors.fullName && (
-                  <TextField.ErrorMessage>{errors.fullName.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.fullName.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -152,8 +152,8 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
             name="indexNumber"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.indexNumber} isRequired>
-                <TextField.Label>Index Number</TextField.Label>
-                <TextField.Input
+                <Label>Index Number</Label>
+                <Input
                   ref={indexNumberRef}
                   placeholder="B202210330"
                   value={value}
@@ -162,10 +162,9 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   autoCapitalize="characters"
                   returnKeyType="next"
                   onSubmitEditing={() => phoneNumberRef.current?.focus()}
-                  blurOnSubmit={false}
                 />
                 {errors.indexNumber && (
-                  <TextField.ErrorMessage>{errors.indexNumber.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.indexNumber.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -177,8 +176,8 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
             name="phoneNumber"
             render={({ field: { onChange, onBlur, value } }) => (
               <TextField isInvalid={!!errors.phoneNumber} isRequired>
-                <TextField.Label>Phone Number</TextField.Label>
-                <TextField.Input
+                <Label>Phone Number</Label>
+                <Input
                   ref={phoneNumberRef}
                   placeholder="0241234567"
                   value={value}
@@ -191,7 +190,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   onSubmitEditing={() => Keyboard.dismiss()}
                 />
                 {errors.phoneNumber && (
-                  <TextField.ErrorMessage>{errors.phoneNumber.message}</TextField.ErrorMessage>
+                  <FieldError>{errors.phoneNumber.message}</FieldError>
                 )}
               </TextField>
             )}
@@ -210,6 +209,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   value={findSelectOption(facultyOptions, value)}
                   onValueChange={handleFacultyChange}
                   isDisabled={isLoadingFaculties}
+                  presentation='bottom-sheet'
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger
@@ -247,6 +247,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   value={findSelectOption(departmentOptions, value)}
                   onValueChange={handleDepartmentChange}
                   isDisabled={!selectedFaculty || isLoadingDepartments}
+                  presentation='bottom-sheet'
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger
@@ -286,6 +287,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   value={findSelectOption(programOptions, value)}
                   onValueChange={(option) => setValue('program', option?.value ?? '')}
                   isDisabled={!selectedDepartment || isLoadingPrograms}
+                  presentation='bottom-sheet'
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger
@@ -328,6 +330,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                 <Select
                   value={findSelectOption(levelOptions, value)}
                   onValueChange={(option) => setValue('level', option?.value ?? '')}
+                  presentation='bottom-sheet'
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger

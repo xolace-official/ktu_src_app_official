@@ -27,16 +27,13 @@ export function SettingsProfileHeader() {
         onPress={() => router.push('/settings/profile-account')}
         className="overflow-hidden rounded-xl"
       >
-        <Surface variant="secondary" className="flex-row items-center p-4">
+        <Surface className="flex-row items-center p-4">
           <PressableFeedback.Highlight />
-          <Avatar alt="Profile" size="lg" color="accent">
-            {avatarUrl ? (
-              <Avatar.Image source={{ uri: avatarUrl }} />
-            ) : (
-              <Avatar.Fallback>
+          <Avatar alt="Profile" size="lg">
+              <Avatar.Image source={{ uri: avatarUrl ?? undefined }} />
+              <Avatar.Fallback color="default">
                 {getInitials(fullName)}
               </Avatar.Fallback>
-            )}
           </Avatar>
           <View className="ml-3 flex-1">
             <Text className="text-base font-semibold text-foreground">

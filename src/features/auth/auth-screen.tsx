@@ -109,7 +109,7 @@ export function AuthScreen() {
 
         {/* Tab Content */}
         <View className='bg-background flex-1'>
-          <Tabs variant='line' value={activeTab} onValueChange={setActiveTab}>
+          <Tabs variant='secondary' value={activeTab} onValueChange={setActiveTab}>
             <Tabs.List className="mx-5 mt-4">
               <Tabs.Trigger value="signup" className="flex-1">
                 <Tabs.Label>Sign Up</Tabs.Label>

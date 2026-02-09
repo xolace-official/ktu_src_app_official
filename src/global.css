@@ -10,3 +10,21 @@
  *   - If global.css is in src/styles/: ../../node_modules/heroui-native/lib
  */
 @source '../node_modules/heroui-native/lib';
+
+@layer theme {
+  @variant light {
+    /* Override default colors */
+    --accent: oklch(0.7324 0.1649 55.36); /* Custom indigo accent */
+    --success: oklch(0.65 0.15 155);
+
+    --default: oklch(0.7324 0.1649 55.36);
+  }
+
+  @variant dark {
+    /* Override dark theme colors */
+    --accent: oklch(0.7324 0.1649 55.36);
+    --success: oklch(0.75 0.12 155);
+
+    --default: oklch(0.7324 0.1649 55.36);
+  }
+}

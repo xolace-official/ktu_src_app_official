@@ -119,7 +119,7 @@ export function HostelDetailsScreen() {
           {/* Type chip and rating */}
           <View className="flex-row items-center gap-3">
             <Chip variant="secondary" size="sm">
-              <Chip.Label className="font-bold">{hostel.type}</Chip.Label>
+              <Chip.Label className="font-bold text-foreground">{hostel.type}</Chip.Label>
             </Chip>
 
             {hostel.rating != null && hostel.rating > 0 && (

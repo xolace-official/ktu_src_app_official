@@ -1,12 +1,11 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PressableFeedback } from 'heroui-native';
-import { ChevronLeft, Heart, Share2 } from 'lucide-react-native';
+import { ChevronLeft } from 'lucide-react-native';
 import { View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { blurhash } from '@/constants';
-import { useTheme } from '@/hooks/use-theme';
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800';
 
@@ -29,7 +28,6 @@ export function HeaderSection({
 }: HeaderSectionProps) {
   const { height: screenHeight } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  const theme = useTheme();
 
   return (
     <View className="relative w-full" style={{ height: screenHeight * 0.45 }}>
@@ -58,7 +56,7 @@ export function HeaderSection({
             <ChevronLeft size={24} color="#000" />
           </PressableFeedback>
 
-          <View className="flex-row items-center gap-3">
+          {/* <View className="flex-row items-center gap-3">
             <PressableFeedback
               onPress={onFavorite}
               className="size-11 items-center justify-center rounded-full"
@@ -73,7 +71,7 @@ export function HeaderSection({
             >
               <Share2 size={22} color={theme.text} />
             </PressableFeedback>
-          </View>
+          </View> */}
         </View>
       </View>
     </View>

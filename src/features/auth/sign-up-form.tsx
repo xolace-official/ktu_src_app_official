@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { View, TextInput } from 'react-native';
-import { TextField, Button, FormField, Spinner } from 'heroui-native';
+import { TextField, Button, ControlField, Spinner, Label, Input, FieldError } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
@@ -61,8 +61,8 @@ export default function SignUpForm() {
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField isInvalid={!!errors.email} isRequired>
-              <TextField.Label>Institution Email</TextField.Label>
-              <TextField.Input
+              <Label>Institution Email</Label>
+              <Input
                 placeholder="example234d@ktu.edu.gh"
                 value={value}
                 onChangeText={onChange}
@@ -76,7 +76,7 @@ export default function SignUpForm() {
                 blurOnSubmit={false}
               />
               {errors.email && (
-                <TextField.ErrorMessage>{errors.email.message}</TextField.ErrorMessage>
+                <FieldError>{errors.email.message}</FieldError>
               )}
             </TextField>
           )}
@@ -88,8 +88,8 @@ export default function SignUpForm() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField isInvalid={!!errors.password} isRequired>
-              <TextField.Label>Password</TextField.Label>
-              <TextField.Input
+              <Label>Password</Label>
+              <Input
                 ref={passwordRef}
                 placeholder="Enter your password"
                 value={value}
@@ -102,7 +102,7 @@ export default function SignUpForm() {
                 blurOnSubmit={false}
               />
               {errors.password && (
-                <TextField.ErrorMessage>{errors.password.message}</TextField.ErrorMessage>
+                <FieldError>{errors.password.message}</FieldError>
               )}
             </TextField>
           )}
@@ -114,8 +114,8 @@ export default function SignUpForm() {
           name="confirmPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField isInvalid={!!errors.confirmPassword} isRequired>
-              <TextField.Label>Confirm Password</TextField.Label>
-              <TextField.Input
+              <Label>Confirm Password</Label>
+              <Input
                 ref={confirmPasswordRef}
                 placeholder="Repeat your password"
                 value={value}
@@ -126,7 +126,7 @@ export default function SignUpForm() {
                 returnKeyType="done"
               />
               {errors.confirmPassword && (
-                <TextField.ErrorMessage>{errors.confirmPassword.message}</TextField.ErrorMessage>
+                <FieldError>{errors.confirmPassword.message}</FieldError>
               )}
             </TextField>
           )}
@@ -135,14 +135,14 @@ export default function SignUpForm() {
 
       {/* Terms Checkbox & Submit */}
       <View className="gap-6">
-        <FormField
+        <ControlField
           isSelected={acceptedTerms}
           onSelectedChange={setAcceptedTerms}
           className="flex-row items-center gap-3"
         >
-          <FormField.Indicator variant="checkbox" />
-          <FormField.Label>Accept terms and conditions</FormField.Label>
-        </FormField>
+          <ControlField.Indicator variant="checkbox" />
+          <Label>Accept terms and conditions</Label>
+        </ControlField>
 
         <Button
           onPress={handleSubmit(onSubmit)}

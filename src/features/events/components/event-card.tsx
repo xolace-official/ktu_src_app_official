@@ -45,7 +45,7 @@ export const EventCard = memo(function EventCard({ event, onPress }: EventCardPr
 
   return (
     <PressableFeedback onPress={handlePress} style={{ width: cardWidth }}>
-      <Card className="overflow-hidden rounded-2xl">
+      <Card variant='secondary' className="overflow-hidden rounded-2xl">
         {/* Event Image */}
         <View className="relative">
           <Image

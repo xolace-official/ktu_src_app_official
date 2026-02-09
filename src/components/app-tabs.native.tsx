@@ -2,6 +2,7 @@ import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { useSegments } from 'expo-router';
 import React from 'react';
 import { useColorScheme } from 'react-native';
+import { useThemeColor } from 'heroui-native';
 
 import { Colors } from '@/constants/theme';
 
@@ -18,6 +19,11 @@ const HIDDEN_TAB_ROUTES = ['product', 'hostel'];
  * visibility and colors adapt to the active route segments and color scheme.
  */
 export default function AppTabs() {
+//   const { accent, background } = useThemeColor([
+//   'accent',
+//   'background'
+// ]);
+const primaryColor = useThemeColor('accent');
   const scheme = useColorScheme();
   const colors = Colors[scheme === 'unspecified' ? 'light' : scheme];
   const segments = useSegments();
@@ -30,31 +36,33 @@ export default function AppTabs() {
     <NativeTabs
       hidden={shouldHideTabs}
       backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
-      labelStyle={{ selected: { color: colors.text } }}>
+      disableTransparentOnScrollEdge={true}
+      tintColor={primaryColor}
+      minimizeBehavior="onScrollDown"
+      labelStyle={{ selected: { color: primaryColor } }}>
       <NativeTabs.Trigger name="(home)">
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/home.png')} />
+        <NativeTabs.Trigger.Icon sf={{ default: "house", selected: "house.circle.fill" }} drawable="ic_menu_home" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="marketplace-screen">
         <NativeTabs.Trigger.Label>Marketplace</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="bag" drawable="ic_menu_shopping_cart" />
+        <NativeTabs.Trigger.Icon sf={{ default: "bag", selected: "bag.circle.fill" }} drawable="ic_menu_shopping_cart" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="hostels-showcase">
         <NativeTabs.Trigger.Label>Hostels</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="house" drawable="ic_menu_home" />
+        <NativeTabs.Trigger.Icon sf={{ default: "house.lodge", selected: "house.lodge.circle.fill" }} drawable="ic_menu_home" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="events">
         <NativeTabs.Trigger.Label>Events</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="calendar" drawable="ic_menu_my_calendar" />
+        <NativeTabs.Trigger.Icon sf={{ default: "calendar", selected: "calendar.circle.fill" }} drawable="ic_menu_my_calendar" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="settings">
         <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="gear" drawable="ic_menu_preferences" />
+        <NativeTabs.Trigger.Icon sf={{ default: "gear", selected: "gear.circle.fill" }} drawable="ic_menu_preferences" />
       </NativeTabs.Trigger>
     </NativeTabs>
   );
