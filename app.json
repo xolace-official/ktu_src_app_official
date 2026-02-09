@@ -9,7 +9,10 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.skvng.ktu-src-app-official"
+      "bundleIdentifier": "com.skvng.ktu-src-app-official",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -42,6 +45,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c621c3e4-72cf-4126-9dbe-5e82e4ddc79a"
+      }
+    },
+    "owner": "xolace-inc-org"
   }
 }
