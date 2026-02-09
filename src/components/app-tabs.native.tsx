@@ -39,22 +39,22 @@ export default function AppTabs() {
 
       <NativeTabs.Trigger name="marketplace-screen">
         <NativeTabs.Trigger.Label>Marketplace</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/explore.png')} />
+        <NativeTabs.Trigger.Icon sf="bag" drawable="ic_menu_shopping_cart" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="hostels-showcase">
         <NativeTabs.Trigger.Label>Hostels</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/explore.png')} />
+        <NativeTabs.Trigger.Icon sf="house" drawable="ic_menu_home" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="events">
         <NativeTabs.Trigger.Label>Events</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/home.png')} />
+        <NativeTabs.Trigger.Icon sf="calendar" drawable="ic_menu_my_calendar" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="settings">
         <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon src={require('@/assets/images/tabIcons/explore.png')} />
+        <NativeTabs.Trigger.Icon sf="gear" drawable="ic_menu_preferences" />
       </NativeTabs.Trigger>
     </NativeTabs>
   );
