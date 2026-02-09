@@ -13,16 +13,9 @@ export interface NewsCardItem {
   cover_image?: string | null;
 }
 
-export interface NewsArticle {
-  id: string;
-  title: string;
+
+export interface NewsArticle extends NewsCardItem {
   body: string;
-  excerpt: string | null;
-  category: string;
-  publisher: string;
-  publisher_image: string | null;
-  published_at: string;
-  cover_image?: string | null;
   source: string | null;
   author: { full_name: string | null; avatar_url: string | null } | null;
   created_at: string;
