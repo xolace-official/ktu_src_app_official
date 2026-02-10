@@ -24,6 +24,7 @@ export default function SignInForm() {
     mode: 'onChange',
   });
 
+    // 🟢 Initialize mutation
   const { mutateAsync: signIn, isPending, error } = useSignInWithEmailPassword();
 
   const onSubmit = async (data: SigninFormType) => {

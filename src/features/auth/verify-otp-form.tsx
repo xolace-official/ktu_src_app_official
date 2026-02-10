@@ -6,15 +6,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, Text, View } from 'react-native';
 
 import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
+import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
-// import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 
 export default function VerifyOtpForm() {
   const { email } = useLocalSearchParams<{ email: string }>();
   const [timer, setTimer] = useState(180); // 3 minutes
 
   const verifyOtp = useVerifyOtp();
-  // const resendOtp = useResendOtp();
+  const resendOtp = useResendOtp();
 
   const {
     control,
@@ -46,11 +46,11 @@ export default function VerifyOtpForm() {
     try {
       Keyboard.dismiss();
 
-      // await verifyOtp.mutateAsync({
-      //   email: email as string,
-      //   token: data.otpCode,
-      //   type: 'email',
-      // });
+      await verifyOtp.mutateAsync({
+        email: email as string,
+        token: data.otpCode,
+        type: 'email', // important
+      });
 
       // Navigate to complete profile or home
       // router.replace('/(protected)/complete-profile');
@@ -63,7 +63,7 @@ export default function VerifyOtpForm() {
 
   const handleResend = async () => {
     try {
-      // await resendOtp.mutateAsync(email as string);
+      await resendOtp.mutateAsync(email as string);
       setTimer(180);
       reset({ otpCode: '' });
     } catch (err: any) {
