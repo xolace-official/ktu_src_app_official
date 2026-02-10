@@ -1,17 +1,17 @@
 import { Stack } from 'expo-router';
+import { useProfileBootstrap } from '@/hooks/profile/use-profile-bootstrap';
+import { useAppStore } from '@/store/store';
 
 const ProtectedLayout = () => {
-//   // Load profile into store
-//   useProfileBootstrap();
+  const { isLoading } = useProfileBootstrap();
 
-//   const completed = useAppStore((s) => s.profileSummary.completed);
-//   const hydrated = useAppStore((s) => s._hasHydrated);
+  const completed = useAppStore((s) => s.profileSummary.completed);
+  const hydrated = useAppStore((s) => s._hasHydrated);
 
-//   // Don’t render router until store hydration + bootstrap done
-//   if (!hydrated || completed === null) {
-//     return null; // or splash screen
-//   }
-const completed = true;
+  // Don't render router until store hydration + profile bootstrap done
+  if (!hydrated || isLoading || completed === null) {
+    return null;
+  }
 
   return (
     <Stack>

@@ -3,6 +3,9 @@ import '../global.css'
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import RootProvider from '@/providers/root-provider';
+import { useAuthSession } from '@/hooks/auth/use-auth-session';
+import { useAuthListener } from '@/lib/supabase/use-auth-listener';
+import { useRegisterAutoRefresh } from '@/lib/supabase/use-register-auto-refresh';
 import { Stack } from 'expo-router';
 
 export const unstable_settings = {
@@ -20,15 +23,19 @@ export default function RootLayout() {
 }
 
 const RootLayoutNav = () => {
-  const isAuthenticated = true;
+  useRegisterAutoRefresh();
+  useAuthListener();
+
+  const { isAuthenticated } = useAuthSession();
+
   return (
     <Stack>
-        <Stack.Protected guard={isAuthenticated}>
-          <Stack.Screen name="(protected)" options={{ headerShown: false }} />
-        </Stack.Protected>
-        <Stack.Protected guard={!isAuthenticated}>
-          <Stack.Screen name="auth" options={{ headerShown: false }} />
-        </Stack.Protected>
-      </Stack>
+      <Stack.Protected guard={isAuthenticated}>
+        <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+      </Stack.Protected>
+      <Stack.Protected guard={!isAuthenticated}>
+        <Stack.Screen name="auth" options={{ headerShown: false }} />
+      </Stack.Protected>
+    </Stack>
   );
 }
