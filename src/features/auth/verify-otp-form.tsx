@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, Text, View } from 'react-native';
 
-import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { useResendOtp } from '@/hooks/auth/use-resend-otp';
+import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
 
 export default function VerifyOtpForm() {
@@ -56,7 +56,7 @@ export default function VerifyOtpForm() {
       // router.replace('/(protected)/complete-profile');
     } catch (err: any) {
       setError('otpCode', {
-        message: err?.message || 'OTP verification failed',
+        message: `${err?.message}. Please try again or wait to resend new code` || 'OTP verification failed. Please wait to resend code or contact support.',
       });
     }
   };
@@ -131,7 +131,7 @@ export default function VerifyOtpForm() {
           size="lg"
         >
           {verifyOtp.isPending ? (
-            <Spinner size="sm" className="text-primary-foreground" />
+            <Spinner size="md" color="#8B5CF6" />
           ) : timer === 0 ? (
             <Button.Label>Code expired</Button.Label>
           ) : (
@@ -147,7 +147,7 @@ export default function VerifyOtpForm() {
           size="lg"
         >
           {timer > 0 ? (
-            <Spinner size="sm" className="text-white" />
+            <Button.Label className="text-foreground">Wait to Resend {errors.otpCode && formatTime(timer)}</Button.Label>
           ) : (
             <Button.Label className="text-white">Resend code</Button.Label>
           )}

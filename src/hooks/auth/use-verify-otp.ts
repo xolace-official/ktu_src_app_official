@@ -9,8 +9,11 @@ export function useVerifyOtp() {
   const queryClient = useQueryClient();
 
   const mutationFn = async (params: VerifyOtpParams) => {
+    console.log("Verifying ", params)
     const { data, error } = await client.auth.verifyOtp(params);
 
+    console.log("Error ", error)
+    console.log("Data ", data)
     if (error) throw error;
     return data;
   };

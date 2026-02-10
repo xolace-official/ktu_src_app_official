@@ -1,4 +1,6 @@
+import { View } from 'react-native';
 import { Stack } from 'expo-router';
+import { Spinner } from 'heroui-native';
 import { useProfileBootstrap } from '@/hooks/profile/use-profile-bootstrap';
 import { useAppStore } from '@/store/store';
 
@@ -8,9 +10,12 @@ const ProtectedLayout = () => {
   const completed = useAppStore((s) => s.profileSummary.completed);
   const hydrated = useAppStore((s) => s._hasHydrated);
 
-  // Don't render router until store hydration + profile bootstrap done
   if (!hydrated || isLoading || completed === null) {
-    return null;
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Spinner size="lg" />
+      </View>
+    );
   }
 
   return (
