@@ -3,6 +3,7 @@ import type { HomeEvent } from '@/types/home';
 import { useQuery } from '@tanstack/react-query';
 
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
+const GC_TIME_2_HOURS = 2 * STALE_TIME_1_HOUR;
 
 export function useUpcomingEvents(limit = 3) {
   const client = useSupabase();
@@ -11,7 +12,7 @@ export function useUpcomingEvents(limit = 3) {
   return useQuery({
     queryKey: ['upcoming-events', safeLimit],
     staleTime: STALE_TIME_1_HOUR,
-    gcTime: STALE_TIME_1_HOUR,
+    gcTime: GC_TIME_2_HOURS,
     queryFn: async (): Promise<HomeEvent[]> => {
       const now = new Date().toISOString();
 

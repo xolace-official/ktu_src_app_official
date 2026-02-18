@@ -7,53 +7,55 @@ export interface TeamMember {
   gradientColors?: [string, string];
 }
 
+const BASE = `${process.env.EXPO_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/developer-credit`;
+
 export const techTeam: TeamMember[] = [
   {
     id: 'member-1',
     name: 'Emmanuel Acquah',
     position: 'Chairman',
-    initials: 'TM',
+    initials: 'EA',
     gradientColors: ['#3c87f7', '#6366f1'],
-    imageUrl: "http://127.0.0.1:54321/storage/v1/object/public/developer-credit/kwame.jpeg"
+    imageUrl: `${BASE}/kwame.jpeg`,
   },
   {
     id: 'member-2',
     name: 'David',
     position: 'Secretary / UI/UX',
-    initials: 'TM',
+    initials: 'D',
     gradientColors: ['#f43f5e', '#ec4899'],
-    imageUrl: "http://127.0.0.1:54321/storage/v1/object/public/developer-credit/major.png"
+    imageUrl: `${BASE}/major.png`,
   },
   {
     id: 'member-3',
     name: 'Nathaniel Adama',
     position: 'Lead Developer',
-    initials: 'TM',
+    initials: 'NA',
     gradientColors: ['#10b981', '#06b6d4'],
-    imageUrl: "http://127.0.0.1:54321/storage/v1/object/public/developer-credit/Nathan.JPG"
+    imageUrl: `${BASE}/Nathan.JPG`,
   },
   {
     id: 'member-4',
     name: 'Andrews Beniako',
     position: 'UI/UX designer',
-    initials: 'TM',
+    initials: 'AB',
     gradientColors: ['#f59e0b', '#ef4444'],
-    imageUrl: "http://127.0.0.1:54321/storage/v1/object/public/developer-credit/kobby.jpg"
+    imageUrl: `${BASE}/kobby.jpg`,
   },
-   {
+  {
     id: 'member-5',
     name: 'Prosper',
     position: 'Mobile Developer',
-    initials: 'TM',
+    initials: 'P',
     gradientColors: ['#f59e0b', '#ef4444'],
-    imageUrl: "http://127.0.0.1:54321/storage/v1/object/public/developer-credit/prosper.jpg"
+    imageUrl: `${BASE}/prosper.jpg`,
   },
-   {
+  {
     id: 'member-6',
     name: 'Emmanuel Somuah',
     position: 'Mobile Developer',
-    initials: 'TM',
+    initials: 'ES',
     gradientColors: ['#f59e0b', '#ef4444'],
-    imageUrl: "http://127.0.0.1:54321/storage/v1/object/public/developer-credit/prosper.jpg"
+    imageUrl: `${BASE}/emmanuel.jpg`,
   },
 ];

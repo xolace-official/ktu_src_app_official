@@ -13,7 +13,7 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
+  // Default to the tabs shell so deep-link reloads start from a valid root.
   initialRouteName: '(tabs)',
 };
 

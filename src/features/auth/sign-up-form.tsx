@@ -41,7 +41,7 @@ export default function SignUpForm() {
       description: error.message,
       icon: (
               <StyledFeather
-                name="hard-drive"
+                name="alert-circle"
                 size={16}
                 className="text-danger mt-[3px]"
               />

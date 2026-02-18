@@ -8,10 +8,12 @@ interface TeamMemberCardProps {
   member: TeamMember;
 }
 
+export const CARD_HORIZONTAL_PADDING = 16;
+export const CARD_GAP = 16;
+
 export function TeamMemberCard({ member }: TeamMemberCardProps) {
   const { width } = useWindowDimensions();
-  // 2 columns: 16px left padding + 16px right padding + 16px gap between cards
-  const cardWidth = (width - 48) / 2;
+  const cardWidth = (width - CARD_HORIZONTAL_PADDING * 2 - CARD_GAP) / 2;
 
   return (
     <View style={{ width: cardWidth, aspectRatio: 3 / 4 }}>

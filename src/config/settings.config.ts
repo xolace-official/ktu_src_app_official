@@ -1,10 +1,7 @@
 import {
   User,
-  Shield,
   HelpCircle,
-  MessageSquare,
   Send,
-  Bug,
   FileText,
   Lock,
   Info,
@@ -34,21 +31,6 @@ export const settingSections: SettingSection[] = [
       },
     ],
   },
-  // {
-  //   id: 'privacy-security',
-  //   title: 'Privacy & Security',
-  //   items: [
-  //     {
-  //       id: 'privacy-data',
-  //       label: 'Privacy & Data',
-  //       icon: Shield,
-  //       iconBgClass: 'bg-success',
-  //       iconColor: '#fff',
-  //       type: 'navigate',
-  //       route: '/settings/privacy-data',
-  //     },
-  //   ],
-  // },
   {
     id: 'support',
     title: 'Support',
@@ -62,15 +44,6 @@ export const settingSections: SettingSection[] = [
         type: 'navigate',
         route: '/settings/help-center',
       },
-      // {
-      //   id: 'contact-rep',
-      //   label: 'Contact Student Rep',
-      //   icon: MessageSquare,
-      //   iconBgClass: 'bg-success',
-      //   iconColor: '#fff',
-      //   type: 'external',
-      //   externalUrl: 'https://ktusrc.com/contact',
-      // },
       {
         id: 'send-feedback',
         label: 'Send Feedback',
@@ -80,15 +53,6 @@ export const settingSections: SettingSection[] = [
         type: 'navigate',
         route: '/settings/feedback',
       },
-      // {
-      //   id: 'report-bug',
-      //   label: 'Report a Bug',
-      //   icon: Bug,
-      //   iconBgClass: 'bg-danger',
-      //   iconColor: '#fff',
-      //   type: 'external',
-      //   externalUrl: 'https://ktusrc.com/bug-report',
-      // },
     ],
   },
   {
