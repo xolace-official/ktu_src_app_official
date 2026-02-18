@@ -16,7 +16,6 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <RootProvider>
-      <AnimatedSplashOverlay />
       <RootLayoutNav />
     </RootProvider>
   );
@@ -26,16 +25,19 @@ const RootLayoutNav = () => {
   useRegisterAutoRefresh();
   useAuthListener();
 
-  const { isAuthenticated } = useAuthSession();
+  const { isAuthenticated, isLoading } = useAuthSession();
 
   return (
-    <Stack>
-      <Stack.Protected guard={isAuthenticated}>
-        <Stack.Screen name="(protected)" options={{ headerShown: false }} />
-      </Stack.Protected>
-      <Stack.Protected guard={!isAuthenticated}>
-        <Stack.Screen name="auth" options={{ headerShown: false }} />
-      </Stack.Protected>
-    </Stack>
+    <>
+      <AnimatedSplashOverlay isLoading={isLoading} />
+      <Stack>
+        <Stack.Protected guard={isAuthenticated}>
+          <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!isLoading && !isAuthenticated}>
+          <Stack.Screen name="auth" options={{ headerShown: false }} />
+        </Stack.Protected>
+      </Stack>
+    </>
   );
 }

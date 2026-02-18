@@ -5,7 +5,8 @@ import Animated, { Keyframe, Easing } from 'react-native-reanimated';
 import classes from './animated-icon.module.css';
 const DURATION = 300;
 
-export function AnimatedSplashOverlay() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function AnimatedSplashOverlay({ isLoading: _ }: { isLoading: boolean }) {
   return null;
 }
 

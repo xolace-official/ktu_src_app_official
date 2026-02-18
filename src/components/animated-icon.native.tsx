@@ -26,11 +26,17 @@ const splashKeyframe = new Keyframe({
   },
 });
 
-export function AnimatedSplashOverlay() {
+export function AnimatedSplashOverlay({ isLoading }: { isLoading: boolean }) {
   const [visible, setVisible] = useState(true);
 
   if (!visible) return null;
 
+  // Hold the overlay while auth session is still resolving
+  if (isLoading) {
+    return <View style={styles.backgroundSolidColor} />;
+  }
+
+  // Auth resolved — mounting this triggers the exit animation
   return (
     <Animated.View
       entering={splashKeyframe.duration(DURATION).withCallback((finished) => {
