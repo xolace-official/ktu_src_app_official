@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../global.css'
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
@@ -7,6 +7,10 @@ import { useAuthSession } from '@/hooks/auth/use-auth-session';
 import { useAuthListener } from '@/lib/supabase/use-auth-listener';
 import { useRegisterAutoRefresh } from '@/lib/supabase/use-register-auto-refresh';
 import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Keep the native splash visible until the JS overlay is mounted and ready
+SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -26,6 +30,11 @@ const RootLayoutNav = () => {
   useAuthListener();
 
   const { isAuthenticated, isLoading } = useAuthSession();
+
+  // Hand off from native splash to JS overlay on first render
+  useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
 
   return (
     <>
