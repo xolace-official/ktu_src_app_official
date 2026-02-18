@@ -55,9 +55,10 @@ export default function VerifyOtpForm() {
       // Navigate to complete profile or home
       // router.replace('/(protected)/complete-profile');
     } catch (err: any) {
-      setError('otpCode', {
-        message: `${err?.message}. Please try again or wait to resend new code` || 'OTP verification failed. Please wait to resend code or contact support.',
-      });
+      const message = err?.message
+        ? `${err.message}. Please try again or wait to resend new code`
+        : 'OTP verification failed. Please wait to resend code or contact support.';
+      setError('otpCode', { message });
     }
   };
 
