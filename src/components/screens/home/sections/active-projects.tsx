@@ -6,7 +6,7 @@ import { ProjectCard } from '../cards/project-card';
 import { useActiveProjects } from '@/hooks/home/use-active-projects';
 
 export function ActiveProjectsSection() {
-  const { data, isLoading } = useActiveProjects(4);
+  const { data, isLoading } = useActiveProjects(5);
 
   if (isLoading) {
     return (
@@ -32,7 +32,7 @@ export function ActiveProjectsSection() {
       <View className="rounded-xl bg-background pb-6 pt-4 px-4" style={styles.container}>
         <SectionHeader
           title="ACTIVE PROJECTS"
-          onViewAllPress={() => router.push('/projects')}
+          showViewAll={false}
         />
         <View className="mt-4 gap-4">
           {data.map((project) => (

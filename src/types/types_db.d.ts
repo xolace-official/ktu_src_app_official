@@ -916,18 +916,21 @@ export type Database = {
       projects: {
         Row: {
           created_at: string
+          gradient_colors: string[] | null
           id: string
           name: string
           progress: number
         }
         Insert: {
           created_at?: string
+          gradient_colors?: string[] | null
           id?: string
           name: string
           progress?: number
         }
         Update: {
           created_at?: string
+          gradient_colors?: string[] | null
           id?: string
           name?: string
           progress?: number

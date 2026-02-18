@@ -8,7 +8,7 @@
     "scheme": "ktusrcappofficial",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon",
+      "icon": "./assets/ktu-src.icon",
       "bundleIdentifier": "com.skvng.ktu-src-app-official",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false

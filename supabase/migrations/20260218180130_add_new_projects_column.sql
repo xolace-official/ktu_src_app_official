@@ -1,17 +1,4 @@
-
-  create table "public"."projects" (
-    "id" uuid not null default gen_random_uuid(),
-    "created_at" timestamp with time zone not null default now(),
-    "name" text not null,
-    "progress" integer not null default 0
-      );
-
-
-alter table "public"."projects" enable row level security;
-
-CREATE UNIQUE INDEX projects_pkey ON public.projects USING btree (id);
-
-alter table "public"."projects" add constraint "projects_pkey" PRIMARY KEY using index "projects_pkey";
+alter table "public"."projects" add column "gradient_colors" text[] default ARRAY['#3c87f7'::text, '#6366f1'::text];
 
 set check_function_bodies = off;
 
@@ -465,34 +452,6 @@ grant truncate on table "public"."programs" to "postgres";
 
 grant update on table "public"."programs" to "postgres";
 
-grant delete on table "public"."projects" to "anon";
-
-grant insert on table "public"."projects" to "anon";
-
-grant references on table "public"."projects" to "anon";
-
-grant select on table "public"."projects" to "anon";
-
-grant trigger on table "public"."projects" to "anon";
-
-grant truncate on table "public"."projects" to "anon";
-
-grant update on table "public"."projects" to "anon";
-
-grant delete on table "public"."projects" to "authenticated";
-
-grant insert on table "public"."projects" to "authenticated";
-
-grant references on table "public"."projects" to "authenticated";
-
-grant select on table "public"."projects" to "authenticated";
-
-grant trigger on table "public"."projects" to "authenticated";
-
-grant truncate on table "public"."projects" to "authenticated";
-
-grant update on table "public"."projects" to "authenticated";
-
 grant delete on table "public"."projects" to "postgres";
 
 grant insert on table "public"."projects" to "postgres";
@@ -507,27 +466,19 @@ grant truncate on table "public"."projects" to "postgres";
 
 grant update on table "public"."projects" to "postgres";
 
-grant delete on table "public"."projects" to "service_role";
+drop trigger if exists "protect_buckets_delete" on "storage"."buckets";
 
-grant insert on table "public"."projects" to "service_role";
+drop trigger if exists "protect_objects_delete" on "storage"."objects";
 
-grant references on table "public"."projects" to "service_role";
+CREATE TRIGGER objects_delete_delete_prefix AFTER DELETE ON storage.objects FOR EACH ROW EXECUTE FUNCTION storage.delete_prefix_hierarchy_trigger();
 
-grant select on table "public"."projects" to "service_role";
+CREATE TRIGGER objects_insert_create_prefix BEFORE INSERT ON storage.objects FOR EACH ROW EXECUTE FUNCTION storage.objects_insert_prefix_trigger();
 
-grant trigger on table "public"."projects" to "service_role";
+CREATE TRIGGER objects_update_create_prefix BEFORE UPDATE ON storage.objects FOR EACH ROW WHEN (((new.name <> old.name) OR (new.bucket_id <> old.bucket_id))) EXECUTE FUNCTION storage.objects_update_prefix_trigger();
 
-grant truncate on table "public"."projects" to "service_role";
+CREATE TRIGGER prefixes_create_hierarchy BEFORE INSERT ON storage.prefixes FOR EACH ROW WHEN ((pg_trigger_depth() < 1)) EXECUTE FUNCTION storage.prefixes_insert_trigger();
 
-grant update on table "public"."projects" to "service_role";
-
-
-  create policy "Enable read access for all users"
-  on "public"."projects"
-  as permissive
-  for select
-  to authenticated
-using (true);
+CREATE TRIGGER prefixes_delete_hierarchy AFTER DELETE ON storage.prefixes FOR EACH ROW EXECUTE FUNCTION storage.delete_prefix_hierarchy_trigger();
 
 
 
