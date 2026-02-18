@@ -37,7 +37,7 @@ export function DeveloperCreditScreen() {
         <Text className="text-xs font-medium uppercase tracking-wide text-muted">
           The Team
         </Text>
-        <View className="gap-3">
+        <View className="flex-row flex-wrap gap-4">
           {techTeam.map((member) => (
             <TeamMemberCard key={member.id} member={member} />
           ))}

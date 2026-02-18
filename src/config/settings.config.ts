@@ -34,21 +34,21 @@ export const settingSections: SettingSection[] = [
       },
     ],
   },
-  {
-    id: 'privacy-security',
-    title: 'Privacy & Security',
-    items: [
-      {
-        id: 'privacy-data',
-        label: 'Privacy & Data',
-        icon: Shield,
-        iconBgClass: 'bg-success',
-        iconColor: '#fff',
-        type: 'navigate',
-        route: '/settings/privacy-data',
-      },
-    ],
-  },
+  // {
+  //   id: 'privacy-security',
+  //   title: 'Privacy & Security',
+  //   items: [
+  //     {
+  //       id: 'privacy-data',
+  //       label: 'Privacy & Data',
+  //       icon: Shield,
+  //       iconBgClass: 'bg-success',
+  //       iconColor: '#fff',
+  //       type: 'navigate',
+  //       route: '/settings/privacy-data',
+  //     },
+  //   ],
+  // },
   {
     id: 'support',
     title: 'Support',
