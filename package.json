@@ -8,7 +8,21 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "supabase:update": "pnpm update supabase --save-dev",
+    "supabase:start": "bunx supabase start",
+    "supabase:stop": "bunx supabase stop",
+    "supabase:status": "bunx supabase status",
+    "supabase:restart": "npm run supabase:stop && npm run supabase:start",
+    "supabase:reset": "bunx supabase db reset",
+    "supabase:link": "bunx supabase link",
+    "supabase:generate-types": "bunx supabase gen types typescript --local --schema public > types_db.ts",
+    "supabase:generate-migration": "bunx supabase db diff | bunx supabase migration new",
+    "supabase:generate-seed": "bunx supabase db dump --data-only -f supabase/seed.sql",
+    "supabase:push": "bunx supabase db push",
+    "supabase:pull": "bunx supabase db pull",
+    "supabase:migration-up": "bunx supabase migration up",
+    "supabase:migration-list": "bunx supabase migration list"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
