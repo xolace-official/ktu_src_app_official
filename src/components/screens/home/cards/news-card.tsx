@@ -15,10 +15,10 @@ export const NewsCard = memo(function NewsCard({ article, onPress }: NewsCardPro
   return (
     <Card className="mb-3 rounded-2xl bg-[#f3d3ab] px-2 py-3">
       <Card.Body className="px-2">
-        <Card.Title className='text-black'>
+        <Card.Title className='text-black' numberOfLines={1}>
           {title}
         </Card.Title>
-        <Card.Description numberOfLines={2}>
+        <Card.Description numberOfLines={2} className='text-sm'>
           {description}
         </Card.Description>
         <Card.Footer>
