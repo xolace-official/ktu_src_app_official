@@ -85,6 +85,14 @@ export default function MarketplaceStack() {
           headerTransparent: true,
         }}
       />
+      <Stack.Screen
+        name="submission-receipt"
+        options={{
+          headerTitle: 'Submission Receipt',
+          headerBackButtonDisplayMode: 'minimal',
+          gestureEnabled: false,
+        }}
+      />
     </Stack>
   );
 }

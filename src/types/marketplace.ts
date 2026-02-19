@@ -35,3 +35,44 @@ export interface MarketListingDetails extends MarketListing {
   photos: MarketPhoto[];
   variants: MarketListingVariant[];
 }
+
+// Listing submissions (staging before approval)
+export type ListingSubmissionStatus =
+  | 'submitted'
+  | 'payment_pending'
+  | 'paid'
+  | 'approved'
+  | 'rejected';
+
+export interface ListingFeePlan {
+  id: string;
+  name: string;
+  currency: string;
+  normal_fee: number;
+  featured_fee: number;
+  active: boolean;
+  created_at: string;
+}
+
+export interface ListingSubmission {
+  id: string;
+  reference_code: string;
+  submitter_id: string | null;
+  title: string;
+  description: string | null;
+  price: number;
+  currency: string;
+  category_id: string | null;
+  stock_qty: number | null;
+  condition: string | null;
+  placement_type: 'normal' | 'featured';
+  call_contact: string | null;
+  whatsapp_contact: string | null;
+  photos: string[];
+  fee_plan_id: string | null;
+  status: ListingSubmissionStatus;
+  approved_by: string | null;
+  approved_at: string | null;
+  created_at: string;
+  updated_at: string;
+}

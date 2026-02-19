@@ -519,6 +519,159 @@ export type Database = {
         }
         Relationships: []
       }
+      listing_payments: {
+        Row: {
+          created_at: string
+          fee_amount: number
+          fee_currency: string
+          id: string
+          is_featured: boolean
+          listing_id: string | null
+          payment_id: string
+          placement_type: string
+          submission_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          fee_amount: number
+          fee_currency?: string
+          id?: string
+          is_featured?: boolean
+          listing_id?: string | null
+          payment_id: string
+          placement_type?: string
+          submission_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          fee_amount?: number
+          fee_currency?: string
+          id?: string
+          is_featured?: boolean
+          listing_id?: string | null
+          payment_id?: string
+          placement_type?: string
+          submission_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listing_payments_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "market_listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "listing_payments_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "listing_payments_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "listing_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listing_submissions: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          call_contact: string | null
+          category_id: string | null
+          condition: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          fee_plan_id: string | null
+          id: string
+          photos: Json
+          placement_type: string
+          price: number
+          status: Database["public"]["Enums"]["listing_submission_status"]
+          stock_qty: number | null
+          submitter_id: string | null
+          title: string
+          updated_at: string
+          whatsapp_contact: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          call_contact?: string | null
+          category_id?: string | null
+          condition?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          fee_plan_id?: string | null
+          id?: string
+          photos?: Json
+          placement_type?: string
+          price: number
+          status?: Database["public"]["Enums"]["listing_submission_status"]
+          stock_qty?: number | null
+          submitter_id?: string | null
+          title: string
+          updated_at?: string
+          whatsapp_contact?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          call_contact?: string | null
+          category_id?: string | null
+          condition?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          fee_plan_id?: string | null
+          id?: string
+          photos?: Json
+          placement_type?: string
+          price?: number
+          status?: Database["public"]["Enums"]["listing_submission_status"]
+          stock_qty?: number | null
+          submitter_id?: string | null
+          title?: string
+          updated_at?: string
+          whatsapp_contact?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listing_submissions_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "listing_submissions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "market_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "listing_submissions_fee_plan_id_fkey"
+            columns: ["fee_plan_id"]
+            isOneToOne: false
+            referencedRelation: "listing_fee_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "listing_submissions_submitter_id_fkey"
+            columns: ["submitter_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       market_categories: {
         Row: {
           color: string | null
@@ -840,6 +993,56 @@ export type Database = {
           {
             foreignKeyName: "notifications_recipient_id_fkey"
             columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string
+          id: string
+          metadata: Json | null
+          profile_id: string | null
+          provider: string | null
+          provider_payment_id: string | null
+          status: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          currency?: string
+          id?: string
+          metadata?: Json | null
+          profile_id?: string | null
+          provider?: string | null
+          provider_payment_id?: string | null
+          status?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          metadata?: Json | null
+          profile_id?: string | null
+          provider?: string | null
+          provider_payment_id?: string | null
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_profile_id_fkey"
+            columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
