@@ -10,6 +10,14 @@ export interface SubmitFeedbackInput {
   isAnonymous: boolean;
 }
 
+/**
+ * Provides a React Query mutation for submitting feedback to Supabase.
+ *
+ * The mutation inserts a feedback row with fields mapped from SubmitFeedbackInput.
+ * When `isAnonymous` is true the stored `profile_id` is null; otherwise it uses the authenticated user's id.
+ *
+ * @returns A mutation object that accepts a `SubmitFeedbackInput`; returns `void` on success and throws if the user is not authenticated or the database insert fails.
+ */
 export function useSubmitFeedback() {
   const client = useSupabase();
 

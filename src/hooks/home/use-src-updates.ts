@@ -4,6 +4,13 @@ import type { SRCUpdate } from '@/types/home';
 
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
+/**
+ * Provides a React Query hook that fetches recent spotlight updates from Supabase.
+ *
+ * Fetches up to 10 most-recent records from the `spotlights` table and maps them to `SRCUpdate` objects.
+ *
+ * @returns A React Query result whose `data` is an array of `SRCUpdate` objects representing the most recent spotlight records (up to 10)
+ */
 export function useSRCUpdates() {
   const client = useSupabase();
 

@@ -24,6 +24,15 @@ import { SatisfactionRating } from './satisfaction-rating';
 const MAX_MESSAGE_LENGTH = 1000;
 const MIN_MESSAGE_LENGTH = 10;
 
+/**
+ * Render a feedback form that collects feedback type, category, rating, message, and an anonymity option,
+ * performs client-side validation, submits feedback via the configured hook, and displays success or error UI.
+ *
+ * The component shows inline validation errors, a character count for the message, a submission button that
+ * reflects pending state, toast notifications on validation or submission failure, and a success dialog on success.
+ *
+ * @returns A React element rendering the feedback form and its associated dialogs and UI state.
+ */
 export function FeedbackForm() {
   const theme = useTheme();
   const { toast } = useToast();

@@ -7,6 +7,14 @@ interface FeedbackTypeSelectorProps {
   onSelectType: (typeId: FeedbackTypeKind) => void;
 }
 
+/**
+ * Render a selectable feedback type card that displays the type's icon and label and reflects selection state.
+ *
+ * @param type - Feedback type metadata (icon component, label, colors, and background class) to display
+ * @param isSelected - Whether this card is the currently selected type; controls border and text accent styling
+ * @param onPress - Callback invoked when the card is pressed
+ * @returns The rendered Pressable card element
+ */
 function FeedbackTypeCard({
   type,
   isSelected,

@@ -4,6 +4,15 @@ import type { Representative } from '@/types/home';
 
 const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
+/**
+ * Fetches and returns the list of representatives from the database as a React Query result.
+ *
+ * The returned query fetches rows from the `temp_representatives` table and maps each row to a
+ * `Representative` object with properties `id`, `name`, `position`, `description` (from `bio`),
+ * and `imageUrl` (empty string if `image_url` is null).
+ *
+ * @returns A React Query result whose `data` is an array of `Representative` objects. `data` will be an empty array when no rows are returned.
+ */
 export function useRepresentatives() {
   const client = useSupabase();
 

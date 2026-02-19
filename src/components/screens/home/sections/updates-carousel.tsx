@@ -10,6 +10,13 @@ import type { SRCUpdate } from '@/types/home';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CAROUSEL_HEIGHT = 240;
 
+/**
+ * Render a full-width carousel of SRC updates with built-in share and external-link actions.
+ *
+ * Displays a skeleton placeholder while updates are loading and returns null when updates are unavailable or an error occurred.
+ *
+ * @returns A React element containing the updates carousel, or `null` when no updates are available or an error occurred.
+ */
 export function UpdatesCarousel() {
   const { data, isLoading, isError } = useSRCUpdates();
   const progress = useSharedValue<number>(0);
