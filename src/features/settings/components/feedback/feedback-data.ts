@@ -1,13 +1,15 @@
 import type { LucideIcon } from 'lucide-react-native';
 import {
-    AlertTriangle,
-    Bug,
-    Heart,
-    Lightbulb,
+  AlertTriangle,
+  Bug,
+  Heart,
+  Lightbulb,
 } from 'lucide-react-native';
 
+export type FeedbackTypeKind = 'suggestion' | 'bug' | 'compliment' | 'complaint';
+
 export interface FeedbackType {
-  id: string;
+  id: FeedbackTypeKind;
   label: string;
   icon: LucideIcon;
   iconColor: string;

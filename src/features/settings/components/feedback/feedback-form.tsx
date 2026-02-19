@@ -1,24 +1,25 @@
-import { useState, useCallback } from 'react';
-import { View, Text, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { useSubmitFeedback } from '@/hooks/settings/use-submit-feedback';
+import { useTheme } from '@/hooks/use-theme';
 import {
+  Button,
+  Description,
+  Dialog,
+  FieldError,
+  Label,
+  Spinner,
+  Surface,
+  Switch,
   TextArea,
   TextField,
-  Label,
-  Description,
-  FieldError,
-  Switch,
-  Button,
-  Surface,
-  Spinner,
-  Dialog,
   useToast,
 } from 'heroui-native';
-import { Eye, EyeOff, Send, CheckCircle } from 'lucide-react-native';
-import { FeedbackTypeSelector } from './feedback-type-selector';
+import { CheckCircle, Eye, EyeOff, Send } from 'lucide-react-native';
+import { useCallback, useState } from 'react';
+import { Keyboard, KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { FeedbackCategoryPicker } from './feedback-category-picker';
+import type { FeedbackCategory, FeedbackTypeKind } from './feedback-data';
+import { FeedbackTypeSelector } from './feedback-type-selector';
 import { SatisfactionRating } from './satisfaction-rating';
-import type { FeedbackCategory } from './feedback-data';
-import { useTheme } from '@/hooks/use-theme';
 
 const MAX_MESSAGE_LENGTH = 1000;
 const MIN_MESSAGE_LENGTH = 10;
@@ -26,16 +27,16 @@ const MIN_MESSAGE_LENGTH = 10;
 export function FeedbackForm() {
   const theme = useTheme();
   const { toast } = useToast();
+  const submitFeedback = useSubmitFeedback();
 
   // Form state
-  const [feedbackType, setFeedbackType] = useState<string | null>(null);
+  const [feedbackType, setFeedbackType] = useState<FeedbackTypeKind | null>(null);
   const [category, setCategory] = useState<FeedbackCategory | null>(null);
   const [rating, setRating] = useState<number | null>(null);
   const [message, setMessage] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
 
   // UI state
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -85,14 +86,23 @@ export function FeedbackForm() {
       return;
     }
 
-    setIsSubmitting(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubmitting(false);
-    setShowSuccessDialog(true);
-  }, [validateForm, toast]);
+    try {
+      await submitFeedback.mutateAsync({
+        type: feedbackType!,
+        category: category!.value,
+        rating,
+        message,
+        isAnonymous,
+      });
+      setShowSuccessDialog(true);
+    } catch {
+      toast.show({
+        variant: 'danger',
+        label: 'Submission Failed',
+        description: 'Could not submit your feedback. Please try again.',
+      });
+    }
+  }, [validateForm, toast, submitFeedback, feedbackType, category, rating, message, isAnonymous]);
 
   const handleSuccessClose = useCallback(() => {
     setShowSuccessDialog(false);
@@ -220,16 +230,16 @@ export function FeedbackForm() {
             variant="primary"
             size="lg"
             onPress={handleSubmit}
-            isDisabled={!isFormValid || isSubmitting}
+            isDisabled={!isFormValid || submitFeedback.isPending}
             className="mt-2"
           >
-            {isSubmitting ? (
+            {submitFeedback.isPending ? (
               <Spinner size="sm" color="white" />
             ) : (
               <Send size={18} color="#fff" />
             )}
             <Button.Label className="text-white">
-              {isSubmitting ? 'Sending...' : 'Submit Feedback'}
+              {submitFeedback.isPending ? 'Sending...' : 'Submit Feedback'}
             </Button.Label>
           </Button>
 

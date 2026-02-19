@@ -1,10 +1,10 @@
 import { Surface } from 'heroui-native';
 import { Pressable, Text, View } from 'react-native';
-import { feedbackTypes, type FeedbackType } from './feedback-data';
+import { feedbackTypes, type FeedbackType, type FeedbackTypeKind } from './feedback-data';
 
 interface FeedbackTypeSelectorProps {
-  selectedType: string | null;
-  onSelectType: (typeId: string) => void;
+  selectedType: FeedbackTypeKind | null;
+  onSelectType: (typeId: FeedbackTypeKind) => void;
 }
 
 function FeedbackTypeCard({

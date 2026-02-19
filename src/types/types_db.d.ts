@@ -335,6 +335,47 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_anonymous: boolean
+          message: string
+          profile_id: string | null
+          rating: number | null
+          type: Database["public"]["Enums"]["feedback_type"]
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          message: string
+          profile_id?: string | null
+          rating?: number | null
+          type: Database["public"]["Enums"]["feedback_type"]
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          message?: string
+          profile_id?: string | null
+          rating?: number | null
+          type?: Database["public"]["Enums"]["feedback_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       hostel_photos: {
         Row: {
           caption: string | null
@@ -1033,6 +1074,7 @@ export type Database = {
       event_attendance_status: "interested" | "going" | "not_going"
       event_scope_type: "faculty" | "department" | "level"
       event_visibility: "public" | "scoped" | "invite_only"
+      feedback_type: "suggestion" | "bug" | "compliment" | "complaint"
       hostel_payment_term: "yearly" | "semester" | "academic_year"
       listing_submission_status:
         | "submitted"
@@ -1179,6 +1221,7 @@ export const Constants = {
       event_attendance_status: ["interested", "going", "not_going"],
       event_scope_type: ["faculty", "department", "level"],
       event_visibility: ["public", "scoped", "invite_only"],
+      feedback_type: ["suggestion", "bug", "compliment", "complaint"],
       hostel_payment_term: ["yearly", "semester", "academic_year"],
       listing_submission_status: [
         "submitted",
