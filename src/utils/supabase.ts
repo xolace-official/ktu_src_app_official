@@ -9,7 +9,7 @@ const { supabaseUrl, supabaseAnonKey } = z
   })
   .parse({
     supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_API_URL,
-    supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY,
+    supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
   });
 
 let client: SupabaseClient | null = null;
