@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import { useAppStore } from '@/store/store';
 import type { EventDetails } from '@/types/events';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 /**
  * Hook to fetch event details with user attendance status

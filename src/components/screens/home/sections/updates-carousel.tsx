@@ -37,7 +37,9 @@ export function UpdatesCarousel() {
 
     const handleExternalLink = () => {
       if (item.linkUrl) {
-        Linking.openURL(item.linkUrl);
+        Linking.openURL(item.linkUrl).catch((err) => {
+          console.error('Failed to open URL:', err);
+        });
       }
     };
 

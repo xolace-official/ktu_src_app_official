@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { Representative } from '@/types/home';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 export function useRepresentatives() {
   const client = useSupabase();

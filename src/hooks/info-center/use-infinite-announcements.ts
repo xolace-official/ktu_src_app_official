@@ -1,9 +1,9 @@
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { AnnouncementCardItem } from '@/types/info-center';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
 const PAGE_SIZE = 10;
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 /**
  * Infinite query hook for fetching announcements with pagination.

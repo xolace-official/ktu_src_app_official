@@ -136,7 +136,7 @@ export default function VerifyOtpForm() {
 
         <Button
           onPress={handleSubmit(onSubmit)}
-          isDisabled={!email || !isValid || timer === 0 || verifyOtp.isPending}
+          isDisabled={!email || !isValid || timer === 0 || verifyOtp.isPending || resendOtp.isPending}
           className="w-full"
           size="lg"
         >
@@ -152,11 +152,13 @@ export default function VerifyOtpForm() {
         <Button
           onPress={handleResend}
           variant='tertiary'
-          isDisabled={!email || timer > 0}
+          isDisabled={!email || timer > 0 || resendOtp.isPending}
           className="w-full border-white/30"
           size="lg"
         >
-          {timer > 0 ? (
+          {resendOtp.isPending ? (
+            <Spinner size="md" color="#8B5CF6" />
+          ) : timer > 0 ? (
             <Button.Label className="text-foreground">Wait to Resend {errors.otpCode && formatTime(timer)}</Button.Label>
           ) : (
             <Button.Label className="text-white">Resend code</Button.Label>

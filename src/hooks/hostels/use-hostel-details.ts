@@ -1,8 +1,8 @@
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { HostelDetails, HostelGalleryItem } from '@/types/hostels';
 import { useQuery } from '@tanstack/react-query';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 export function useHostelDetails(hostelId?: string) {
   const client = useSupabase();

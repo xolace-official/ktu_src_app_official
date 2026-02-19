@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { SRCUpdate } from '@/types/home';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 export function useSRCUpdates() {
   const client = useSupabase();
@@ -14,7 +14,7 @@ export function useSRCUpdates() {
       const { data, error } = await client
         .from('spotlights')
         .select(
-          'id, title, description, type, submitter_name, submitter_avatar_url, submitter_initials, link_url, gradient_colors'
+          'id, title, description, type, submitter_name, submitter_avatar_url, submitter_initials, link_url, gradient_colors, created_at'
         )
         .order('created_at', { ascending: false })
         .limit(10);
@@ -25,7 +25,10 @@ export function useSRCUpdates() {
         id: row.id,
         title: row.title,
         description: row.description,
-        timestamp: row.submitter_name ?? '',
+        submitterName: row.submitter_name ?? '',
+        timestamp: row.created_at
+          ? new Date(row.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+          : undefined,
         avatarUrl: row.submitter_avatar_url ?? undefined,
         avatarFallback: row.submitter_initials,
         readMoreLink: row.link_url ?? undefined,

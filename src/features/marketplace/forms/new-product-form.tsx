@@ -217,6 +217,7 @@ export default function NewProductForm() {
                   value={findSelectOption(categoryOptions, value)}
                   onValueChange={(option) => setValue('category_id', option?.value ?? '', { shouldValidate: true })}
                   isDisabled={isCategoriesLoading}
+                  presentation='bottom-sheet'
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger
@@ -257,6 +258,7 @@ export default function NewProductForm() {
                   onValueChange={(option) =>
                     setValue('condition', option?.value as 'new' | 'used' | 'refurbished' | undefined, { shouldValidate: true })
                   }
+                  presentation="bottom-sheet"
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger

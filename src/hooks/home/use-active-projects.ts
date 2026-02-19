@@ -1,8 +1,8 @@
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { Project } from '@/types/home';
 import { useQuery } from '@tanstack/react-query';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 export function useActiveProjects(limit = 5) {
   const client = useSupabase();

@@ -20,7 +20,7 @@ export const UpdateCard = memo(function UpdateCard({
   onExternalLink,
   onReadMore,
 }: UpdateCardProps) {
-  const { title, timestamp, description, avatarUrl, avatarFallback, gradientColors, linkUrl } =
+  const { title, submitterName, timestamp, description, avatarUrl, avatarFallback, gradientColors, linkUrl } =
     update;
 
   return (
@@ -52,7 +52,10 @@ export const UpdateCard = memo(function UpdateCard({
                   <Text className="text-[13px] font-medium leading-tight text-white">
                     {title}
                   </Text>
-                  <Text className="mt-0.5 text-xs text-white/80">{timestamp}</Text>
+                  <Text className="text-xs text-white/80">{submitterName}</Text>
+                  {timestamp && (
+                    <Text className="text-[10px] text-white/60">{timestamp}</Text>
+                  )}
                 </View>
               </View>
             </View>
@@ -69,14 +72,16 @@ export const UpdateCard = memo(function UpdateCard({
 
             {/* Action Buttons */}
             <View className="flex-row items-center gap-5 pl-12">
-              <PressableFeedback onPress={onShare} className="rounded-full bg-white/10 p-2.5">
-                <Share2 color="white" size={20} />
-              </PressableFeedback>
+              {onShare && (
+                <PressableFeedback onPress={onShare} className="rounded-full bg-white/10 p-2.5">
+                  <Share2 color="white" size={20} />
+                </PressableFeedback>
+              )}
 
               <View className="flex-1" />
 
               {linkUrl && (
-                <PressableFeedback onPress={onExternalLink}>
+                <PressableFeedback onPress={onExternalLink} className="rounded-full bg-white/10 p-2.5">
                   <ExternalLink color="white" size={20} />
                 </PressableFeedback>
               )}
