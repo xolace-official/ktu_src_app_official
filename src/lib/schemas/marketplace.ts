@@ -32,6 +32,7 @@ export const NewProductSchema = z.object({
     .regex(/^0\d{9}$/, 'Enter a valid phone number (e.g., 0241234567)')
     .optional()
     .or(z.literal('')),
+  placement_type: z.enum(['normal', 'featured']),
 });
 
 export type NewProductFormType = z.infer<typeof NewProductSchema>;
