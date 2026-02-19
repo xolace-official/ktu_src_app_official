@@ -985,6 +985,36 @@ export type Database = {
         }
         Relationships: []
       }
+      temp_representatives: {
+        Row: {
+          bio: string
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string | null
+          name: string
+          position: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          name: string
+          position: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          name?: string
+          position?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
