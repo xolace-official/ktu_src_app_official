@@ -937,6 +937,54 @@ export type Database = {
         }
         Relationships: []
       }
+      spotlights: {
+        Row: {
+          created_at: string
+          description: string
+          ends_at: string | null
+          gradient_colors: string[]
+          id: string
+          is_active: boolean
+          link_url: string | null
+          starts_at: string | null
+          submitter_avatar_url: string | null
+          submitter_initials: string
+          submitter_name: string | null
+          title: string
+          type: Database["public"]["Enums"]["spotlight_type"]
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          ends_at?: string | null
+          gradient_colors?: string[]
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          starts_at?: string | null
+          submitter_avatar_url?: string | null
+          submitter_initials?: string
+          submitter_name?: string | null
+          title: string
+          type?: Database["public"]["Enums"]["spotlight_type"]
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          ends_at?: string | null
+          gradient_colors?: string[]
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          starts_at?: string | null
+          submitter_avatar_url?: string | null
+          submitter_initials?: string
+          submitter_name?: string | null
+          title?: string
+          type?: Database["public"]["Enums"]["spotlight_type"]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -965,6 +1013,12 @@ export type Database = {
       market_placement_type: "normal" | "featured"
       payment_status: "pending" | "succeeded" | "failed" | "refunded"
       payment_type: "listing_fee" | "purchase" | "wallet_topup" | "booking_fee"
+      spotlight_type:
+        | "general"
+        | "platform"
+        | "product"
+        | "event"
+        | "announcement"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1106,6 +1160,13 @@ export const Constants = {
       market_placement_type: ["normal", "featured"],
       payment_status: ["pending", "succeeded", "failed", "refunded"],
       payment_type: ["listing_fee", "purchase", "wallet_topup", "booking_fee"],
+      spotlight_type: [
+        "general",
+        "platform",
+        "product",
+        "event",
+        "announcement",
+      ],
     },
   },
 } as const

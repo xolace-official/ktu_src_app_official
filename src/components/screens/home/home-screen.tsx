@@ -25,7 +25,7 @@ export function HomeScreen() {
       predicate: (query) => {
         const key = query.queryKey[0];
         return [
-          'src-updates',
+          'spotlights',
           'representatives',
           'upcoming-events',
           'campus-news',

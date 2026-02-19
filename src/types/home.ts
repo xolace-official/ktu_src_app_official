@@ -8,6 +8,7 @@ export interface SRCUpdate {
   timestamp: string;
   description: string;
   readMoreLink?: string;
+  linkUrl?: string;
   avatarUrl?: string;
   avatarFallback: string;
   gradientColors: [string, string];

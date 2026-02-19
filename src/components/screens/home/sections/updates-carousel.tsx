@@ -1,7 +1,8 @@
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Share } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import Carousel from 'react-native-reanimated-carousel';
 import { Skeleton } from 'heroui-native';
+import * as Linking from 'expo-linking';
 import { UpdateCard } from '../cards/update-card';
 import { useSRCUpdates } from '@/hooks/home/use-src-updates';
 import type { SRCUpdate } from '@/types/home';
@@ -10,12 +11,8 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const CAROUSEL_HEIGHT = 240;
 
 export function UpdatesCarousel() {
-  const { data, isLoading } = useSRCUpdates();
+  const { data, isLoading, isError } = useSRCUpdates();
   const progress = useSharedValue<number>(0);
-
-  const handleAction = (action: string, updateId: string) => {
-    console.log(`${action} pressed for update ${updateId}`);
-  };
 
   if (isLoading) {
     return (
@@ -25,19 +22,31 @@ export function UpdatesCarousel() {
     );
   }
 
-  if (!data?.length) {
+  if (isError || !data?.length) {
     return null;
   }
 
   const renderItem = ({ item }: { item: SRCUpdate }) => {
+    const handleShare = async () => {
+      if (item.linkUrl) {
+        await Share.share({ message: `${item.title}\n${item.linkUrl}`, url: item.linkUrl });
+      } else {
+        await Share.share({ message: `${item.title}\n\n${item.description}` });
+      }
+    };
+
+    const handleExternalLink = () => {
+      if (item.linkUrl) {
+        Linking.openURL(item.linkUrl);
+      }
+    };
+
     return (
       <UpdateCard
         update={item}
-        onDownload={() => handleAction('Download', item.id)}
-        onShare={() => handleAction('Share', item.id)}
-        onCopy={() => handleAction('Copy', item.id)}
-        onExternalLink={() => handleAction('External Link', item.id)}
-        onReadMore={() => handleAction('Read More', item.id)}
+        onShare={handleShare}
+        onExternalLink={item.linkUrl ? handleExternalLink : undefined}
+        onReadMore={item.linkUrl ? handleExternalLink : undefined}
       />
     );
   };
