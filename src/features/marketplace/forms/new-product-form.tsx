@@ -525,7 +525,7 @@ export default function NewProductForm() {
             size="lg"
           >
             {createSubmission.isPending ? (
-              <Spinner size="sm" className="#" />
+              <Spinner size="sm" className="#8B5CF6" />
             ) : (
               <Button.Label>Submit for Review</Button.Label>
             )}
