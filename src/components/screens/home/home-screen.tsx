@@ -14,6 +14,14 @@ import {
   MarketCTA,
 } from './sections';
 
+/**
+ * Renders the home screen containing the header, scrollable content sections, and pull-to-refresh.
+ *
+ * Pull-to-refresh invalidates cached queries with keys 'spotlights', 'representatives',
+ * 'upcoming-events', 'campus-news', and 'active-projects' before updating the view.
+ *
+ * @returns A React element representing the home screen layout
+ */
 export function HomeScreen() {
   const theme = useTheme();
   const queryClient = useQueryClient();

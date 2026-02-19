@@ -17,6 +17,11 @@ export const unstable_settings = {
   initialRouteName: '(protected)',
 };
 
+/**
+ * Provides the application's root context and renders the navigation layout.
+ *
+ * @returns A React element that wraps RootLayoutNav with the RootProvider
+ */
 export default function RootLayout() {
   return (
     <RootProvider>

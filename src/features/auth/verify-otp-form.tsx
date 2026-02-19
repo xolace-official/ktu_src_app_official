@@ -9,6 +9,14 @@ import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
 
+/**
+ * Render an email OTP verification form with a countdown, validation, resend, and verify actions.
+ *
+ * Displays the email extracted from local search params, accepts a 6-digit code, enforces schema validation,
+ * disables actions when the timer expires or email is missing, and surfaces API errors inline.
+ *
+ * @returns The component's JSX element for the OTP verification UI
+ */
 export default function VerifyOtpForm() {
   const { email: rawEmail } = useLocalSearchParams<{ email: string }>();
   const email = typeof rawEmail === 'string' && rawEmail.length > 0 ? rawEmail : undefined;
