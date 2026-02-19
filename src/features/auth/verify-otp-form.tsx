@@ -10,7 +10,8 @@ import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
 
 export default function VerifyOtpForm() {
-  const { email } = useLocalSearchParams<{ email: string }>();
+  const { email: rawEmail } = useLocalSearchParams<{ email: string }>();
+  const email = typeof rawEmail === 'string' && rawEmail.length > 0 ? rawEmail : undefined;
   const [timer, setTimer] = useState(180); // 3 minutes
 
   const verifyOtp = useVerifyOtp();
@@ -43,11 +44,15 @@ export default function VerifyOtpForm() {
   };
 
   const onSubmit = async (data: OTPFormType) => {
+    if (!email) {
+      setError('otpCode', { message: 'Email address is missing. Please go back and try again.' });
+      return;
+    }
     try {
       Keyboard.dismiss();
 
       await verifyOtp.mutateAsync({
-        email: email as string,
+        email,
         token: data.otpCode,
         type: 'email', // important
       });
@@ -63,8 +68,12 @@ export default function VerifyOtpForm() {
   };
 
   const handleResend = async () => {
+    if (!email) {
+      setError('otpCode', { message: 'Email address is missing. Please go back and try again.' });
+      return;
+    }
     try {
-      await resendOtp.mutateAsync(email as string);
+      await resendOtp.mutateAsync(email);
       setTimer(180);
       reset({ otpCode: '' });
     } catch (err: any) {
@@ -127,7 +136,7 @@ export default function VerifyOtpForm() {
 
         <Button
           onPress={handleSubmit(onSubmit)}
-          isDisabled={!isValid || timer === 0 || verifyOtp.isPending}
+          isDisabled={!email || !isValid || timer === 0 || verifyOtp.isPending}
           className="w-full"
           size="lg"
         >
@@ -143,7 +152,7 @@ export default function VerifyOtpForm() {
         <Button
           onPress={handleResend}
           variant='tertiary'
-          isDisabled={timer > 0}
+          isDisabled={!email || timer > 0}
           className="w-full border-white/30"
           size="lg"
         >
