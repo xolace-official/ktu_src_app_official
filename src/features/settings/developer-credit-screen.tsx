@@ -1,7 +1,7 @@
 import { ScrollView, View, Text } from 'react-native';
 import { Surface } from 'heroui-native';
 import { Code, Rocket, Lightbulb } from 'lucide-react-native';
-import { TeamMemberCard, techTeam } from './components/developer-credits';
+import { TeamMemberCard, techTeam, CARD_HORIZONTAL_PADDING, CARD_GAP } from './components/developer-credits';
 
 export function DeveloperCreditScreen() {
   return (
@@ -33,11 +33,11 @@ export function DeveloperCreditScreen() {
       </View>
 
       {/* Team Section */}
-      <View className="gap-4 px-4">
+      <View className="gap-4" style={{ paddingHorizontal: CARD_HORIZONTAL_PADDING }}>
         <Text className="text-xs font-medium uppercase tracking-wide text-muted">
           The Team
         </Text>
-        <View className="gap-3">
+        <View className="flex-row flex-wrap" style={{ gap: CARD_GAP }}>
           {techTeam.map((member) => (
             <TeamMemberCard key={member.id} member={member} />
           ))}

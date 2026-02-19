@@ -5,16 +5,16 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, Text, View } from 'react-native';
 
+import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
-// import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 
 export default function VerifyOtpForm() {
   const { email } = useLocalSearchParams<{ email: string }>();
   const [timer, setTimer] = useState(180); // 3 minutes
 
   const verifyOtp = useVerifyOtp();
-  // const resendOtp = useResendOtp();
+  const resendOtp = useResendOtp();
 
   const {
     control,
@@ -46,24 +46,25 @@ export default function VerifyOtpForm() {
     try {
       Keyboard.dismiss();
 
-      // await verifyOtp.mutateAsync({
-      //   email: email as string,
-      //   token: data.otpCode,
-      //   type: 'email',
-      // });
+      await verifyOtp.mutateAsync({
+        email: email as string,
+        token: data.otpCode,
+        type: 'email', // important
+      });
 
       // Navigate to complete profile or home
       // router.replace('/(protected)/complete-profile');
     } catch (err: any) {
-      setError('otpCode', {
-        message: err?.message || 'OTP verification failed',
-      });
+      const message = err?.message
+        ? `${err.message}. Please try again or wait to resend new code`
+        : 'OTP verification failed. Please wait to resend code or contact support.';
+      setError('otpCode', { message });
     }
   };
 
   const handleResend = async () => {
     try {
-      // await resendOtp.mutateAsync(email as string);
+      await resendOtp.mutateAsync(email as string);
       setTimer(180);
       reset({ otpCode: '' });
     } catch (err: any) {
@@ -131,7 +132,7 @@ export default function VerifyOtpForm() {
           size="lg"
         >
           {verifyOtp.isPending ? (
-            <Spinner size="sm" className="text-primary-foreground" />
+            <Spinner size="md" color="#8B5CF6" />
           ) : timer === 0 ? (
             <Button.Label>Code expired</Button.Label>
           ) : (
@@ -147,7 +148,7 @@ export default function VerifyOtpForm() {
           size="lg"
         >
           {timer > 0 ? (
-            <Spinner size="sm" className="text-white" />
+            <Button.Label className="text-foreground">Wait to Resend {errors.otpCode && formatTime(timer)}</Button.Label>
           ) : (
             <Button.Label className="text-white">Resend code</Button.Label>
           )}

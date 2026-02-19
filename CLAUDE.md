@@ -58,7 +58,6 @@ src/
 **Styling**: Three layers work together:
 1. Tailwind/Uniwind utility classes in JSX (`className="flex-1 justify-center"`)
 2. React Native `StyleSheet.create()` for performance-critical styles
-3. Centralized theme constants for colors/spacing
 
 **Platform-specific code**: Use file extensions for platform variants:
 - `.native.tsx` - iOS and Android

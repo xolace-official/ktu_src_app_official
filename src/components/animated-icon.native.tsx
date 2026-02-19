@@ -26,11 +26,17 @@ const splashKeyframe = new Keyframe({
   },
 });
 
-export function AnimatedSplashOverlay() {
+export function AnimatedSplashOverlay({ isLoading }: { isLoading: boolean }) {
   const [visible, setVisible] = useState(true);
 
   if (!visible) return null;
 
+  // Hold the overlay while auth session is still resolving
+  if (isLoading) {
+    return <View style={styles.backgroundSolidColor} />;
+  }
+
+  // Auth resolved — mounting this triggers the exit animation
   return (
     <Animated.View
       entering={splashKeyframe.duration(DURATION).withCallback((finished) => {
@@ -89,7 +95,7 @@ export function AnimatedIcon() {
 
       <Animated.View entering={keyframe.duration(DURATION)} style={styles.background} />
       <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(DURATION)}>
-        <Image style={styles.image} source={require('@/assets/images/expo-logo.png')} />
+        <Image style={styles.image} source={require('@/assets/images/src-logo.png')} />
       </Animated.View>
     </View>
   );
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
   },
   backgroundSolidColor: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#208AEF',
+    backgroundColor: '#B1DEFF',
     zIndex: 1000,
   },
 });

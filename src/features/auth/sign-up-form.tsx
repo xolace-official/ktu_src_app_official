@@ -5,11 +5,17 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { useToast } from 'heroui-native';
+import Feather from '@expo/vector-icons/Feather';
+import { withUniwind } from 'uniwind';
 
 import { SignupSchema, type SignupFormType } from '@/lib/schemas/auth';
 import { useSignUpWithEmail } from '@/hooks/auth/use-signup-with-email-password';
 
+const StyledFeather = withUniwind(Feather);
+
 export default function SignUpForm() {
+  const {toast} = useToast();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const passwordRef = useRef<TextInput>(null);
   const confirmPasswordRef = useRef<TextInput>(null);
@@ -28,7 +34,22 @@ export default function SignUpForm() {
     mode: 'onChange',
   });
 
-  const signUp = useSignUpWithEmail({ onError: () => {} });
+  const signUp = useSignUpWithEmail({ onError: (error) => {
+    toast.show({
+      variant: 'danger',
+      label: 'Sign up failed',
+      description: error.message,
+      icon: (
+              <StyledFeather
+                name="alert-circle"
+                size={16}
+                className="text-danger mt-[3px]"
+              />
+            ),
+            actionLabel: 'Close',
+            onActionPress: ({ hide }) => hide(),
+    });
+  } });
 
   const onSubmit = async (data: SignupFormType) => {
     try {
@@ -45,6 +66,7 @@ export default function SignUpForm() {
       }
     } catch (error) {
       console.log('Sign up error:', error);
+
     }
   };
 
@@ -151,7 +173,7 @@ export default function SignUpForm() {
           size="lg"
         >
           {isSubmitting ? (
-            <Spinner size="sm" className="text-primary-foreground" />
+            <Spinner size="md" color="#8B5CF6" />
           ) : (
             <Button.Label>Sign up</Button.Label>
           )}

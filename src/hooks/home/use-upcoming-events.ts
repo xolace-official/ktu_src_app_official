@@ -1,37 +1,37 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { HomeEvent } from '@/types/home';
+import { useQuery } from '@tanstack/react-query';
 
-const mockEvents: HomeEvent[] = [
-  {
-    id: '1',
-    title: 'Tech Summit 2025',
-    startsAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
-    location: 'Great Hall, Main Campus',
-    category: 'Technology',
-  },
-  {
-    id: '2',
-    title: 'Career Fair - Engineering Week',
-    startsAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-    location: 'Engineering Block A',
-    category: 'Career',
-  },
-  {
-    id: '3',
-    title: 'Inter-Faculty Sports Competition',
-    startsAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-    location: 'University Stadium',
-    category: 'Sports',
-  },
-];
+const STALE_TIME_1_HOUR = 1000 * 60 * 60;
+const GC_TIME_2_HOURS = 2 * STALE_TIME_1_HOUR;
 
 export function useUpcomingEvents(limit = 3) {
+  const client = useSupabase();
+  const safeLimit = Math.max(1, Math.floor(limit));
+
   return useQuery({
-    queryKey: ['upcoming-events', limit],
+    queryKey: ['upcoming-events', safeLimit],
+    staleTime: STALE_TIME_1_HOUR,
+    gcTime: GC_TIME_2_HOURS,
     queryFn: async (): Promise<HomeEvent[]> => {
-      await new Promise((resolve) => setTimeout(resolve, 400));
-      return mockEvents.slice(0, limit);
+      const now = new Date().toISOString();
+
+      const { data, error } = await client
+        .from('events')
+        .select('id, title, starts_at, location, category')
+        .gte('starts_at', now)
+        .order('starts_at', { ascending: true })
+        .limit(safeLimit);
+
+      if (error) throw new Error(error.message);
+
+      return (data ?? []).map((row) => ({
+        id: row.id,
+        title: row.title,
+        startsAt: row.starts_at,
+        location: row.location,
+        category: row.category,
+      }));
     },
-    staleTime: 5 * 60 * 1000,
   });
 }

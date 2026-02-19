@@ -1,7 +1,11 @@
 import { z } from 'zod';
 
 export const CompleteProfileSchema = z.object({
-  fullName: z.string().min(2, 'Full name must be at least 2 characters'),
+  fullName: z
+    .string()
+    .min(3, 'Full name must be at least 3 characters long')
+    .max(50, 'Full name cannot exceed 50 characters')
+    .regex(/^[A-Za-z\s]+$/, 'Full name must contain only letters and spaces'),
   indexNumber: z
     .string()
     .min(5, 'Index number must be at least 5 characters')

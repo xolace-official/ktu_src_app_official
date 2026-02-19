@@ -364,7 +364,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
             size="lg"
           >
             {isSubmitting ? (
-              <Spinner size="sm" className="text-primary-foreground" />
+              <Spinner size="md" color="#8B5CF6" />
             ) : (
               <Button.Label>Continue</Button.Label>
             )}

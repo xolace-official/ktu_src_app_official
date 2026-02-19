@@ -24,6 +24,7 @@ export default function SignInForm() {
     mode: 'onChange',
   });
 
+    // 🟢 Initialize mutation
   const { mutateAsync: signIn, isPending, error } = useSignInWithEmailPassword();
 
   const onSubmit = async (data: SigninFormType) => {
@@ -110,7 +111,7 @@ export default function SignInForm() {
         size="lg"
       >
         {isPending ? (
-          <Spinner size="sm" className="text-primary-foreground" />
+          <Spinner size="md" color="#8B5CF6" />
         ) : (
           <Button.Label>Sign in</Button.Label>
         )}

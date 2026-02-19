@@ -1,19 +1,21 @@
-// import { useMutation } from '@tanstack/react-query';
-// import { supabase } from '@/lib/supabase';
+import { useMutation } from '@tanstack/react-query';
+import { useSupabase } from '@/lib/supabase/use-supabase';
 
-// export function useResendOtp() {
-//   return useMutation({
-//     mutationFn: async (email: string) => {
-//       const { data, error } = await supabase.auth.resend({
-//         type: 'signup',
-//         email,
-//       });
+export function useResendOtp() {
+  const client = useSupabase();
 
-//       if (error) {
-//         throw error;
-//       }
+  const mutationFn = async (email: string) => {
+    const { error } = await client.auth.resend({
+      type: 'signup',
+      email,
+    });
 
-//       return data;
-//     },
-//   });
-// }
+    if (error) throw error;
+    return true;
+  };
+
+  return useMutation({
+    mutationFn,
+    mutationKey: ['resend-otp'],
+  });
+}

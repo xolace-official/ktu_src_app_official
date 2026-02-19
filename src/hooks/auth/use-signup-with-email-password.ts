@@ -1,31 +1,21 @@
-import { useMutation } from '@tanstack/react-query';
-
-interface SignUpParams {
-  email: string;
-  password: string;
-}
-
-interface SignUpResult {
-  user: { id: string; email: string } | null;
-  error: Error | null;
-}
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSupabase } from '@/lib/supabase/use-supabase';
+import { type SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 
 export function useSignUpWithEmail({ onError }: { onError?: (error: Error) => void } = {}) {
-  return useMutation<SignUpResult, Error, SignUpParams>({
-    mutationFn: async ({ email, password }) => {
-      // TODO: Replace with your Supabase auth logic
-      // Example:
-      // const { data, error } = await supabase.auth.signUp({ email, password });
-      // if (error) throw error;
-      // return { user: data.user, error: null };
+  const client = useSupabase();
+  const qc = useQueryClient();
 
-      // Placeholder implementation
-      console.log('Sign up with:', email, password);
-      return { user: { id: '1', email }, error: null };
+  return useMutation({
+    mutationFn: async (credentials: SignUpWithPasswordCredentials) => {
+      const res = await client.auth.signUp(credentials);
+      if (res.error) throw res.error;
+      return res.data;
     },
-    onError: (error) => {
-      console.error('Sign up error:', error);
-      onError?.(error);
+    mutationKey: ['auth', 'sign-up-with-email-password'],
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['supabase', 'user'] });
     },
+    onError,
   });
 }
