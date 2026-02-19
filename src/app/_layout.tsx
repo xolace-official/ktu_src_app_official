@@ -38,7 +38,7 @@ const RootLayoutNav = () => {
 
   return (
     <>
-      <AnimatedSplashOverlay isLoading={isLoading} />
+      {/* <AnimatedSplashOverlay isLoading={isLoading} /> */}
       <Stack>
         <Stack.Protected guard={isAuthenticated}>
           <Stack.Screen name="(protected)" options={{ headerShown: false }} />
