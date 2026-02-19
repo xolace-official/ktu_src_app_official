@@ -33,7 +33,9 @@ export function AnimatedSplashOverlay({ isLoading }: { isLoading: boolean }) {
 
   // Hold the overlay while auth session is still resolving
   if (isLoading) {
-    return <View style={styles.backgroundSolidColor} />;
+    return <View style={[styles.backgroundSolidColor, styles.imageContainer]} >
+       <Image style={styles.image} source={require('@/assets/images/src-logo.png')} />
+    </View>;
   }
 
   // Auth resolved — mounting this triggers the exit animation
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   backgroundSolidColor: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: '#B1DEFF',
     zIndex: 1000,
   },

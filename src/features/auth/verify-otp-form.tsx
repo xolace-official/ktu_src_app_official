@@ -9,8 +9,17 @@ import { useResendOtp } from '@/hooks/auth/use-resend-otp';
 import { useVerifyOtp } from '@/hooks/auth/use-verify-otp';
 import { OTPSchema, type OTPFormType } from '@/lib/schemas/auth';
 
+/**
+ * Render an email OTP verification form with a countdown, validation, resend, and verify actions.
+ *
+ * Displays the email extracted from local search params, accepts a 6-digit code, enforces schema validation,
+ * disables actions when the timer expires or email is missing, and surfaces API errors inline.
+ *
+ * @returns The component's JSX element for the OTP verification UI
+ */
 export default function VerifyOtpForm() {
-  const { email } = useLocalSearchParams<{ email: string }>();
+  const { email: rawEmail } = useLocalSearchParams<{ email: string }>();
+  const email = typeof rawEmail === 'string' && rawEmail.length > 0 ? rawEmail : undefined;
   const [timer, setTimer] = useState(180); // 3 minutes
 
   const verifyOtp = useVerifyOtp();
@@ -43,11 +52,15 @@ export default function VerifyOtpForm() {
   };
 
   const onSubmit = async (data: OTPFormType) => {
+    if (!email) {
+      setError('otpCode', { message: 'Email address is missing. Please go back and try again.' });
+      return;
+    }
     try {
       Keyboard.dismiss();
 
       await verifyOtp.mutateAsync({
-        email: email as string,
+        email,
         token: data.otpCode,
         type: 'email', // important
       });
@@ -63,8 +76,12 @@ export default function VerifyOtpForm() {
   };
 
   const handleResend = async () => {
+    if (!email) {
+      setError('otpCode', { message: 'Email address is missing. Please go back and try again.' });
+      return;
+    }
     try {
-      await resendOtp.mutateAsync(email as string);
+      await resendOtp.mutateAsync(email);
       setTimer(180);
       reset({ otpCode: '' });
     } catch (err: any) {
@@ -127,7 +144,7 @@ export default function VerifyOtpForm() {
 
         <Button
           onPress={handleSubmit(onSubmit)}
-          isDisabled={!isValid || timer === 0 || verifyOtp.isPending}
+          isDisabled={!email || !isValid || timer === 0 || verifyOtp.isPending || resendOtp.isPending}
           className="w-full"
           size="lg"
         >
@@ -143,11 +160,13 @@ export default function VerifyOtpForm() {
         <Button
           onPress={handleResend}
           variant='tertiary'
-          isDisabled={timer > 0}
+          isDisabled={!email || timer > 0 || resendOtp.isPending || verifyOtp.isPending}
           className="w-full border-white/30"
           size="lg"
         >
-          {timer > 0 ? (
+          {resendOtp.isPending ? (
+            <Spinner size="md" color="#8B5CF6" />
+          ) : timer > 0 ? (
             <Button.Label className="text-foreground">Wait to Resend {errors.otpCode && formatTime(timer)}</Button.Label>
           ) : (
             <Button.Label className="text-white">Resend code</Button.Label>

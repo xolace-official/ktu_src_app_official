@@ -207,13 +207,17 @@ export default function NewProductForm() {
             name="category_id"
             render={({ field: { value } }) => (
               <View className="gap-1.5">
+                <View className="flex-row items-center gap-1">
                 <Label>
-                  Category <Text className="text-danger">*</Text>
+                  Category 
                 </Label>
+                <Text className="text-danger">*</Text>
+                </View>
                 <Select
                   value={findSelectOption(categoryOptions, value)}
                   onValueChange={(option) => setValue('category_id', option?.value ?? '', { shouldValidate: true })}
                   isDisabled={isCategoriesLoading}
+                  presentation='bottom-sheet'
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger
@@ -254,6 +258,7 @@ export default function NewProductForm() {
                   onValueChange={(option) =>
                     setValue('condition', option?.value as 'new' | 'used' | 'refurbished' | undefined, { shouldValidate: true })
                   }
+                  presentation="bottom-sheet"
                 >
                   <Select.Trigger>
                     <AnimatedSelectTrigger

@@ -5,12 +5,12 @@ import { useProfileBootstrap } from '@/hooks/profile/use-profile-bootstrap';
 import { useAppStore } from '@/store/store';
 
 const ProtectedLayout = () => {
-  const { isLoading, isError, refetch } = useProfileBootstrap();
+  const { isPending, isError, refetch, data } = useProfileBootstrap();
 
-  const completed = useAppStore((s) => s.profileSummary.completed);
+  const completedFromStore = useAppStore((s) => s.profileSummary.completed);
   const hydrated = useAppStore((s) => s._hasHydrated);
 
-  if (!hydrated || isLoading) {
+  if (!hydrated || isPending) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Spinner size="lg" />
@@ -18,16 +18,19 @@ const ProtectedLayout = () => {
     );
   }
 
-  if (isError || completed === null) {
+  if (isError) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 12 }}>
-        <Text>Something went wrong loading your profile.</Text>
+        <Text className="text-foreground">Something went wrong loading your profile.</Text>
         <Button onPress={() => refetch()}>
           <Button.Label>Retry</Button.Label>
         </Button>
       </View>
     );
   }
+
+  // Use query data directly to avoid a one-render lag from the Zustand useEffect sync
+  const completed = data?.completed ?? completedFromStore ?? false;
 
   return (
     <Stack>

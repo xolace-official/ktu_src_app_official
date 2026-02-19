@@ -1,9 +1,8 @@
+import { GC_TIME_2_HOURS, STALE_TIME_1_HOUR } from '@/constants/query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { NewsArticle } from '@/types/home';
 import { useQuery } from '@tanstack/react-query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
-const GC_TIME_2_HOURS = 2 * STALE_TIME_1_HOUR;
 
 export function useCampusNews(limit = 3) {
   const client = useSupabase();
@@ -27,7 +26,7 @@ export function useCampusNews(limit = 3) {
         id: row.id,
         title: row.title,
         description: row.excerpt ?? '',
-        createdAt: row.published_at,
+        createdAt: row.published_at ?? undefined,
       }));
     },
   });

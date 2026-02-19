@@ -1,9 +1,9 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { HostelCard, HostelRow } from '@/types/hostels';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
 const PAGE_SIZE = 15;
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 /**
  * Infinite query hook for fetching hostels with pagination and search

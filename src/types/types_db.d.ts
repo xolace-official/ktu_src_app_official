@@ -335,6 +335,47 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_anonymous: boolean
+          message: string
+          profile_id: string | null
+          rating: number | null
+          type: Database["public"]["Enums"]["feedback_type"]
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          message: string
+          profile_id?: string | null
+          rating?: number | null
+          type: Database["public"]["Enums"]["feedback_type"]
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          message?: string
+          profile_id?: string | null
+          rating?: number | null
+          type?: Database["public"]["Enums"]["feedback_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       hostel_photos: {
         Row: {
           caption: string | null
@@ -937,6 +978,84 @@ export type Database = {
         }
         Relationships: []
       }
+      spotlights: {
+        Row: {
+          created_at: string
+          description: string
+          ends_at: string | null
+          gradient_colors: string[]
+          id: string
+          is_active: boolean
+          link_url: string | null
+          starts_at: string | null
+          submitter_avatar_url: string | null
+          submitter_initials: string
+          submitter_name: string | null
+          title: string
+          type: Database["public"]["Enums"]["spotlight_type"]
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          ends_at?: string | null
+          gradient_colors?: string[]
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          starts_at?: string | null
+          submitter_avatar_url?: string | null
+          submitter_initials?: string
+          submitter_name?: string | null
+          title: string
+          type?: Database["public"]["Enums"]["spotlight_type"]
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          ends_at?: string | null
+          gradient_colors?: string[]
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          starts_at?: string | null
+          submitter_avatar_url?: string | null
+          submitter_initials?: string
+          submitter_name?: string | null
+          title?: string
+          type?: Database["public"]["Enums"]["spotlight_type"]
+        }
+        Relationships: []
+      }
+      temp_representatives: {
+        Row: {
+          bio: string
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string | null
+          name: string
+          position: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          name: string
+          position: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          name?: string
+          position?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -955,6 +1074,7 @@ export type Database = {
       event_attendance_status: "interested" | "going" | "not_going"
       event_scope_type: "faculty" | "department" | "level"
       event_visibility: "public" | "scoped" | "invite_only"
+      feedback_type: "suggestion" | "bug" | "compliment" | "complaint"
       hostel_payment_term: "yearly" | "semester" | "academic_year"
       listing_submission_status:
         | "submitted"
@@ -965,6 +1085,12 @@ export type Database = {
       market_placement_type: "normal" | "featured"
       payment_status: "pending" | "succeeded" | "failed" | "refunded"
       payment_type: "listing_fee" | "purchase" | "wallet_topup" | "booking_fee"
+      spotlight_type:
+        | "general"
+        | "platform"
+        | "product"
+        | "event"
+        | "announcement"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1095,6 +1221,7 @@ export const Constants = {
       event_attendance_status: ["interested", "going", "not_going"],
       event_scope_type: ["faculty", "department", "level"],
       event_visibility: ["public", "scoped", "invite_only"],
+      feedback_type: ["suggestion", "bug", "compliment", "complaint"],
       hostel_payment_term: ["yearly", "semester", "academic_year"],
       listing_submission_status: [
         "submitted",
@@ -1106,6 +1233,13 @@ export const Constants = {
       market_placement_type: ["normal", "featured"],
       payment_status: ["pending", "succeeded", "failed", "refunded"],
       payment_type: ["listing_fee", "purchase", "wallet_topup", "booking_fee"],
+      spotlight_type: [
+        "general",
+        "platform",
+        "product",
+        "event",
+        "announcement",
+      ],
     },
   },
 } as const

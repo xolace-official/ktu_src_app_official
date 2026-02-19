@@ -1,12 +1,20 @@
 import { Surface } from 'heroui-native';
 import { Pressable, Text, View } from 'react-native';
-import { feedbackTypes, type FeedbackType } from './feedback-data';
+import { feedbackTypes, type FeedbackType, type FeedbackTypeKind } from './feedback-data';
 
 interface FeedbackTypeSelectorProps {
-  selectedType: string | null;
-  onSelectType: (typeId: string) => void;
+  selectedType: FeedbackTypeKind | null;
+  onSelectType: (typeId: FeedbackTypeKind) => void;
 }
 
+/**
+ * Render a selectable feedback type card that displays the type's icon and label and reflects selection state.
+ *
+ * @param type - Feedback type metadata (icon component, label, colors, and background class) to display
+ * @param isSelected - Whether this card is the currently selected type; controls border and text accent styling
+ * @param onPress - Callback invoked when the card is pressed
+ * @returns The rendered Pressable card element
+ */
 function FeedbackTypeCard({
   type,
   isSelected,

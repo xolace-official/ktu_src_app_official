@@ -1,8 +1,8 @@
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import type { AnnouncementDetails, Attachment, QuickFact } from '@/types/info-center';
 import { useQuery } from '@tanstack/react-query';
+import { STALE_TIME_1_HOUR } from '@/constants/query';
 
-const STALE_TIME_1_HOUR = 1000 * 60 * 60;
 
 /**
  * Hook to fetch a single announcement with author relation

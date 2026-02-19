@@ -14,9 +14,14 @@ SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
   // Default to the tabs shell so deep-link reloads start from a valid root.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(protected)',
 };
 
+/**
+ * Provides the application's root context and renders the navigation layout.
+ *
+ * @returns A React element that wraps RootLayoutNav with the RootProvider
+ */
 export default function RootLayout() {
   return (
     <RootProvider>

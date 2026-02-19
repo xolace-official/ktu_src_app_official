@@ -5,9 +5,11 @@
 export interface SRCUpdate {
   id: string;
   title: string;
-  timestamp: string;
+  submitterName: string;
+  timestamp?: string;
   description: string;
   readMoreLink?: string;
+  linkUrl?: string;
   avatarUrl?: string;
   avatarFallback: string;
   gradientColors: [string, string];

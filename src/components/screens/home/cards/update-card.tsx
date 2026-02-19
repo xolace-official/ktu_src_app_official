@@ -1,30 +1,27 @@
 import { memo } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Card, Avatar, PressableFeedback } from 'heroui-native';
-import { Download, Share2, Copy, ExternalLink, Megaphone } from 'lucide-react-native';
+import { Share2, ExternalLink } from 'lucide-react-native';
 import { ThemedText } from '@/components/themed-text';
 import type { SRCUpdate } from '@/types/home';
 import MemoMicMegaphone from '@/components/icons/MicMegaphone';
 
 interface UpdateCardProps {
   update: SRCUpdate;
-  onDownload?: () => void;
   onShare?: () => void;
-  onCopy?: () => void;
   onExternalLink?: () => void;
   onReadMore?: () => void;
 }
 
 export const UpdateCard = memo(function UpdateCard({
   update,
-  onDownload,
   onShare,
-  onCopy,
   onExternalLink,
   onReadMore,
 }: UpdateCardProps) {
-  const { title, timestamp, description, avatarUrl, avatarFallback, gradientColors } = update;
+  const { title, submitterName, timestamp, description, avatarUrl, avatarFallback, gradientColors, linkUrl } =
+    update;
 
   return (
     <View className="w-full">
@@ -43,7 +40,7 @@ export const UpdateCard = memo(function UpdateCard({
                   {avatarUrl ? (
                     <Avatar.Image source={{ uri: avatarUrl }} />
                   ) : (
-                    <Avatar.Fallback className="bg-white">
+                    <Avatar.Fallback>
                       <ThemedText className="text-sm font-semibold text-primary">
                         {avatarFallback}
                       </ThemedText>
@@ -52,52 +49,42 @@ export const UpdateCard = memo(function UpdateCard({
                 </Avatar>
 
                 <View className="flex-1">
-                  <ThemedText className="text-[13px] font-medium leading-tight text-white">
+                  <Text className="text-[13px] font-medium leading-tight text-white">
                     {title}
-                  </ThemedText>
-                  <ThemedText className="mt-0.5 text-xs text-white/80">{timestamp}</ThemedText>
+                  </Text>
+                  <Text className="text-xs text-white/80">{submitterName}</Text>
+                  {timestamp && (
+                    <Text className="text-[10px] text-white/60">{timestamp}</Text>
+                  )}
                 </View>
               </View>
             </View>
 
             {/* Description */}
             <View className="mb-3 pl-12">
-              <ThemedText className="text-sm leading-relaxed text-white">{description}</ThemedText>
+              <Text numberOfLines={4} className="text-sm leading-relaxed text-white">{description}</Text>
               {onReadMore && (
                 <PressableFeedback onPress={onReadMore} className="mt-1">
-                  <ThemedText className="text-sm font-semibold text-white">[Read More]</ThemedText>
+                  <Text className="text-xs font-semibold text-accent">[Read More]</Text>
                 </PressableFeedback>
               )}
             </View>
 
             {/* Action Buttons */}
             <View className="flex-row items-center gap-5 pl-12">
-              <PressableFeedback
-                onPress={onDownload}
-                className="rounded-full bg-white/10 p-2.5"
-              >
-                <Download color="white" size={20} />
-              </PressableFeedback>
-
-              <PressableFeedback
-                onPress={onShare}
-                className="rounded-full bg-white/10 p-2.5"
-              >
-                <Share2 color="white" size={20} />
-              </PressableFeedback>
-
-              <PressableFeedback
-                onPress={onCopy}
-                className="rounded-full bg-white/10 p-2.5"
-              >
-                <Copy color="white" size={20} />
-              </PressableFeedback>
+              {onShare && (
+                <PressableFeedback onPress={onShare} className="rounded-full bg-white/10 p-2.5">
+                  <Share2 color="white" size={20} />
+                </PressableFeedback>
+              )}
 
               <View className="flex-1" />
 
-              <PressableFeedback onPress={onExternalLink}>
-                <ExternalLink color="white" size={20} />
-              </PressableFeedback>
+              {linkUrl && (
+                <PressableFeedback onPress={onExternalLink} className="rounded-full bg-white/10 p-2.5">
+                  <ExternalLink color="white" size={20} />
+                </PressableFeedback>
+              )}
             </View>
           </Card.Body>
         </Card>
