@@ -160,7 +160,7 @@ export default function VerifyOtpForm() {
         <Button
           onPress={handleResend}
           variant='tertiary'
-          isDisabled={!email || timer > 0 || resendOtp.isPending}
+          isDisabled={!email || timer > 0 || resendOtp.isPending || verifyOtp.isPending}
           className="w-full border-white/30"
           size="lg"
         >
