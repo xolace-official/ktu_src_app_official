@@ -20,7 +20,7 @@ export function CompleteProfileScreen() {
   };
 
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-red-400">
+    <SafeAreaView edges={['top']} className="flex-1">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <CompleteProfileForm onSubmit={handleSubmit} isSubmitting={updateProfile.isPending} />
       </TouchableWithoutFeedback>

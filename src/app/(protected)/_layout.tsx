@@ -10,6 +10,12 @@ const ProtectedLayout = () => {
   const completedFromStore = useAppStore((s) => s.profileSummary.completed);
   const hydrated = useAppStore((s) => s._hasHydrated);
 
+  console.log('hydrated', hydrated);
+  console.log('isPending', isPending);
+  console.log('isError', isError);
+  console.log('data', data);
+  console.log('completedFromStore', completedFromStore);
+
   if (!hydrated || isPending) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -29,8 +35,9 @@ const ProtectedLayout = () => {
     );
   }
 
-  // Use query data directly to avoid a one-render lag from the Zustand useEffect sync
-  const completed = data?.completed ?? completedFromStore ?? false;
+  // completedFromStore is updated synchronously in mutation onSuccess, so prefer it.
+  // data?.completed uses ?? which would short-circuit on false — use === true checks instead.
+  const completed = completedFromStore === true || data?.completed === true;
 
   return (
     <Stack>
