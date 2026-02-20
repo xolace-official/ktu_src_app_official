@@ -127,7 +127,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'twitter',
     name: 'Twitter',
-    url: 'https://twitter.com/ktusrc',
+    url: 'https://twitter.com/srcktu',
     icon: Twitter,
     iconColor: '#1DA1F2',
   },
@@ -148,7 +148,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'website',
     name: 'Website',
-    url: 'https://ktusrc.com',
+    url: 'https://www.ktusrc.org/en/',
     icon: Globe,
     iconColor: '#6366F1',
   },
