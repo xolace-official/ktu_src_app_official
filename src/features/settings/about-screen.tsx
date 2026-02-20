@@ -4,7 +4,6 @@ import {
   AboutHeader,
   MissionSection,
   SocialLinksSection,
-  CreditsSection,
   AboutFooter,
 } from './components/about';
 
@@ -38,7 +37,7 @@ export const AboutScreen = () => {
         <Separator />
       </View>
 
-      <CreditsSection />
+      {/* <CreditsSection /> */}
 
       <View className="px-4">
         <Separator />

@@ -195,6 +195,6 @@ export const aboutContent = {
     'The official mobile application of the Students\u0027 Representative Council (SRC) of Koforidua Technical University. Designed to keep you connected with campus life, events, and your fellow students.',
   universityName: 'Koforidua Technical University',
   srcFullName: 'Students\u0027 Representative Council',
-  establishedYear: '2024',
-  copyright: '\u00A9 2024 KTU SRC. All rights reserved.',
+  establishedYear: '2026',
+  copyright: '\u00A9 2026 KTU SRC. All rights reserved.',
 };
