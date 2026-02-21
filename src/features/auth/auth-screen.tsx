@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
-import { Tabs } from 'heroui-native';
+import { View, Text, StyleSheet, useWindowDimensions, Linking } from 'react-native';
+import { Tabs, PressableFeedback } from 'heroui-native';
 import { Image } from 'expo-image';
 import Animated, {
   interpolate,
@@ -9,9 +9,36 @@ import Animated, {
   useSharedValue,
   Extrapolation,
 } from 'react-native-reanimated';
+import { Phone } from 'lucide-react-native';
 
 import SignUpForm from './sign-up-form';
 import SignInForm from './sign-in-form';
+
+const SUPPORT_NUMBERS = [
+  { label: '0558 218 741', value: '0558218741' },
+  { label: '0547 103 309', value: '0547103309' },
+] as const;
+
+function SupportFooter() {
+  return (
+    <View className="items-center py-8 px-6 gap-2">
+      <View className="flex-row items-center gap-1.5">
+        <Phone size={12} color="#9ca3af" />
+        <Text className="text-xs text-foreground">Facing issues? Contact support</Text>
+      </View>
+      <View className="flex-row items-center gap-3">
+        {SUPPORT_NUMBERS.map((num, i) => (
+          <View key={num.value} className="flex-row items-center gap-3">
+            {i > 0 && <Text className="text-foreground text-xs">·</Text>}
+            <PressableFeedback onPress={() => Linking.openURL(`tel:${num.value}`)}>
+              <Text className="text-xs font-semibold text-accent">{num.label}</Text>
+            </PressableFeedback>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
 
 const HEADER_HEIGHT = 350;
 
@@ -127,6 +154,8 @@ export function AuthScreen() {
               <SignInForm />
             </Tabs.Content>
           </Tabs>
+
+          <SupportFooter />
         </View>
       </Animated.ScrollView>
     </View>
@@ -156,7 +185,6 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    
     experimental_backgroundImage:
       'linear-gradient(to bottom, rgba(10, 76, 163, 0.7) 0%, rgba(10, 76, 163, 0.9) 100%)',
   },
