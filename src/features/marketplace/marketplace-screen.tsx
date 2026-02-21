@@ -5,7 +5,6 @@ import { useTheme } from '@/hooks/use-theme';
 import { useMarketCategories, useFeaturedListings } from '@/hooks/marketplace';
 import {
   ProductCard,
-  ProductSearchBar,
   Banner,
   CategoriesScroll,
   SectionHeader,
@@ -24,9 +23,9 @@ import { ThemedText } from '@/components/themed-text';
 function ListHeaderContent() {
   const { data: categories = [], isLoading: categoriesLoading } = useMarketCategories();
 
-  const handleSearchPress = () => {
-    router.push('/');
-  };
+  // const handleSearchPress = () => {
+  //   router.push('/');
+  // };
 
   const handleSeeAllCategories = () => {
     router.push('/marketplace-screen/categories');
@@ -35,11 +34,11 @@ function ListHeaderContent() {
   return (
     <View className="gap-6 pb-4">
       {/* Search Bar */}
-      <ProductSearchBar
+      {/* <ProductSearchBar
         onPress={handleSearchPress}
         placeholder="Search products..."
         editable
-      />
+      /> */}
 
       {/* Promotional Banner */}
       <Banner

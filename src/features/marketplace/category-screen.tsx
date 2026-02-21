@@ -59,7 +59,7 @@ function LoadingSkeleton({ cardWidth }: { cardWidth: number }) {
  */
 function EmptyState({ search }: { search: string }) {
   return (
-    <View className="flex-1 items-center justify-center py-20">
+    <View className=" items-center justify-center py-20">
       <ThemedText themeColor="textSecondary" className="text-center">
         {search
           ? `No products found for "${search}"`
@@ -190,7 +190,6 @@ export function CategoryScreen() {
         paddingHorizontal: HORIZONTAL_PADDING,
         paddingTop: GRID_GAP,
         paddingBottom: 32,
-        flexGrow: 1,
       }}
       contentInsetAdjustmentBehavior="automatic"
       showsVerticalScrollIndicator={false}

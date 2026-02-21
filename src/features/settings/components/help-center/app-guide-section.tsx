@@ -37,7 +37,7 @@ const guides: GuideItem[] = [
     iconColor: '#22C55E',
     iconBgClass: 'bg-success/10',
     title: 'Marketplace',
-    description: 'Buy and sell items within the KTU community — textbooks, gadgets, and more',
+    description: 'Buy and sell items within the KTU community, textbooks, gadgets, and more',
   },
   {
     icon: Building2,

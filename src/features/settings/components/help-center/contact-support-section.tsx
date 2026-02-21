@@ -111,7 +111,7 @@ export function ContactSupportSection() {
   };
 
   const handlePhone = async () => {
-    const phoneNumber = 'tel:+233XXXXXXXXX';
+    const phoneNumber = 'tel:+233591654726';
     try {
       const canOpen = await Linking.canOpenURL(phoneNumber);
       if (canOpen) {
@@ -193,7 +193,7 @@ export function ContactSupportSection() {
             iconBgClass="bg-success/10"
             iconColor="#22C55E"
             label="Phone"
-            value="+233 XX XXX XXXX"
+            value="+233 59 165 4726"
             onPress={handlePhone}
           />
           <ContactItem

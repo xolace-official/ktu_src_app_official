@@ -27,7 +27,7 @@ const quickLinks: QuickLinkItem[] = [
     iconColor: '#3B82F6',
     title: 'Student Handbook',
     subtitle: 'Academic policies & regulations',
-    url: 'https://ktu.edu.gh',
+    url: 'https://ktu.edu.gh/policies-documents/',
   },
   // {
   //   id: 'privacy-policy',

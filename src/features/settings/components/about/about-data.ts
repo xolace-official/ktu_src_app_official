@@ -155,7 +155,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'email',
     name: 'Email',
-    url: 'mailto:src@ktu.edu.gh',
+    url: 'mailto:info@ktusrc.org',
     icon: Mail,
     iconColor: '#22C55E',
   },
