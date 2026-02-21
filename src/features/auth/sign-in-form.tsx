@@ -31,7 +31,7 @@ function EmailNotConfirmedBanner({ email }: { email: string }) {
       </View>
 
       <Text className="text-xs text-foreground leading-relaxed">
-        Your account email hasn't been confirmed yet. Tap below to receive a verification code.
+        Your account email hasn&apos;t been confirmed yet. Tap below to receive a verification code.
       </Text>
 
       <Button
