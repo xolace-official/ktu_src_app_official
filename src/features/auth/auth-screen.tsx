@@ -34,7 +34,11 @@ function SupportFooter() {
               const url = `tel:${num.value}`;
               const supported = await Linking.canOpenURL(url);
               if (supported) {
-                await Linking.openURL(url);
+                try {
+                  await Linking.openURL(url);
+                } catch {
+                  // dialer unavailable or OS rejected the intent — no-op
+                }
               }
             }}>
               <Text className="text-xs font-semibold text-accent">{num.label}</Text>

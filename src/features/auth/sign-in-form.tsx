@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { TextField, Button, Spinner, Label, Input, FieldError } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +24,7 @@ function EmailNotConfirmedBanner({ email }: { email: string }) {
   };
 
   return (
-    <View style={styles.banner} className="mb-4 rounded-2xl p-4 gap-2.5">
+    <View className="mb-4 rounded-2xl p-4 gap-2.5 bg-amber-500/8 border border-amber-500/25">
       <View className="flex-row items-center gap-2">
         <Mail size={15} color="#d97706" />
         <Text className="text-sm font-semibold text-foreground">Email not verified</Text>
@@ -173,11 +173,3 @@ export default function SignInForm() {
     </KeyboardAwareScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  banner: {
-    backgroundColor: 'rgba(245, 158, 11, 0.08)',
-    borderWidth: 1,
-    borderColor: 'rgba(245, 158, 11, 0.25)',
-  },
-});

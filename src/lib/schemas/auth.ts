@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const ktuEmail = z
   .email('Please enter a valid email address')
-  .refine((val) => val.endsWith('@ktu.edu.gh'), {
+  .refine((val) => val.trim().toLowerCase().endsWith('@ktu.edu.gh'), {
     message: 'Only KTU institutional emails (@ktu.edu.gh) are accepted',
   });
 
