@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   name: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '600',
     color: '#ffffff',
   },
   position: {
-    fontSize: 12,
+    fontSize: 11,
     color: 'rgba(255,255,255,0.72)',
   },
 });
