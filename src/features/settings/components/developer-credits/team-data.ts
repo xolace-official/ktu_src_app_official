@@ -13,7 +13,7 @@ export const techTeam: TeamMember[] = [
   {
     id: 'member-1',
     name: 'Emmanuel Acquah',
-    position: 'Chairman',
+    position: 'Chairman / Frontend Dev',
     initials: 'EA',
     gradientColors: ['#3c87f7', '#6366f1'],
     imageUrl: `${BASE}/kwame.jpeg`,
@@ -44,7 +44,7 @@ export const techTeam: TeamMember[] = [
   },
   {
     id: 'member-5',
-    name: 'Prosper',
+    name: 'Agbesi Prosper Kwesi',
     position: 'QA / Mobile Developer',
     initials: 'P',
     gradientColors: ['#f59e0b', '#ef4444'],
