@@ -22,7 +22,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
         {member.imageUrl ? (
           <Image
             source={{ uri: member.imageUrl }}
-            style={StyleSheet.absoluteFillObject}
+            style={StyleSheet.absoluteFill}
             contentFit="cover"
             transition={300}
           />
@@ -38,13 +38,13 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
         {/* Bottom scrim for text legibility */}
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.72)']}
-          style={[StyleSheet.absoluteFillObject, { top: '40%' }]}
+          style={[StyleSheet.absoluteFill, { top: '40%' }]}
         />
 
         {/* Large initials centered when no photo */}
         {!member.imageUrl && (
           <View
-            style={[StyleSheet.absoluteFillObject, styles.initialsContainer]}
+            style={[StyleSheet.absoluteFill, styles.initialsContainer]}
           >
             <Text style={styles.initials}>{member.initials}</Text>
           </View>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   name: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
     color: '#ffffff',
   },
