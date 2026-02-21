@@ -27,7 +27,7 @@ export function useOtaUpdate() {
     alertActiveRef.current = true;
     Alert.alert(
       'Update available',
-      'A new update is ready. Refresh now to get the latest improvements.',
+      'A new update is ready. Refresh now to get the latest improvements. You might be logged out after the refresh.',
       [
         {
           text: 'Later',
