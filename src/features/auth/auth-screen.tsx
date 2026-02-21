@@ -89,7 +89,6 @@ export function AuthScreen() {
                 source={require('@/assets/images/sign-up-image.png')}
                 placeholder={{ blurhash }}
                 style={styles.logoImage}
-
               />
 
               <View className="flex-1 ml-4">
@@ -157,7 +156,7 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    
     experimental_backgroundImage:
       'linear-gradient(to bottom, rgba(10, 76, 163, 0.7) 0%, rgba(10, 76, 163, 0.9) 100%)',
   },
@@ -168,6 +167,7 @@ const styles = StyleSheet.create({
   logoImage: {
     width: "45%",
     objectFit: 'contain',
+    height: '100%',
   },
   welcomeTitle: {
     fontSize: 36,
