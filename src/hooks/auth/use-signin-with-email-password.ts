@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { type SignInWithPasswordCredentials } from '@supabase/supabase-js';
+import { type AuthError, type SignInWithPasswordCredentials } from '@supabase/supabase-js';
 
 import { useSupabase } from '@/lib/supabase/use-supabase';
 
@@ -18,7 +18,7 @@ export function useSignInWithEmailPassword() {
     return response.data;
   };
 
-  return useMutation({
+  return useMutation<Awaited<ReturnType<typeof signIn>>, AuthError, SignInWithPasswordCredentials>({
     mutationFn: signIn,
     mutationKey: ['auth', 'signin', 'email'],
     onSuccess: () => {

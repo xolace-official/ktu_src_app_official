@@ -74,8 +74,8 @@ export default function SignInForm() {
   });
 
   const { mutateAsync: signIn, isPending, error } = useSignInWithEmailPassword();
-
-  const isEmailNotConfirmed = error?.message === 'Email not confirmed';
+console.log("error ", error?.code);
+  const isEmailNotConfirmed = error?.code === 'email_not_confirmed';
 
   const onSubmit = async (data: SigninFormType) => {
     try {
