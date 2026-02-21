@@ -1,6 +1,37 @@
-{
-  "expo": {
-    "name": "KTU SRC",
+import { ConfigContext, ExpoConfig } from "expo/config"
+
+const IS_DEV = process.env.APP_VARIANT === 'development';
+const IS_PREVIEW = process.env.APP_VARIANT === 'preview';
+
+const getUniqueIdentifier = () => {
+  if (IS_DEV) {
+    return 'com.xolaceincorg.KtuSrcAppOfficial.dev';
+  }
+
+  if (IS_PREVIEW) {
+    return 'com.xolaceincorg.KtuSrcAppOfficial.preview';
+  }
+
+  return 'com.xolaceincorg.KtuSrcAppOfficial';
+};
+
+const getAppName = () => {
+  if (IS_DEV) {
+    return 'KTU SRC (Dev)';
+  }
+
+  if (IS_PREVIEW) {
+    return 'KTU SRC (Preview)';
+  }
+
+  return 'KTU SRC';
+};
+
+
+
+export default ({ config }: ConfigContext): ExpoConfig => ( {
+    ...config,
+    "name": getAppName(),
     "slug": "ktu_src_app_official",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,7 +39,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/ktu-src.icon",
-      "bundleIdentifier": "com.skvng.ktu-src-app-official",
+      "bundleIdentifier": getUniqueIdentifier(),
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -20,9 +51,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.skvng.ktu_src_app_official"
+      "package": getUniqueIdentifier()
     },
     "web": {
       "output": "static",
@@ -30,6 +60,12 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos to let you select a photo."
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -47,7 +83,10 @@
             }
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -60,5 +99,4 @@
       }
     },
     "owner": "xolace-inc-org"
-  }
-}
+  })

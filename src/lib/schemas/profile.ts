@@ -9,7 +9,10 @@ export const CompleteProfileSchema = z.object({
   indexNumber: z
     .string()
     .min(5, 'Index number must be at least 5 characters')
-    .regex(/^[A-Z]\d+$/, 'Index number format should be like B202210330'),
+    .regex(
+      /^([A-Z]\d+|\d{2}\/\d{4}\/\d+[A-Z]|\d+[A-Z])$/,
+      'Invalid index number format (e.g. B202210330, 04/2021/4123D, 0420214123D)'
+    ),
   phoneNumber: z
     .string()
     .min(10, 'Phone number must be at least 10 digits')

@@ -53,7 +53,7 @@ export function useUpdateProfile() {
           })
 
       // Invalidate and refetch the profile query to get fresh data
-      queryClient.invalidateQueries({ queryKey: ['profile', userId] });
+      queryClient.invalidateQueries({ queryKey: ['profile', 'summary', userId] });
 
       // Update the store with new profile summary
       setProfileSummary({

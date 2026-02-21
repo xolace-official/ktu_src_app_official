@@ -9,9 +9,7 @@ import {
   Globe,
   GraduationCap,
   BookOpen,
-  Mail,
   Laptop,
-  Briefcase,
 } from 'lucide-react-native';
 import type { SettingSection, ExternalService } from '@/types/settings.types';
 
@@ -109,7 +107,7 @@ export const externalServices: ExternalService[] = [
   {
     id: 'school-website',
     name: 'School Website',
-    url: 'https://www.ktu.edu.gh',
+    url: 'https://ktu.edu.gh',
     icon: Globe,
     iconBgClass: 'bg-accent',
     iconColor: '#fff',
@@ -117,7 +115,7 @@ export const externalServices: ExternalService[] = [
   {
     id: 'student-portal',
     name: 'Student Portal',
-    url: 'https://apps.ktu.edu.gh',
+    url: 'https://connect.ktu.edu.gh/',
     icon: GraduationCap,
     iconBgClass: 'bg-success',
     iconColor: '#fff',
@@ -125,33 +123,33 @@ export const externalServices: ExternalService[] = [
   {
     id: 'library',
     name: 'Library',
-    url: 'https://library.ktu.edu.gh',
+    url: 'https://ktu.edu.gh/the-university/directorates-centres/the-university-library/',
     icon: BookOpen,
     iconBgClass: 'bg-accent',
     iconColor: '#fff',
   },
+  // {
+  //   id: 'webmail',
+  //   name: 'Webmail',
+  //   url: 'https://mail.ktu.edu.gh',
+  //   icon: Mail,
+  //   iconBgClass: 'bg-danger',
+  //   iconColor: '#fff',
+  // },
   {
-    id: 'webmail',
-    name: 'Webmail',
-    url: 'https://mail.ktu.edu.gh',
-    icon: Mail,
-    iconBgClass: 'bg-danger',
-    iconColor: '#fff',
-  },
-  {
-    id: 'learning-portal',
-    name: 'Learning Portal',
-    url: 'https://elearning.ktu.edu.gh',
+    id: 'VLE',
+    name: 'VLE',
+    url: 'https://vle.ktu.edu.gh/login/index.php',
     icon: Laptop,
     iconBgClass: 'bg-success',
     iconColor: '#fff',
   },
-  {
-    id: 'career-services',
-    name: 'Career Services',
-    url: 'https://careers.ktu.edu.gh',
-    icon: Briefcase,
-    iconBgClass: 'bg-accent',
-    iconColor: '#fff',
-  },
+  // {
+  //   id: 'career-services',
+  //   name: 'Career Services',
+  //   url: 'https://careers.ktu.edu.gh',
+  //   icon: Briefcase,
+  //   iconBgClass: 'bg-accent',
+  //   iconColor: '#fff',
+  // },
 ];

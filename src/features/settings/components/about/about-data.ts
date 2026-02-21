@@ -127,7 +127,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'twitter',
     name: 'Twitter',
-    url: 'https://twitter.com/ktusrc',
+    url: 'https://twitter.com/srcktu',
     icon: Twitter,
     iconColor: '#1DA1F2',
   },
@@ -148,7 +148,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'website',
     name: 'Website',
-    url: 'https://ktusrc.com',
+    url: 'https://www.ktusrc.org/en/',
     icon: Globe,
     iconColor: '#6366F1',
   },
@@ -195,6 +195,6 @@ export const aboutContent = {
     'The official mobile application of the Students\u0027 Representative Council (SRC) of Koforidua Technical University. Designed to keep you connected with campus life, events, and your fellow students.',
   universityName: 'Koforidua Technical University',
   srcFullName: 'Students\u0027 Representative Council',
-  establishedYear: '2024',
-  copyright: '\u00A9 2024 KTU SRC. All rights reserved.',
+  establishedYear: '2026',
+  copyright: '\u00A9 2026 KTU SRC. All rights reserved.',
 };

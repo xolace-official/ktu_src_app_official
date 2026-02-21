@@ -1,15 +1,64 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { TextField, Button, Spinner, Label, Input, FieldError } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { useRouter } from 'expo-router';
+import { Mail } from 'lucide-react-native';
 
 import { SigninSchema, type SigninFormType } from '@/lib/schemas/auth';
 import { useSignInWithEmailPassword } from '@/hooks/auth/use-signin-with-email-password';
+import { useResendOtp } from '@/hooks/auth/use-resend-otp';
+
+function EmailNotConfirmedBanner({ email }: { email: string }) {
+  const router = useRouter();
+  const { mutate: resend, isPending, error: resendError } = useResendOtp();
+
+  const handleResend = () => {
+    resend(email, {
+      onSuccess: () => {
+        router.push({ pathname: '/auth/verify-screen', params: { email } });
+      },
+    });
+  };
+
+  return (
+    <View className="mb-4 rounded-2xl p-4 gap-2.5 bg-amber-500/8 border border-amber-500/25">
+      <View className="flex-row items-center gap-2">
+        <Mail size={15} color="#d97706" />
+        <Text className="text-sm font-semibold text-foreground">Email not verified</Text>
+      </View>
+
+      <Text className="text-xs text-foreground leading-relaxed">
+        Your account email hasn&apos;t been confirmed yet. Tap below to receive a verification code.
+      </Text>
+
+      <Button
+        variant="tertiary"
+        size="sm"
+        onPress={handleResend}
+        isDisabled={isPending}
+        className="self-start mt-1"
+      >
+        {isPending ? (
+          <Spinner size="sm" />
+        ) : (
+          <Button.Label>Resend confirmation email</Button.Label>
+        )}
+      </Button>
+
+      {resendError && (
+        <Text className="text-xs text-danger">{resendError.message}</Text>
+      )}
+    </View>
+  );
+}
 
 export default function SignInForm() {
   const passwordRef = useRef<TextInput>(null);
+
+  const [capturedEmail, setCapturedEmail] = useState('');
 
   const {
     control,
@@ -24,16 +73,16 @@ export default function SignInForm() {
     mode: 'onChange',
   });
 
-    // 🟢 Initialize mutation
   const { mutateAsync: signIn, isPending, error } = useSignInWithEmailPassword();
+console.log("error ", error?.code);
+  const isEmailNotConfirmed = error?.code === 'email_not_confirmed';
 
   const onSubmit = async (data: SigninFormType) => {
     try {
       await signIn(data);
-      // Navigate on success:
-      // router.replace("/(app)/home");
+      setCapturedEmail('');
     } catch (err) {
-      console.log('Sign in failed:', err);
+      setCapturedEmail(data.email);
     }
   };
 
@@ -96,8 +145,13 @@ export default function SignInForm() {
         />
       </View>
 
-      {/* Backend Error */}
-      {error && (
+      {/* Email not confirmed — actionable recovery banner */}
+      {isEmailNotConfirmed && capturedEmail && (
+        <EmailNotConfirmedBanner email={capturedEmail} />
+      )}
+
+      {/* Other backend errors */}
+      {error && !isEmailNotConfirmed && (
         <Text className="mb-4 text-danger text-sm">
           {error.message || 'Failed to sign in.'}
         </Text>

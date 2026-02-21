@@ -92,14 +92,14 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
   );
 
   const handleFacultyChange = (option: SelectOption | undefined) => {
-    setValue('faculty', option?.value ?? '');
-    setValue('department', '');
-    setValue('program', '');
+    setValue('faculty', option?.value ?? '', { shouldValidate: true, shouldDirty: true });
+    setValue('department', '', { shouldValidate: true, shouldDirty: true });
+    setValue('program', '', { shouldValidate: true, shouldDirty: true });
   };
 
   const handleDepartmentChange = (option: SelectOption | undefined) => {
-    setValue('department', option?.value ?? '');
-    setValue('program', '');
+    setValue('department', option?.value ?? '', { shouldValidate: true, shouldDirty: true });
+    setValue('program', '', { shouldValidate: true, shouldDirty: true });
   };
 
   return (
@@ -244,6 +244,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   Department <Text className="text-danger">*</Text>
                 </Text>
                 <Select
+                  key={`dept-${selectedFaculty}`}
                   value={findSelectOption(departmentOptions, value)}
                   onValueChange={handleDepartmentChange}
                   isDisabled={!selectedFaculty || isLoadingDepartments}
@@ -284,8 +285,9 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   Program of Study <Text className="text-danger">*</Text>
                 </Text>
                 <Select
+                  key={`prog-${selectedDepartment}`}
                   value={findSelectOption(programOptions, value)}
-                  onValueChange={(option) => setValue('program', option?.value ?? '')}
+                  onValueChange={(option) => setValue('program', option?.value ?? '', { shouldValidate: true, shouldDirty: true })}
                   isDisabled={!selectedDepartment || isLoadingPrograms}
                   presentation='bottom-sheet'
                 >
@@ -329,7 +331,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                 </Text>
                 <Select
                   value={findSelectOption(levelOptions, value)}
-                  onValueChange={(option) => setValue('level', option?.value ?? '')}
+                  onValueChange={(option) => setValue('level', option?.value ?? '', { shouldValidate: true, shouldDirty: true })}
                   presentation='bottom-sheet'
                 >
                   <Select.Trigger>

@@ -6,7 +6,7 @@ import { ShoppingBag } from 'lucide-react-native';
 
 export function MarketCTA() {
   const handlePress = () => {
-    router.push('/');
+    router.push('/(protected)/(tabs)/marketplace-screen');
   };
 
   return (

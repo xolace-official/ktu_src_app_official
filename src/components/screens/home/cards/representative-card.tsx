@@ -1,8 +1,7 @@
 import { memo } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { Image } from 'expo-image';
 import { Card, PressableFeedback } from 'heroui-native';
-import { Text } from 'react-native';
 import type { Representative } from '@/types/home';
 
 interface RepresentativeCardProps {
@@ -27,6 +26,7 @@ export const RepresentativeCard = memo(function RepresentativeCard({
                   borderRadius: 14,
                 }}
                 contentFit="cover"
+                contentPosition="top"
                 transition={300}
               />
           </View>

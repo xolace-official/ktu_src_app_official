@@ -29,8 +29,9 @@ const ProtectedLayout = () => {
     );
   }
 
-  // Use query data directly to avoid a one-render lag from the Zustand useEffect sync
-  const completed = data?.completed ?? completedFromStore ?? false;
+  // completedFromStore is updated synchronously in mutation onSuccess, so prefer it.
+  // data?.completed uses ?? which would short-circuit on false — use === true checks instead.
+  const completed = completedFromStore === true || data?.completed === true;
 
   return (
     <Stack>
