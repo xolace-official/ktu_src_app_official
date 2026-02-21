@@ -30,7 +30,13 @@ function SupportFooter() {
         {SUPPORT_NUMBERS.map((num, i) => (
           <View key={num.value} className="flex-row items-center gap-3">
             {i > 0 && <Text className="text-foreground text-xs">·</Text>}
-            <PressableFeedback onPress={() => Linking.openURL(`tel:${num.value}`)}>
+            <PressableFeedback onPress={async () => {
+              const url = `tel:${num.value}`;
+              const supported = await Linking.canOpenURL(url);
+              if (supported) {
+                await Linking.openURL(url);
+              }
+            }}>
               <Text className="text-xs font-semibold text-accent">{num.label}</Text>
             </PressableFeedback>
           </View>

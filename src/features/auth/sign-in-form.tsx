@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { TextField, Button, Spinner, Label, Input, FieldError } from 'heroui-native';
 import { useForm, Controller } from 'react-hook-form';
@@ -58,10 +58,11 @@ function EmailNotConfirmedBanner({ email }: { email: string }) {
 export default function SignInForm() {
   const passwordRef = useRef<TextInput>(null);
 
+  const [capturedEmail, setCapturedEmail] = useState('');
+
   const {
     control,
     handleSubmit,
-    getValues,
     formState: { errors, isValid },
   } = useForm<SigninFormType>({
     resolver: zodResolver(SigninSchema),
@@ -79,8 +80,9 @@ export default function SignInForm() {
   const onSubmit = async (data: SigninFormType) => {
     try {
       await signIn(data);
+      setCapturedEmail('');
     } catch (err) {
-      console.log('Sign in failed:', err);
+      setCapturedEmail(data.email);
     }
   };
 
@@ -144,8 +146,8 @@ export default function SignInForm() {
       </View>
 
       {/* Email not confirmed — actionable recovery banner */}
-      {isEmailNotConfirmed && (
-        <EmailNotConfirmedBanner email={getValues('email')} />
+      {isEmailNotConfirmed && capturedEmail && (
+        <EmailNotConfirmedBanner email={capturedEmail} />
       )}
 
       {/* Other backend errors */}

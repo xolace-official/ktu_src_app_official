@@ -29,7 +29,7 @@ const getAppName = () => {
 
 
 
-export default (config: ConfigContext): ExpoConfig => ( {
+export default ({ config }: ConfigContext): ExpoConfig => ( {
     ...config,
     "name": getAppName(),
     "slug": "ktu_src_app_official",

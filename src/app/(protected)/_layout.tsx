@@ -10,12 +10,6 @@ const ProtectedLayout = () => {
   const completedFromStore = useAppStore((s) => s.profileSummary.completed);
   const hydrated = useAppStore((s) => s._hasHydrated);
 
-  console.log('hydrated', hydrated);
-  console.log('isPending', isPending);
-  console.log('isError', isError);
-  console.log('data', data);
-  console.log('completedFromStore', completedFromStore);
-
   if (!hydrated || isPending) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
