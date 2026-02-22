@@ -10,7 +10,6 @@ export function CompleteProfileScreen() {
 
   const handleSubmit = async (data: CompleteProfileFormType) => {
     try {
-      console.log(data)
       await updateProfile.mutateAsync(data);
       // Navigate to main app on success
       // router.replace('/(protected)/(drawer)/(tabs)');

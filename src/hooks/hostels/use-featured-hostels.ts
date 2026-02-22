@@ -19,7 +19,6 @@ export function useFeaturedHostels() {
 
     const rows = (data ?? []) as HostelRow[];
 
-    console.log("Featured hostels ", rows);
 
     return rows.map((row) => ({
       id: row.id,

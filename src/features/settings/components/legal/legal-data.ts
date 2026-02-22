@@ -140,13 +140,8 @@ We encourage you to read this policy carefully. By using the app, you consent to
 
 \u2022 Account Information: Name, student ID, email, phone number
 \u2022 Profile Data: Department, level, profile picture
-\u2022 Communications: Messages, feedback, and support requests
-
-We automatically collect:
-
-\u2022 Device Information: Device type, operating system, unique identifiers
-\u2022 Usage Data: App features used, time spent, interactions
-\u2022 Log Data: IP address, access times, error reports`,
+\u2022 Communications: feedback, and support requests
+`,
   },
   {
     id: 'data-usage',

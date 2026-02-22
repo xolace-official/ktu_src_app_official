@@ -6,10 +6,10 @@ import { aboutContent } from './about-data';
 
 export function AboutHeader() {
   const appVersion = Constants.expoConfig?.version ?? '1.0.0';
-  const buildNumber =
-    Constants.expoConfig?.ios?.buildNumber ??
-    Constants.expoConfig?.android?.versionCode?.toString() ??
-    '1';
+  // const buildNumber =
+  //   Constants.expoConfig?.ios?.buildNumber ??
+  //   Constants.expoConfig?.android?.versionCode?.toString() ??
+  //   '1';
 
   return (
     <View className="items-center gap-4 px-6 pt-2">
@@ -40,8 +40,8 @@ export function AboutHeader() {
             Version {appVersion}
           </Text>
         </View>
-        <View className="h-4 w-px bg-foreground/10" />
-        <Text className="text-sm text-muted">Build {buildNumber}</Text>
+        {/* <View className="h-4 w-px bg-foreground/10" /> */}
+        {/* <Text className="text-sm text-muted">Build {buildNumber}</Text> */}
       </Surface>
 
       {/* Description */}

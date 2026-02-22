@@ -6,6 +6,7 @@ import RootProvider from '@/providers/root-provider';
 import { useAuthSession } from '@/hooks/auth/use-auth-session';
 import { useAuthListener } from '@/lib/supabase/use-auth-listener';
 import { useRegisterAutoRefresh } from '@/lib/supabase/use-register-auto-refresh';
+import { useOtaUpdate } from '@/hooks/use-ota-update';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -33,6 +34,7 @@ export default function RootLayout() {
 const RootLayoutNav = () => {
   useRegisterAutoRefresh();
   useAuthListener();
+  useOtaUpdate();
 
   const { isAuthenticated, isLoading } = useAuthSession();
 

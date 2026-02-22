@@ -4,11 +4,11 @@ import { ShieldAlert, Phone } from 'lucide-react-native';
 
 export function EmergencyBanner() {
   const handleEmergencyCall = () => {
-    Linking.openURL('tel:112');
+    Linking.openURL('tel:+233243178396');
   };
 
   const handleCampusSecurity = () => {
-    Linking.openURL('tel:+233XXXXXXXXX');
+    Linking.openURL('tel:+233243178396');
   };
 
   return (
@@ -35,7 +35,7 @@ export function EmergencyBanner() {
             onPress={handleEmergencyCall}
           >
               <Phone size={14} color="#FFF" />
-            <Button.Label>Emergency (112)</Button.Label>
+            <Button.Label>Emergency</Button.Label>
           </Button>
           <Button
             variant="secondary"

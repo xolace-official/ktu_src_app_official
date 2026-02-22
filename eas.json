@@ -9,20 +9,27 @@
       "distribution": "internal",
       "env": {
         "APP_VARIANT": "development"
-      }
+      },
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
       "env": {
         "APP_VARIANT": "preview"
-      }, 
-      "autoIncrement": true
+      },
+      "autoIncrement": true,
+      "channel": "preview"
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "channel": "production"
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+       "ios": {
+        "companyName": "XOLACEINC LTD"
+      }
+    }
   }
 }

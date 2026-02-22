@@ -98,5 +98,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ( {
         "projectId": "c621c3e4-72cf-4126-9dbe-5e82e4ddc79a"
       }
     },
-    "owner": "xolace-inc-org"
+    "updates": {
+    "url": "https://u.expo.dev/c621c3e4-72cf-4126-9dbe-5e82e4ddc79a"
+  },
+  "runtimeVersion": {
+    "policy": "appVersion"
+  },
+  "owner": "xolace-inc-org"
   })

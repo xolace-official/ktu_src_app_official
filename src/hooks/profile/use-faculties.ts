@@ -13,7 +13,6 @@ export function useFaculties() {
         throw error;
       }
 
-      console.log("faculties", data);
       return data;
     },
   });
