@@ -9,7 +9,6 @@ export function usePrograms(departmentId: string | null) {
     queryFn: async () => {
       if (!departmentId) return [];
 
-        console.log("departmentId2 ", departmentId)
       const { data, error } = await client
         .from('programs')
         .select('id, name')
@@ -19,7 +18,6 @@ export function usePrograms(departmentId: string | null) {
         console.log("error ", error)
         throw error;
       }
-      console.log("programs ", data)
       return data;
     },
     enabled: !!departmentId,
