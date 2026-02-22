@@ -148,7 +148,7 @@ export default function SubmissionReceiptScreen() {
       >
         <ThemedText className="mb-1 font-semibold">Payment</ThemedText>
         <ThemedText themeColor="textSecondary" className="mb-4 text-sm">
-          Secure in-app payment is coming soon. Your submission is reserved and will be processed once payment is available.
+          Secure in-app payment is coming soon. For now send your payment to 0558218741 and add your reference number as reference or contact support.
         </ThemedText>
         <Button isDisabled className="w-full" variant="tertiary" size="md">
           <Button.Label>Pay Now (Coming Soon)</Button.Label>
