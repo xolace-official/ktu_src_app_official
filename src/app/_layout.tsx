@@ -38,6 +38,9 @@ const RootLayoutNav = () => {
 
   const { isAuthenticated, isLoading } = useAuthSession();
 
+  console.log('RootLayoutNav: isAuthenticated', isAuthenticated);
+  console.log('RootLayoutNav: isLoading', isLoading);
+
   // Hand off from native splash to JS overlay on first render
   useEffect(() => {
     SplashScreen.hideAsync();
