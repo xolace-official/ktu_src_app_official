@@ -5,16 +5,17 @@ import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
-export default function RootProvider({ children }: { children: React.ReactNode }) {
-  const colorScheme = useColorScheme();
-
-  const queryClient = new QueryClient({
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,
     },
   },
 });
+
+export default function RootProvider({ children }: { children: React.ReactNode }) {
+  const colorScheme = useColorScheme();
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
