@@ -52,12 +52,12 @@ const primaryColor = useThemeColor('accent');
 
       <NativeTabs.Trigger name="hostels-showcase">
         <NativeTabs.Trigger.Label>Hostels</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf={{ default: "house.lodge", selected: "house.lodge.circle.fill" }} md='home' />
+        <NativeTabs.Trigger.Icon sf={{ default: "house.lodge", selected: "house.lodge.circle.fill" }} md='hotel' />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="events">
         <NativeTabs.Trigger.Label>Events</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf={{ default: "calendar", selected: "calendar.circle.fill" }} md='news' />
+        <NativeTabs.Trigger.Icon sf={{ default: "calendar", selected: "calendar.circle.fill" }} md='event' />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="settings">
