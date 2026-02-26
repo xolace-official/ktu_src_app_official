@@ -32,10 +32,12 @@ export function useAuthListener() {
 
       // Keep React Query in sync
       if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+        console.log('Auth listener: SIGNED_IN or INITIAL_SESSION .... invalidating');
         queryClient.invalidateQueries({ queryKey: ['supabase', 'user'] });
       }
 
       if (event === 'SIGNED_OUT') {
+        console.log('Auth listener: SIGNED_OUT .... invalidating');
         queryClient.setQueryData(['supabase', 'user'], null);
       }
     });
