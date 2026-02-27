@@ -116,8 +116,8 @@ KTU Students\u0027 Representative Council
 Koforidua Technical University
 P.O. Box KF 981, Koforidua, Ghana
 
-Email: src@ktu.edu.gh
-Phone: +233 XX XXX XXXX
+Email: info@ktusrc.org
+Phone: +233 54 710 3309
 
 We aim to respond to all inquiries within 48 business hours.`,
   },
@@ -217,16 +217,17 @@ To exercise these rights, contact us through the app or via email.`,
     id: 'data-deletion',
     title: 'Account & Data Deletion',
     icon: Trash2,
-    content: `You can request account deletion at any time through:
+    content: `You can delete your account at any time through:
 
-\u2022 App Settings > Profile > Delete Account
-\u2022 Emailing src@ktu.edu.gh
+\u2022 App Settings > Delete Account
+\u2022 Emailing info@ktusrc.org
 
 Upon deletion request:
-\u2022 Your account will be deactivated immediately
-\u2022 Personal data will be deleted within 30 days
+\u2022 Your account will be deleted immediately
 \u2022 Some data may be retained for legal compliance
-\u2022 Anonymized analytics data may be preserved`,
+\u2022 To prevent mischeivous activities, your email may be flagged as blacklisted under our policies
+\u2022 You will not be able to create a new account with the same email
+\u2022 Contact Support in that instance to appeal the decision`,
   },
   {
     id: 'international',
@@ -237,20 +238,32 @@ Upon deletion request:
 By using the app, you consent to the transfer of your information to Ghana and other countries where we operate. We ensure appropriate safeguards are in place for international transfers.`,
   },
   {
+    id: 'children',
+    title: 'Children\'s Privacy',
+    icon: Users,
+    content: `The KTU SRC App is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.`,
+  },
+  {
+    id: 'changes',
+    title: 'Changes to This Policy',
+    icon: RefreshCw,
+    content: `We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy in the app and updating the "Last Updated" date. We encourage you to review this policy periodically.`,
+  },
+  {
     id: 'contact',
     title: 'Contact Us',
     icon: Mail,
     content: `For privacy-related questions or concerns:
 
-Data Protection Officer
+Tech & Innovation Officer
 KTU Students\u0027 Representative Council
 Koforidua Technical University
 
-Email: privacy@ktu.edu.gh
-Phone: +233 XX XXX XXXX
+Email: info@ktusrc.org
+Phone: +233 54 710 3309
 
 We take all privacy concerns seriously and will respond within 48 hours.`,
   },
 ];
 
-export const lastUpdatedDate = 'January 15, 2025';
+export const lastUpdatedDate = 'February 27, 2026';
