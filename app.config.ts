@@ -60,6 +60,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ( {
     },
     "plugins": [
       "expo-router",
+      "@react-native-async-storage/expo-with-async-storage",
       [
         "expo-image-picker",
         {
