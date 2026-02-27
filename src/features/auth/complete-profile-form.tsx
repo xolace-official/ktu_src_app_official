@@ -211,7 +211,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   isDisabled={isLoadingFaculties}
                   presentation='bottom-sheet'
                 >
-                  <Select.Trigger>
+                  <Select.Trigger variant="unstyled">
                     <AnimatedSelectTrigger
                       placeholder="Select your faculty"
                       isInvalid={!!errors.faculty}
@@ -250,7 +250,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   isDisabled={!selectedFaculty || isLoadingDepartments}
                   presentation='bottom-sheet'
                 >
-                  <Select.Trigger>
+                  <Select.Trigger variant="unstyled">
                     <AnimatedSelectTrigger
                       placeholder={
                         !selectedFaculty ? 'Select a faculty first' : 'Select your department'
@@ -291,7 +291,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   isDisabled={!selectedDepartment || isLoadingPrograms}
                   presentation='bottom-sheet'
                 >
-                  <Select.Trigger>
+                  <Select.Trigger variant="unstyled">
                     <AnimatedSelectTrigger
                       placeholder={
                         !selectedDepartment ? 'Select a department first' : 'Select your program'
@@ -334,7 +334,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                   onValueChange={(option) => setValue('level', option?.value ?? '', { shouldValidate: true, shouldDirty: true })}
                   presentation='bottom-sheet'
                 >
-                  <Select.Trigger>
+                  <Select.Trigger variant="unstyled">
                     <AnimatedSelectTrigger
                       placeholder="Select your level"
                       isInvalid={!!errors.level}

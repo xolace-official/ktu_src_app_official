@@ -20,7 +20,7 @@ export function SettingItemRow({ item, onPress }: SettingItemRowProps) {
         <Icon size={16} color={item.iconColor} />
       </View>
       <Text
-        className={`ml-3 flex-1 text-[15px] ${item.isDestructive ? 'text-danger' : 'text-foreground'}`}
+        className={`ml-3 flex-1 text-[15px] ${item.isDestructive ? item.action === 'deleteaccount' ? 'text-danger/70' : 'text-danger' : 'text-foreground'}`}
       >
         {item.label}
       </Text>

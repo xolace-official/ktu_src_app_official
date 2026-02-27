@@ -44,7 +44,7 @@ export function AnimatedSelectTrigger({
 
   return (
     <View
-      className={`bg-surface min-h-[48px] px-3 rounded-2xl justify-center shadow-md shadow-black/5 ${opacityClass}`}
+      className={`bg-surface w-full py-3 px-3 rounded-2xl justify-center shadow-md shadow-black/5 ${opacityClass}`}
       style={{ borderCurve: 'continuous' }}
     >
       <AnimatedView
