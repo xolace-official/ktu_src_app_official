@@ -9,6 +9,24 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      account_deletion_blacklist: {
+        Row: {
+          deleted_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          deleted_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          deleted_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       announcements: {
         Row: {
           address: string | null
@@ -592,6 +610,7 @@ export type Database = {
           photos: Json
           placement_type: string
           price: number
+          reference_code: string | null
           status: Database["public"]["Enums"]["listing_submission_status"]
           stock_qty: number | null
           submitter_id: string | null
@@ -613,6 +632,7 @@ export type Database = {
           photos?: Json
           placement_type?: string
           price: number
+          reference_code?: string | null
           status?: Database["public"]["Enums"]["listing_submission_status"]
           stock_qty?: number | null
           submitter_id?: string | null
@@ -634,6 +654,7 @@ export type Database = {
           photos?: Json
           placement_type?: string
           price?: number
+          reference_code?: string | null
           status?: Database["public"]["Enums"]["listing_submission_status"]
           stock_qty?: number | null
           submitter_id?: string | null
@@ -1264,6 +1285,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_user_account: { Args: never; Returns: undefined }
       refresh_hostel_hero_image: {
         Args: { p_hostel_id: string }
         Returns: undefined

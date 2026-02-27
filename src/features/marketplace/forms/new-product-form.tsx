@@ -325,7 +325,7 @@ export default function NewProductForm() {
                   isDisabled={isCategoriesLoading}
                   presentation="bottom-sheet"
                 >
-                  <Select.Trigger>
+                  <Select.Trigger variant="unstyled">
                     <AnimatedSelectTrigger
                       placeholder="Select a category"
                       isInvalid={!!errors.category_id}
@@ -362,7 +362,7 @@ export default function NewProductForm() {
                   }
                   presentation="bottom-sheet"
                 >
-                  <Select.Trigger>
+                  <Select.Trigger variant="unstyled">
                     <AnimatedSelectTrigger
                       placeholder="Select condition"
                       isInvalid={!!errors.condition}
