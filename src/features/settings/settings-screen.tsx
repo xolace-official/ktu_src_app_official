@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { router } from 'expo-router';
 import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
-import { Button, Dialog } from 'heroui-native';
+import { Button, Dialog, useToast } from 'heroui-native';
 import Constants from 'expo-constants';
 import { settingSections } from '@/config/settings.config';
 import { useSignOut } from '@/hooks/auth/use-signout';
@@ -18,6 +18,7 @@ import {
 export const ScreenSettings = () => {
   const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
   const [deleteAccountDialogOpen, setDeleteAccountDialogOpen] = useState(false);
+  const { toast } = useToast();
   const signOutMutation = useSignOut();
   const deleteAccountMutation = useDeleteAccount();
 
@@ -53,7 +54,17 @@ export const ScreenSettings = () => {
 
   const handleDeleteAccount = () => {
     deleteAccountMutation.mutate(undefined, {
-      onSettled: () => setDeleteAccountDialogOpen(false),
+      onSuccess: () => {
+        setDeleteAccountDialogOpen(false);
+      },
+      onError: () => {
+        toast.show({
+          variant: 'danger',
+          label: 'Failed to delete account. Please try again.',
+          actionLabel: 'Close',
+          onActionPress: ({ hide }) => hide(),
+        });
+      },
     });
   };
 

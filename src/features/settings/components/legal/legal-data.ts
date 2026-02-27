@@ -225,7 +225,7 @@ To exercise these rights, contact us through the app or via email.`,
 Upon deletion request:
 \u2022 Your account will be deleted immediately
 \u2022 Some data may be retained for legal compliance
-\u2022 To prevent mischeivous activities, your email may be flagged as blacklisted under our policies
+\u2022 To prevent mischievous activities, your email may be flagged as blacklisted under our policies
 \u2022 You will not be able to create a new account with the same email
 \u2022 Contact Support in that instance to appeal the decision`,
   },
