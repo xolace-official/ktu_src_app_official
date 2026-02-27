@@ -6,6 +6,7 @@ import { Button, Dialog } from 'heroui-native';
 import Constants from 'expo-constants';
 import { settingSections } from '@/config/settings.config';
 import { useSignOut } from '@/hooks/auth/use-signout';
+import { useDeleteAccount } from '@/hooks/auth/use-delete-account';
 import type { SettingItem } from '@/types/settings.types';
 import {
   SettingsProfileHeader,
@@ -16,7 +17,9 @@ import {
 
 export const ScreenSettings = () => {
   const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
+  const [deleteAccountDialogOpen, setDeleteAccountDialogOpen] = useState(false);
   const signOutMutation = useSignOut();
+  const deleteAccountMutation = useDeleteAccount();
 
   const handleItemPress = async (item: SettingItem) => {
     switch (item.type) {
@@ -35,6 +38,8 @@ export const ScreenSettings = () => {
       case 'action':
         if (item.action === 'signout') {
           setSignOutDialogOpen(true);
+        } else if (item.action === 'deleteaccount') {
+          setDeleteAccountDialogOpen(true);
         }
         break;
     }
@@ -43,6 +48,12 @@ export const ScreenSettings = () => {
   const handleSignOut = () => {
     signOutMutation.mutate(undefined, {
       onSettled: () => setSignOutDialogOpen(false),
+    });
+  };
+
+  const handleDeleteAccount = () => {
+    deleteAccountMutation.mutate(undefined, {
+      onSettled: () => setDeleteAccountDialogOpen(false),
     });
   };
 
@@ -98,6 +109,54 @@ export const ScreenSettings = () => {
               >
                 <Button.Label className="text-white">
                   {signOutMutation.isPending ? 'Signing Out...' : 'Sign Out'}
+                </Button.Label>
+              </Button>
+            </View>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog>
+
+      <Dialog isOpen={deleteAccountDialogOpen} onOpenChange={setDeleteAccountDialogOpen}>
+        <Dialog.Portal>
+          <Dialog.Overlay />
+          <Dialog.Content>
+            <Dialog.Close />
+            <View className="mb-5 gap-2">
+              <Dialog.Title className="text-danger">Delete Account</Dialog.Title>
+              <Dialog.Description>
+                This action is permanent and cannot be undone. All your data, including your
+                profile, preferences, and activity history will be permanently removed.
+              </Dialog.Description>
+              <Text className="mt-1 text-sm text-muted">
+                We strongly advise against deleting your account. If you&apos;re experiencing
+                issues, please reach out to our support team first.
+              </Text>
+              <Text
+                className="mt-2 text-sm text-accent underline"
+                onPress={() => {
+                  setDeleteAccountDialogOpen(false);
+                  router.push('/settings/privacy-policy' as never);
+                }}
+              >
+                Read our policy on account deletion
+              </Text>
+            </View>
+            <View className="flex-row justify-end gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onPress={() => setDeleteAccountDialogOpen(false)}
+              >
+                <Button.Label>Cancel</Button.Label>
+              </Button>
+              <Button
+                variant="danger"
+                size="sm"
+                onPress={handleDeleteAccount}
+                isDisabled={deleteAccountMutation.isPending}
+              >
+                <Button.Label>
+                  {deleteAccountMutation.isPending ? 'Deleting...' : 'Delete Account'}
                 </Button.Label>
               </Button>
             </View>

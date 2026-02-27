@@ -8,9 +8,10 @@ export interface SettingItem {
   iconColor: string;
   type: 'navigate' | 'action' | 'external';
   route?: string;
-  action?: 'signout';
+  action?: 'signout' | 'deleteaccount';
   externalUrl?: string;
   isDestructive?: boolean;
+  itemBgClass?: string;
 }
 
 export interface SettingSection {
