@@ -60,7 +60,7 @@ export const ScreenSettings = () => {
       onError: () => {
         toast.show({
           variant: 'danger',
-          label: 'Failed to delete account. Please try again.',
+          label: 'An error occurred while deleting your account. Please try again.',
           actionLabel: 'Close',
           onActionPress: ({ hide }) => hide(),
         });

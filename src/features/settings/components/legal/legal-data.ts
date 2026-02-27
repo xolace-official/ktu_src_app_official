@@ -241,7 +241,7 @@ By using the app, you consent to the transfer of your information to Ghana and o
     id: 'children',
     title: 'Children\'s Privacy',
     icon: Users,
-    content: `The KTU SRC App is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.`,
+    content: `The KTU SRC App is not intended for use by children under the age of 16. We do not knowingly collect personal information from children under 16. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.`,
   },
   {
     id: 'changes',
