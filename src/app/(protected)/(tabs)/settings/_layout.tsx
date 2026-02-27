@@ -78,6 +78,17 @@ const SettingsLayout = () => {
         }}
       />
       <Stack.Screen
+        name="change-password/index"
+        options={{
+          title: 'Change Password',
+          headerBackTitle: '',
+          headerLargeTitleShadowVisible: true,
+          headerLargeTitle: false,
+          headerShadowVisible: false,
+          headerBackButtonDisplayMode: 'minimal',
+        }}
+      />
+      <Stack.Screen
         name="developer-credit/index"
         options={{
           title: 'Developer Credit',

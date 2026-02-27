@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
-import { ScrollView, RefreshControl, View } from 'react-native';
+import { ScrollView, RefreshControl, View, Text } from 'react-native';
+import { PressableFeedback, Surface } from 'heroui-native';
+import { router } from 'expo-router';
 import {
   User,
   Phone,
@@ -10,6 +12,8 @@ import {
   Calendar,
   Mail,
   Clock,
+  Lock,
+  ChevronRight,
 } from 'lucide-react-native';
 import { useAppStore } from '@/store/store';
 import { useTheme } from '@/hooks/use-theme';
@@ -148,6 +152,28 @@ export const ProfileAccountScreen = () => {
             value={memberSince}
           />
         </ProfileInfoSection>
+
+        {/* Security */}
+        <View>
+          <Text className="mb-1.5 px-4 text-xs font-medium uppercase tracking-wide text-muted">
+            Security
+          </Text>
+          <Surface variant="secondary" className="overflow-hidden rounded-xl p-0">
+            <PressableFeedback
+              onPress={() => router.push('/settings/change-password' as never)}
+            >
+              <View className="min-h-[48px] flex-row items-center px-4 py-3">
+                <View className="size-[30px] items-center justify-center rounded-lg bg-accent/10">
+                  <Lock size={16} color="#3B82F6" />
+                </View>
+                <Text className="ml-3 flex-1 text-[15px] text-foreground">
+                  Change Password
+                </Text>
+                <ChevronRight size={18} color={theme.textSecondary} />
+              </View>
+            </PressableFeedback>
+          </Surface>
+        </View>
       </View>
     </ScrollView>
   );
