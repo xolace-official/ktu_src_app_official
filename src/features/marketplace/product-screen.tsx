@@ -194,8 +194,20 @@ export function ProductScreen() {
     [selectedVariantId]
   );
 
+  const openExternalLink = useCallback(async (url: string, errorMessage: string) => {
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+      if (canOpen) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert('Error', errorMessage);
+      }
+    } catch {
+      Alert.alert('Error', 'An unexpected error occurred.');
+    }
+  }, []);
+
   const handleContactPress = useCallback(() => {
-    console.log('Contact pressed')
     if (!hasContactInfo) return;
 
     // iOS uses native ActionSheet for better UX
@@ -205,38 +217,12 @@ export function ProductScreen() {
 
       if (hasWhatsApp) {
         options.push('Chat on WhatsApp');
-        actions.push(async () => {
-          const url = `https://wa.me/${whatsappNumber}`;
-          try {
-            const canOpen = await Linking.canOpenURL(url);
-            if (canOpen) {
-              await Linking.openURL(url);
-            } else {
-              Alert.alert('Error', 'WhatsApp is not installed or cannot be opened.');
-            }
-          } catch (error) {
-            console.error('Error opening WhatsApp:', error);
-            Alert.alert('Error', 'An unexpected error occurred while trying to open WhatsApp.');
-          }
-        });
+        actions.push(() => openExternalLink(`https://wa.me/${whatsappNumber}`, 'WhatsApp is not installed or cannot be opened.'));
       }
 
       if (hasPhone) {
         options.push('Voice Call');
-        actions.push(async () => {
-          const url = `tel:${phoneNumber}`;
-          try {
-            const canOpen = await Linking.canOpenURL(url);
-            if (canOpen) {
-              await Linking.openURL(url);
-            } else {
-              Alert.alert('Error', 'Phone dialer is not available.');
-            }
-          } catch (error) {
-            console.error('Error opening phone dialer:', error);
-            Alert.alert('Error', 'An unexpected error occurred while trying to make a call.');
-          }
-        });
+        actions.push(() => openExternalLink(`tel:${phoneNumber}`, 'Phone dialer is not available.'));
       }
 
       ActionSheetIOS.showActionSheetWithOptions(
@@ -250,47 +236,23 @@ export function ProductScreen() {
         }
       );
     } else {
-      console.log('Android uses BottomSheet');
-      // Android uses BottomSheet
       setIsContactSheetOpen(true);
     }
-  }, [hasContactInfo, hasWhatsApp, hasPhone, whatsappNumber, phoneNumber]);
+  }, [hasContactInfo, hasWhatsApp, hasPhone, whatsappNumber, phoneNumber, openExternalLink]);
 
   const handleWhatsAppPress = useCallback(async () => {
     setIsContactSheetOpen(false);
     if (whatsappNumber) {
-      const url = `https://wa.me/${whatsappNumber}`;
-      try {
-        const canOpen = await Linking.canOpenURL(url);
-        if (canOpen) {
-          await Linking.openURL(url);
-        } else {
-          Alert.alert('Error', 'WhatsApp is not installed or cannot be opened.');
-        }
-      } catch (error) {
-        console.error('Error opening WhatsApp:', error);
-        Alert.alert('Error', 'An unexpected error occurred while trying to open WhatsApp.');
-      }
+      await openExternalLink(`https://wa.me/${whatsappNumber}`, 'WhatsApp is not installed or cannot be opened.');
     }
-  }, [whatsappNumber]);
+  }, [whatsappNumber, openExternalLink]);
 
   const handlePhonePress = useCallback(async () => {
     setIsContactSheetOpen(false);
     if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
-      try {
-        const canOpen = await Linking.canOpenURL(url);
-        if (canOpen) {
-          await Linking.openURL(url);
-        } else {
-          Alert.alert('Error', 'Phone dialer is not available.');
-        }
-      } catch (error) {
-        console.error('Error opening phone dialer:', error);
-        Alert.alert('Error', 'An unexpected error occurred while trying to make a call.');
-      }
+      await openExternalLink(`tel:${phoneNumber}`, 'Phone dialer is not available.');
     }
-  }, [phoneNumber]);
+  }, [phoneNumber, openExternalLink]);
 
   if (isLoading) {
     return <LoadingSkeleton />;
