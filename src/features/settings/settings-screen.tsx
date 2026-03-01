@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { router } from 'expo-router';
+import { router, Link } from 'expo-router';
 import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
 import { Button, Dialog, useToast } from 'heroui-native';
 import Constants from 'expo-constants';
@@ -142,15 +142,15 @@ export const ScreenSettings = () => {
                 We strongly advise against deleting your account. If you&apos;re experiencing
                 issues, please reach out to our support team first.
               </Text>
-              <Text
+              <Link
+                href="/settings/privacy-policy"
                 className="mt-2 text-sm text-accent underline"
                 onPress={() => {
                   setDeleteAccountDialogOpen(false);
-                  router.push('/settings/privacy-policy' as never);
                 }}
               >
                 Read our policy on account deletion
-              </Text>
+              </Link>
             </View>
             <View className="flex-row justify-end gap-3">
               <Button
