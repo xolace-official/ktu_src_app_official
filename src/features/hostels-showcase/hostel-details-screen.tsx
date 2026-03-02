@@ -1,6 +1,6 @@
-import { View, ScrollView, Linking, Platform } from 'react-native';
+import { View, ScrollView, Linking, Alert, Platform } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
-import { Button, Chip } from 'heroui-native';
+import { Button, Chip, useToast } from 'heroui-native';
 import { Star, Bed, Bath, MapPin } from 'lucide-react-native';
 
 import { useTheme } from '@/hooks/use-theme';
@@ -15,6 +15,19 @@ import {
   LoadingSkeleton,
   ErrorState,
 } from './components/hostel-details';
+
+async function openExternalLink(url: string, errorMessage: string) {
+  try {
+    const canOpen = await Linking.canOpenURL(url);
+    if (canOpen) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert('Error', errorMessage);
+    }
+  } catch {
+    Alert.alert('Error', 'An unexpected error occurred.');
+  }
+}
 
 /**
  * Hostel details screen
@@ -33,6 +46,7 @@ import {
  */
 export function HostelDetailsScreen() {
   const theme = useTheme();
+  const { toast } = useToast();
   const { id } = useLocalSearchParams<{ id?: string }>();
 
   const {
@@ -52,16 +66,26 @@ export function HostelDetailsScreen() {
     // TODO: Implement favorite functionality
   };
 
-  const handleMessage = () => {
-    if (hostel?.agent.email) {
-      Linking.openURL(`mailto:${hostel.agent.email}`);
+  const handleMessage = async () => {
+    if (!hostel?.agent.email) {
+      toast.show({
+        variant: 'danger',
+        label: 'Email information is not available for this agent.',
+      });
+      return;
     }
+    await openExternalLink(`mailto:${hostel.agent.email}`, 'Mail app is not available.');
   };
 
-  const handleCall = () => {
-    if (hostel?.contact) {
-      Linking.openURL(`tel:${hostel.contact}`);
+  const handleCall = async () => {
+    if (!hostel?.contact) {
+      toast.show({
+        variant: 'danger',
+        label: 'Contact information is not available for this hostel.',
+      });
+      return;
     }
+    await openExternalLink(`tel:${hostel.contact}`, 'Phone dialer is not available.');
   };
 
   // Invalid ID state
