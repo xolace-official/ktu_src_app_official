@@ -1,7 +1,7 @@
 import { useMemo, useCallback, useState } from 'react';
 import { View, Platform, ActionSheetIOS, Alert, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, BottomSheet } from 'heroui-native';
+import { Button, BottomSheet, useToast } from 'heroui-native';
 import { Phone, MessageCircle } from 'lucide-react-native';
 
 import { useTheme } from '@/hooks/use-theme';
@@ -33,6 +33,7 @@ async function openExternalLink(url: string, errorMessage: string) {
  */
 export function BookingBar({ price, paymentTerm, contact }: BookingBarProps) {
   const theme = useTheme();
+  const { toast } = useToast();
   const insets = useSafeAreaInsets();
   const isIOS = Platform.OS === 'ios';
   const [isContactSheetOpen, setIsContactSheetOpen] = useState(false);
@@ -64,17 +65,27 @@ export function BookingBar({ price, paymentTerm, contact }: BookingBarProps) {
 
   const handleWhatsAppPress = useCallback(async () => {
     setIsContactSheetOpen(false);
-    if (contact) {
-      await openExternalLink(`https://wa.me/${contact}`, 'WhatsApp is not installed or cannot be opened.');
+    if (!contact) {
+      toast.show({
+        variant: 'danger',
+        label: 'Contact information is not available for this hostel.',
+      });
+      return;
     }
-  }, [contact]);
+    await openExternalLink(`https://wa.me/${contact}`, 'WhatsApp is not installed or cannot be opened.');
+  }, [contact, toast]);
 
   const handlePhonePress = useCallback(async () => {
     setIsContactSheetOpen(false);
-    if (contact) {
-      await openExternalLink(`tel:${contact}`, 'Phone dialer is not available.');
+    if (!contact) {
+      toast.show({
+        variant: 'danger',
+        label: 'Contact information is not available for this hostel.',
+      });
+      return;
     }
-  }, [contact]);
+    await openExternalLink(`tel:${contact}`, 'Phone dialer is not available.');
+  }, [contact, toast]);
 
   const handleContactPress = useCallback(() => {
     if (!hasContact) {
