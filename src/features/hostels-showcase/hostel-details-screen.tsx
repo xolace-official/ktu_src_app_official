@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-import { View, ScrollView, Linking } from 'react-native';
+import { View, ScrollView, Linking, Platform } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { Button, Chip } from 'heroui-native';
 import { Star, Bed, Bath, MapPin } from 'lucide-react-native';
@@ -45,25 +44,25 @@ export function HostelDetailsScreen() {
   } = useHostelDetails(id);
 
   // Navigation handlers
-  const handleBack = useCallback(() => router.back(), []);
-  const handleShare = useCallback(() => {
+  const handleBack = () => router.back();
+  const handleShare = () => {
     // TODO: Implement share functionality
-  }, []);
-  const handleFavorite = useCallback(() => {
+  };
+  const handleFavorite = () => {
     // TODO: Implement favorite functionality
-  }, []);
+  };
 
-  const handleMessage = useCallback(() => {
+  const handleMessage = () => {
     if (hostel?.agent.email) {
       Linking.openURL(`mailto:${hostel.agent.email}`);
     }
-  }, [hostel?.agent.email]);
+  };
 
-  const handleCall = useCallback(() => {
+  const handleCall = () => {
     if (hostel?.contact) {
       Linking.openURL(`tel:${hostel.contact}`);
     }
-  }, [hostel?.contact]);
+  };
 
   // Invalid ID state
   if (!id) {
@@ -102,7 +101,7 @@ export function HostelDetailsScreen() {
     <View className="flex-1" style={{ backgroundColor: theme.background }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 140 }}
+        contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 140 : 16 }}
         bounces
       >
         <HeaderSection
@@ -211,15 +210,26 @@ export function HostelDetailsScreen() {
               </ThemedText>
             </View>
           </View>
+
+          {/* Android: Booking bar inside scroll content */}
+          {Platform.OS !== 'ios' && (
+            <BookingBar
+              price={hostel.price}
+              paymentTerm={hostel.paymentTerm}
+              contact={hostel.contact}
+            />
+          )}
         </View>
       </ScrollView>
 
-      {/* Bottom booking bar */}
-      <BookingBar
-        price={hostel.price}
-        paymentTerm={hostel.paymentTerm}
-        contact={hostel.contact}
-      />
+      {/* iOS: Floating bottom booking bar */}
+      {Platform.OS === 'ios' && (
+        <BookingBar
+          price={hostel.price}
+          paymentTerm={hostel.paymentTerm}
+          contact={hostel.contact}
+        />
+      )}
     </View>
   );
 }
