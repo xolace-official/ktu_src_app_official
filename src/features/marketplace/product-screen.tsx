@@ -194,6 +194,19 @@ export function ProductScreen() {
     [selectedVariantId]
   );
 
+  const openExternalLink = useCallback(async (url: string, errorMessage: string) => {
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+      if (canOpen) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert('Error', errorMessage);
+      }
+    } catch {
+      Alert.alert('Error', 'An unexpected error occurred.');
+    }
+  }, []);
+
   const handleContactPress = useCallback(() => {
     if (!hasContactInfo) return;
 
@@ -204,38 +217,12 @@ export function ProductScreen() {
 
       if (hasWhatsApp) {
         options.push('Chat on WhatsApp');
-        actions.push(async () => {
-          const url = `https://wa.me/${whatsappNumber}`;
-          try {
-            const canOpen = await Linking.canOpenURL(url);
-            if (canOpen) {
-              await Linking.openURL(url);
-            } else {
-              Alert.alert('Error', 'WhatsApp is not installed or cannot be opened.');
-            }
-          } catch (error) {
-            console.error('Error opening WhatsApp:', error);
-            Alert.alert('Error', 'An unexpected error occurred while trying to open WhatsApp.');
-          }
-        });
+        actions.push(() => openExternalLink(`https://wa.me/${whatsappNumber}`, 'WhatsApp is not installed or cannot be opened.'));
       }
 
       if (hasPhone) {
         options.push('Voice Call');
-        actions.push(async () => {
-          const url = `tel:${phoneNumber}`;
-          try {
-            const canOpen = await Linking.canOpenURL(url);
-            if (canOpen) {
-              await Linking.openURL(url);
-            } else {
-              Alert.alert('Error', 'Phone dialer is not available.');
-            }
-          } catch (error) {
-            console.error('Error opening phone dialer:', error);
-            Alert.alert('Error', 'An unexpected error occurred while trying to make a call.');
-          }
-        });
+        actions.push(() => openExternalLink(`tel:${phoneNumber}`, 'Phone dialer is not available.'));
       }
 
       ActionSheetIOS.showActionSheetWithOptions(
@@ -249,46 +236,23 @@ export function ProductScreen() {
         }
       );
     } else {
-      // Android uses BottomSheet
       setIsContactSheetOpen(true);
     }
-  }, [hasContactInfo, hasWhatsApp, hasPhone, whatsappNumber, phoneNumber]);
+  }, [hasContactInfo, hasWhatsApp, hasPhone, whatsappNumber, phoneNumber, openExternalLink]);
 
   const handleWhatsAppPress = useCallback(async () => {
     setIsContactSheetOpen(false);
     if (whatsappNumber) {
-      const url = `https://wa.me/${whatsappNumber}`;
-      try {
-        const canOpen = await Linking.canOpenURL(url);
-        if (canOpen) {
-          await Linking.openURL(url);
-        } else {
-          Alert.alert('Error', 'WhatsApp is not installed or cannot be opened.');
-        }
-      } catch (error) {
-        console.error('Error opening WhatsApp:', error);
-        Alert.alert('Error', 'An unexpected error occurred while trying to open WhatsApp.');
-      }
+      await openExternalLink(`https://wa.me/${whatsappNumber}`, 'WhatsApp is not installed or cannot be opened.');
     }
-  }, [whatsappNumber]);
+  }, [whatsappNumber, openExternalLink]);
 
   const handlePhonePress = useCallback(async () => {
     setIsContactSheetOpen(false);
     if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
-      try {
-        const canOpen = await Linking.canOpenURL(url);
-        if (canOpen) {
-          await Linking.openURL(url);
-        } else {
-          Alert.alert('Error', 'Phone dialer is not available.');
-        }
-      } catch (error) {
-        console.error('Error opening phone dialer:', error);
-        Alert.alert('Error', 'An unexpected error occurred while trying to make a call.');
-      }
+      await openExternalLink(`tel:${phoneNumber}`, 'Phone dialer is not available.');
     }
-  }, [phoneNumber]);
+  }, [phoneNumber, openExternalLink]);
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -298,12 +262,14 @@ export function ProductScreen() {
     return <NotFoundState />;
   }
 
+  const isIOS = Platform.OS === 'ios';
+
   return (
     <View className="flex-1 bg-background">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: insets.bottom + 80, // Space for bottom CTA
+          paddingBottom: isIOS ? insets.bottom + 80 : insets.bottom + 16,
         }}
         contentInsetAdjustmentBehavior="automatic"
       >
@@ -316,6 +282,75 @@ export function ProductScreen() {
             className="absolute right-4 gap-3"
             style={{ bottom: 16 }}
           >
+            {/* Android: Contact seller floating button with BottomSheet */}
+            {!isIOS && hasContactInfo && (
+              <Animated.View entering={FadeIn.delay(150)}>
+                <BottomSheet
+                  isOpen={isContactSheetOpen}
+                  onOpenChange={setIsContactSheetOpen}
+                >
+                  <BottomSheet.Trigger asChild>
+                    <PressableFeedback
+                      className="size-11 items-center justify-center rounded-full bg-accent"
+                      style={{ borderCurve: 'continuous' }}
+                      accessibilityRole="button"
+                      accessibilityLabel="Contact seller"
+                    >
+                      <PressableFeedback.Highlight />
+                      <Phone size={20} color={theme.background} />
+                    </PressableFeedback>
+                  </BottomSheet.Trigger>
+                  <BottomSheet.Portal>
+                    <BottomSheet.Overlay />
+                    <BottomSheet.Content>
+                      <BottomSheet.Close />
+                      <View className="items-center gap-4 pb-4">
+                        <BottomSheet.Title>Contact Seller</BottomSheet.Title>
+                        <BottomSheet.Description>
+                          Choose how you&apos;d like to reach the seller
+                        </BottomSheet.Description>
+                      </View>
+
+                      <View className="gap-3">
+                        {hasWhatsApp && (
+                          <Button
+                            variant="primary"
+                            size="lg"
+                            onPress={handleWhatsAppPress}
+                            className="w-full bg-[#25D366]"
+                          >
+                            <MessageCircle size={20} color="#fff" />
+                            <Button.Label className="text-white">Chat on WhatsApp</Button.Label>
+                          </Button>
+                        )}
+
+                        {hasPhone && (
+                          <Button
+                            variant="secondary"
+                            size="lg"
+                            onPress={handlePhonePress}
+                            className="w-full"
+                          >
+                            <Phone size={20} color={theme.accent} />
+                            <Button.Label>Voice Call</Button.Label>
+                          </Button>
+                        )}
+
+                        <Button
+                          variant="tertiary"
+                          size="lg"
+                          onPress={() => setIsContactSheetOpen(false)}
+                          className="w-full"
+                        >
+                          <Button.Label>Cancel</Button.Label>
+                        </Button>
+                      </View>
+                    </BottomSheet.Content>
+                  </BottomSheet.Portal>
+                </BottomSheet>
+              </Animated.View>
+            )}
+
             <Animated.View entering={FadeIn.delay(200)}>
               <PressableFeedback
                 onPress={handleShare}
@@ -479,77 +514,25 @@ export function ProductScreen() {
         </Animated.View>
       </ScrollView>
 
-      {/* Bottom CTA */}
-      <Animated.View
-        entering={FadeInDown.delay(500)}
-        className="absolute bottom-0 left-0 right-0 border-t border-border bg-background px-4 pt-3"
-        style={{ paddingBottom: Math.max(insets.bottom, 12) }}
-      >
-        <Button
-          variant="primary"
-          size="lg"
-          onPress={handleContactPress}
-          isDisabled={!hasContactInfo}
-          className="w-full"
+      {/* Bottom CTA - iOS only */}
+      {isIOS && (
+        <Animated.View
+          entering={FadeInDown.delay(500)}
+          className="absolute bottom-0 left-0 right-0 border-t border-border bg-background px-4 pt-3"
+          style={{ paddingBottom: Math.max(insets.bottom, 12) }}
         >
-          <Phone size={20} color={theme.background} />
-          <Button.Label>Contact Seller</Button.Label>
-        </Button>
-      </Animated.View>
-
-      {/* Contact Bottom Sheet for Android */}
-      <BottomSheet
-        isOpen={isContactSheetOpen}
-        onOpenChange={setIsContactSheetOpen}
-      >
-        <BottomSheet.Portal>
-          <BottomSheet.Overlay />
-          <BottomSheet.Content>
-            <BottomSheet.Close />
-            <View className="items-center gap-4 pb-4">
-              <BottomSheet.Title>Contact Seller</BottomSheet.Title>
-              <BottomSheet.Description>
-                Choose how you&apos;d like to reach the seller
-              </BottomSheet.Description>
-            </View>
-
-            <View className="gap-3">
-              {hasWhatsApp && (
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onPress={handleWhatsAppPress}
-                  className="w-full bg-[#25D366]"
-                >
-                  <MessageCircle size={20} color="#fff" />
-                  <Button.Label className="text-white">Chat on WhatsApp</Button.Label>
-                </Button>
-              )}
-
-              {hasPhone && (
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onPress={handlePhonePress}
-                  className="w-full"
-                >
-                  <Phone size={20} color={theme.accent} />
-                  <Button.Label>Voice Call</Button.Label>
-                </Button>
-              )}
-
-              <Button
-                variant="tertiary"
-                size="lg"
-                onPress={() => setIsContactSheetOpen(false)}
-                className="w-full"
-              >
-                <Button.Label>Cancel</Button.Label>
-              </Button>
-            </View>
-          </BottomSheet.Content>
-        </BottomSheet.Portal>
-      </BottomSheet>
+          <Button
+            variant="primary"
+            size="lg"
+            onPress={handleContactPress}
+            isDisabled={!hasContactInfo}
+            className="w-full"
+          >
+            <Phone size={20} color={theme.background} />
+            <Button.Label>Contact Seller</Button.Label>
+          </Button>
+        </Animated.View>
+      )}
     </View>
   );
 }
