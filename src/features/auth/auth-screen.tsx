@@ -129,7 +129,7 @@ export function AuthScreen() {
               />
 
               <View className="flex-1 ml-4">
-                <Text style={styles.welcomeTitle}>Welcome.</Text>
+                <Text style={styles.welcomeTitle}>Welcome</Text>
                 <Text style={styles.welcomeSubtitle}>To your S.R.C App</Text>
                 <Text style={styles.welcomeSubtitle}>Sign up to get</Text>
                 <Text style={styles.welcomeSubtitle}>started on your campus journey</Text>
