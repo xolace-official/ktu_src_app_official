@@ -37,9 +37,10 @@ function findSelectOption(
 interface CompleteProfileFormProps {
   onSubmit: (data: CompleteProfileFormType) => void;
   isSubmitting: boolean;
+  serverError?: string | null;
 }
 
-export default function CompleteProfileForm({ onSubmit, isSubmitting }: CompleteProfileFormProps) {
+export default function CompleteProfileForm({ onSubmit, isSubmitting, serverError }: CompleteProfileFormProps) {
   const indexNumberRef = useRef<TextInput>(null);
   const phoneNumberRef = useRef<TextInput>(null);
 
@@ -151,7 +152,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
             control={control}
             name="indexNumber"
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextField isInvalid={!!errors.indexNumber} isRequired>
+              <TextField isInvalid={!!errors.indexNumber || !!serverError} isRequired>
                 <Label>Index Number</Label>
                 <Input
                   ref={indexNumberRef}
@@ -165,6 +166,9 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting }: Complete
                 />
                 {errors.indexNumber && (
                   <FieldError>{errors.indexNumber.message}</FieldError>
+                )}
+                {serverError && (
+                  <FieldError>{serverError}</FieldError>
                 )}
               </TextField>
             )}
