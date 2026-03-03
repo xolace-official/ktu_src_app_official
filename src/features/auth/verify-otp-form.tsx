@@ -100,11 +100,12 @@ export default function VerifyOtpForm() {
   return (
     <View className="flex-1 items-center gap-12 pt-16">
       <View className="w-full items-center">
-        <Text className="text-center text-2xl font-bold text-white">Check your email</Text>
-        <Text className="mt-2 text-center text-base text-white/80">
+        <Text className="text-center text-2xl font-bold text-foreground">Check your email</Text>
+        <Text className="mt-2 text-center text-base text-foreground/80">
           We&apos;ve sent a verification code to
         </Text>
-        <Text className="mt-1 text-center text-base font-medium text-white">{email}</Text>
+        <Text className="mt-1 text-center text-base font-medium text-foreground">{email}</Text>
+        <Text className="mt-1 text-center text-sm text-muted">Check your spam/junk folder if you don&apos;t see the email</Text>
       </View>
 
       <Controller
