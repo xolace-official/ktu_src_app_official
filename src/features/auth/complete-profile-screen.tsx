@@ -10,10 +10,12 @@ type PostgrestError = { code: string; message: string };
 
 export function CompleteProfileScreen() {
   const updateProfile = useUpdateProfile();
-  const [serverError, setServerError] = useState<string | null>(null);
+  const [indexNumberError, setIndexNumberError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const handleSubmit = async (data: CompleteProfileFormType) => {
-    setServerError(null);
+    setIndexNumberError(null);
+    setFormError(null);
     try {
       await updateProfile.mutateAsync(data);
       // Navigate to main app on success
@@ -21,9 +23,9 @@ export function CompleteProfileScreen() {
     } catch (error) {
       const pgError = error as PostgrestError;
       if (pgError?.code === '23505') {
-        setServerError('This index number is already registered. Please check and try again.');
+        setIndexNumberError('This index number is already registered. Please check and try again.');
       } else {
-        setServerError('Something went wrong. Please try again.');
+        setFormError('Something went wrong. Please try again.');
       }
     }
   };
@@ -34,7 +36,8 @@ export function CompleteProfileScreen() {
         <CompleteProfileForm
           onSubmit={handleSubmit}
           isSubmitting={updateProfile.isPending}
-          serverError={serverError}
+          indexNumberError={indexNumberError}
+          formError={formError}
         />
       </TouchableWithoutFeedback>
     </SafeAreaView>

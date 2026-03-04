@@ -37,10 +37,11 @@ function findSelectOption(
 interface CompleteProfileFormProps {
   onSubmit: (data: CompleteProfileFormType) => void;
   isSubmitting: boolean;
-  serverError?: string | null;
+  indexNumberError?: string | null;
+  formError?: string | null;
 }
 
-export default function CompleteProfileForm({ onSubmit, isSubmitting, serverError }: CompleteProfileFormProps) {
+export default function CompleteProfileForm({ onSubmit, isSubmitting, indexNumberError, formError }: CompleteProfileFormProps) {
   const indexNumberRef = useRef<TextInput>(null);
   const phoneNumberRef = useRef<TextInput>(null);
 
@@ -152,7 +153,7 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting, serverErro
             control={control}
             name="indexNumber"
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextField isInvalid={!!errors.indexNumber || !!serverError} isRequired>
+              <TextField isInvalid={!!errors.indexNumber || !!indexNumberError} isRequired>
                 <Label>Index Number</Label>
                 <Input
                   ref={indexNumberRef}
@@ -167,8 +168,8 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting, serverErro
                 {errors.indexNumber && (
                   <FieldError>{errors.indexNumber.message}</FieldError>
                 )}
-                {serverError && (
-                  <FieldError>{serverError}</FieldError>
+                {!errors.indexNumber && indexNumberError && (
+                  <FieldError>{indexNumberError}</FieldError>
                 )}
               </TextField>
             )}
@@ -360,6 +361,13 @@ export default function CompleteProfileForm({ onSubmit, isSubmitting, serverErro
             )}
           />
         </View>
+
+        {/* Form Error */}
+        {formError && (
+          <View className="mt-4">
+            <Text className="text-sm text-danger text-center">{formError}</Text>
+          </View>
+        )}
 
         {/* Submit Button */}
         <View className="pb-6 pt-8">
