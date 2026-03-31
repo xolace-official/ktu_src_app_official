@@ -26,7 +26,7 @@ export function useInfiniteHostels(search: string = '') {
 
       let query = client
         .from('hostels')
-        .select('id, hero_image_url, rating, name, address, price', { count: 'exact' })
+        .select('id, hero_image_url, rating, name, address, price, price_range', { count: 'exact' })
         .order('created_at', { ascending: false })
         .range(from, to);
 
@@ -48,6 +48,7 @@ export function useInfiniteHostels(search: string = '') {
         name: row.name,
         address: row.address,
         price: Number(row.price),
+        price_range: row.price_range,
       }));
 
       return { items, count };

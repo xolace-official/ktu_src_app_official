@@ -9,6 +9,7 @@ export interface HostelCard {
   name: string;
   address: string | null;
   price: number;
+  price_range: string | null;
 }
 
 export interface HostelGalleryItem {
@@ -47,4 +48,5 @@ export interface HostelRow {
   name: string;
   address: string | null;
   price: number;
+  price_range: string | null;
 }

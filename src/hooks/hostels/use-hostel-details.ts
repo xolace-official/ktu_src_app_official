@@ -36,6 +36,7 @@ export function useHostelDetails(hostelId?: string) {
           agent_name,
           agent_email,
           agent_avatar_url,
+          price_range,
           hostel_photos (
             id,
             storage_path,
@@ -81,6 +82,7 @@ export function useHostelDetails(hostelId?: string) {
           avatar: data.agent_avatar_url,
         },
         gallery,
+        price_range: data.price_range,
       };
 
       return details;

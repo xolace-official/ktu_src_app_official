@@ -1,3 +1,10 @@
+export interface TeamMemberSocials {
+  linkedin?: string;
+  x?: string;
+  email?: string;
+  github?: string;
+}
+
 export interface TeamMember {
   id: string;
   name: string;
@@ -5,6 +12,8 @@ export interface TeamMember {
   initials: string;
   imageUrl?: string;
   gradientColors?: [string, string];
+  socials?: TeamMemberSocials;
+  bio?: string;
 }
 
 const BASE = `${process.env.EXPO_PUBLIC_SUPABASE_API_URL}/storage/v1/object/public/developer-credit`;
@@ -17,6 +26,10 @@ export const techTeam: TeamMember[] = [
     initials: 'EA',
     gradientColors: ['#3c87f7', '#6366f1'],
     imageUrl: `${BASE}/kwame.jpeg`,
+    socials: {
+      linkedin: 'https://linkedin.com/in/',
+      x: 'https://x.com/',
+    },
   },
   {
     id: 'member-2',
@@ -25,6 +38,10 @@ export const techTeam: TeamMember[] = [
     initials: 'D',
     gradientColors: ['#f43f5e', '#ec4899'],
     imageUrl: `${BASE}/major.png`,
+    socials: {
+      linkedin: 'https://linkedin.com/in/',
+      x: 'https://x.com/',
+    },
   },
   {
     id: 'member-3',
@@ -32,7 +49,13 @@ export const techTeam: TeamMember[] = [
     position: 'Lead Developer',
     initials: 'NA',
     gradientColors: ['#10b981', '#06b6d4'],
-    imageUrl: `${BASE}/Nathan.JPG`,
+    imageUrl: `${BASE}/Nathan-mini.JPG`,
+    socials: {
+      linkedin: 'https://linkedin.com/in/',
+      github: 'https://github.com/',
+      x: 'https://x.com/',
+      email: 'nathaniel@example.com',
+    },
   },
   {
     id: 'member-4',
@@ -40,7 +63,10 @@ export const techTeam: TeamMember[] = [
     position: 'UI/UX designer',
     initials: 'AB',
     gradientColors: ['#f59e0b', '#ef4444'],
-    imageUrl: `${BASE}/kobby.jpg`,
+    imageUrl: `${BASE}/kobby-mini.jpg`,
+    socials: {
+      linkedin: 'https://linkedin.com/in/',
+    },
   },
   {
     id: 'member-5',
@@ -49,6 +75,10 @@ export const techTeam: TeamMember[] = [
     initials: 'P',
     gradientColors: ['#f59e0b', '#ef4444'],
     imageUrl: `${BASE}/prosper.jpg`,
+    socials: {
+      linkedin: 'https://linkedin.com/in/',
+      x: 'https://x.com/',
+    },
   },
   // {
   //   id: 'member-6',

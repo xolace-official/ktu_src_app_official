@@ -11,7 +11,7 @@ export function useRecommendedHostels(limit = 15) {
   const queryFn = async (): Promise<HostelCard[]> => {
     const { data, error } = await client
       .from('hostels')
-      .select('id, hero_image_url, rating, name, address, price')
+      .select('id, hero_image_url, rating, name, address, price, price_range')
       .eq('is_featured', false)
       .order('rating', { ascending: false })
       .limit(limit);
@@ -27,6 +27,7 @@ export function useRecommendedHostels(limit = 15) {
       name: row.name,
       address: row.address,
       price: Number(row.price),
+      price_range: row.price_range,
     }));
   };
 
