@@ -1,11 +1,12 @@
 import Constants from 'expo-constants';
+import { APP_VERSION_FALLBACK } from '@/constants';
 import { Surface } from 'heroui-native';
 import { GraduationCap } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 import { aboutContent } from './about-data';
 
 export function AboutHeader() {
-  const appVersion = Constants.expoConfig?.version ?? '1.1.0';
+  const appVersion = Constants.expoConfig?.version ?? APP_VERSION_FALLBACK;
   // const buildNumber =
   //   Constants.expoConfig?.ios?.buildNumber ??
   //   Constants.expoConfig?.android?.versionCode?.toString() ??

@@ -4,6 +4,7 @@ import { router, Link } from 'expo-router';
 import { openBrowserAsync, WebBrowserPresentationStyle } from 'expo-web-browser';
 import { Button, Dialog, useToast } from 'heroui-native';
 import Constants from 'expo-constants';
+import { APP_VERSION_FALLBACK } from '@/constants';
 import { settingSections } from '@/config/settings.config';
 import { useSignOut } from '@/hooks/auth/use-signout';
 import { useDeleteAccount } from '@/hooks/auth/use-delete-account';
@@ -68,7 +69,7 @@ export const ScreenSettings = () => {
     });
   };
 
-  const appVersion = Constants.expoConfig?.version ?? '1.1.0';
+  const appVersion = Constants.expoConfig?.version ?? APP_VERSION_FALLBACK;
 
   return (
     <>

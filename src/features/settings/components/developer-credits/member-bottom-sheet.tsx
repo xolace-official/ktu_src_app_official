@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Linking } from 'react-native';
+import { Alert, View, Text, StyleSheet, Linking } from 'react-native';
 import { BottomSheet, PressableFeedback, Surface } from 'heroui-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,9 +17,19 @@ const SOCIAL_CONFIG = [
    { key: 'instagram' as const, icon: Instagram, label: 'Instagram' },
 ] as const;
 
-function openSocial(key: string, value: string) {
+async function openSocial(key: string, value: string) {
   const url = key === 'email' ? `mailto:${value}` : value;
-  Linking.openURL(url);
+  try {
+    const canOpen = await Linking.canOpenURL(url);
+    if (canOpen) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert('Error', 'Unable to open this link on your device.');
+    }
+  } catch (error) {
+    Alert.alert('Error', 'An unexpected error occurred.');
+    console.error('Error opening social link:', error);
+  }
 }
 
 export function MemberSheetContent({ member }: MemberSheetContentProps) {
