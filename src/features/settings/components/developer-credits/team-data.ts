@@ -30,7 +30,7 @@ export const techTeam: TeamMember[] = [
     socials: {
       linkedin: 'https://www.linkedin.com/in/emmanuel-acquah-2a46b8268',
       instagram: 'https://www.instagram.com/offi_cialemmanuel99',
-
+      email: 'emmanuelacquah398@gmail.com'
     },
     bio: 'Co-Founder & COO of Xolace Inc. Software Developer HTML | CSS | Tailwind | JavaScript | nodeJs | nextJs | Java | Supabase. Former Google Development Student Club Member 2022-2024, President COMPSSA KTU 2023/2024 , Vice President Faculty of Applied Science 2023/2024, Chairman Tech & Innovation Committee SRC, KTU 2025/2026. '
   },
@@ -59,7 +59,7 @@ export const techTeam: TeamMember[] = [
       x: 'https://x.com/sirr_nathan',
       email: 'nathanieladama8420@gmail.com',
     },
-    bio: 'Co-Founder & CEO of Xolace Inc. '
+    bio: 'Co-Founder & CEO of Xolace Inc. Software Engineer | React | Django | React Native | Expo | Nodejs  | GDSC Lead 2022 - 2024 | Ex-Vice President of the COMPSSA KTU 2023/2024 | Awarded BEST STUDENT Software Developer by UMB Tertiary Awards 2024'
   },
   {
     id: 'member-4',
@@ -70,6 +70,7 @@ export const techTeam: TeamMember[] = [
     imageUrl: `${BASE}/kobby-mini.jpg`,
     socials: {
       linkedin: 'https://www.linkedin.com/in/andrew-beniako-04715a255',
+      email: 'b.qhuabenah17@gmail.com'
     },
     bio: 'Co-Founder & CMO of Xolace Inc. Front End Developer HTML | CSS | Tailwind | JavaScript | nodeJs | nextJs . Graphic Designer, Former Project Lead at Google Development Student Club 2022, Academic Chair for COMPSSA KTU 2023 , Tech & Innovation Committee Member KTU 2026. '
   },
