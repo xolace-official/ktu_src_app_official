@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Linking } from 'react-native';
 import { BottomSheet, PressableFeedback, Surface } from 'heroui-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Linkedin, Twitter, Mail, Github } from 'lucide-react-native';
+import { Linkedin, Twitter, Mail, Github, Instagram } from 'lucide-react-native';
 import type { TeamMember } from './team-data';
 
 interface MemberSheetContentProps {
@@ -14,6 +14,7 @@ const SOCIAL_CONFIG = [
   { key: 'x' as const, icon: Twitter, label: 'X' },
   { key: 'github' as const, icon: Github, label: 'GitHub' },
   { key: 'email' as const, icon: Mail, label: 'Email' },
+   { key: 'instagram' as const, icon: Instagram, label: 'Instagram' },
 ] as const;
 
 function openSocial(key: string, value: string) {

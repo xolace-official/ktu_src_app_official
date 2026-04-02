@@ -3,6 +3,7 @@ export interface TeamMemberSocials {
   x?: string;
   email?: string;
   github?: string;
+  instagram?: string;
 }
 
 export interface TeamMember {
@@ -27,9 +28,11 @@ export const techTeam: TeamMember[] = [
     gradientColors: ['#3c87f7', '#6366f1'],
     imageUrl: `${BASE}/kwame.jpeg`,
     socials: {
-      linkedin: 'https://linkedin.com/in/',
-      x: 'https://x.com/',
+      linkedin: 'https://www.linkedin.com/in/emmanuel-acquah-2a46b8268',
+      instagram: 'https://www.instagram.com/offi_cialemmanuel99',
+
     },
+    bio: 'Co-Founder & COO of Xolace Inc. Software Developer HTML | CSS | Tailwind | JavaScript | nodeJs | nextJs | Java | Supabase. Former Google Development Student Club Member 2022-2024, President COMPSSA KTU 2023/2024 , Vice President Faculty of Applied Science 2023/2024, Chairman Tech & Innovation Committee SRC, KTU 2025/2026. '
   },
   {
     id: 'member-2',
@@ -51,11 +54,12 @@ export const techTeam: TeamMember[] = [
     gradientColors: ['#10b981', '#06b6d4'],
     imageUrl: `${BASE}/Nathan-mini.JPG`,
     socials: {
-      linkedin: 'https://linkedin.com/in/',
-      github: 'https://github.com/',
-      x: 'https://x.com/',
-      email: 'nathaniel@example.com',
+      linkedin: 'https://www.linkedin.com/in/nathaniel-e-adama-93802a234/',
+      github: 'https://github.com/s-kvng',
+      x: 'https://x.com/sirr_nathan',
+      email: 'nathanieladama8420@gmail.com',
     },
+    bio: 'Co-Founder & CEO of Xolace Inc. '
   },
   {
     id: 'member-4',
@@ -65,8 +69,9 @@ export const techTeam: TeamMember[] = [
     gradientColors: ['#f59e0b', '#ef4444'],
     imageUrl: `${BASE}/kobby-mini.jpg`,
     socials: {
-      linkedin: 'https://linkedin.com/in/',
+      linkedin: 'https://www.linkedin.com/in/andrew-beniako-04715a255',
     },
+    bio: 'Co-Founder & CMO of Xolace Inc. Front End Developer HTML | CSS | Tailwind | JavaScript | nodeJs | nextJs . Graphic Designer, Former Project Lead at Google Development Student Club 2022, Academic Chair for COMPSSA KTU 2023 , Tech & Innovation Committee Member KTU 2026. '
   },
   {
     id: 'member-5',

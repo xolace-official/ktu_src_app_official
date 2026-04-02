@@ -68,7 +68,7 @@ export const ScreenSettings = () => {
     });
   };
 
-  const appVersion = Constants.expoConfig?.version ?? '1.0.0';
+  const appVersion = Constants.expoConfig?.version ?? '1.1.0';
 
   return (
     <>

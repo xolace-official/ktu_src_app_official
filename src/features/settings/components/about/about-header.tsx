@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import { aboutContent } from './about-data';
 
 export function AboutHeader() {
-  const appVersion = Constants.expoConfig?.version ?? '1.0.0';
+  const appVersion = Constants.expoConfig?.version ?? '1.1.0';
   // const buildNumber =
   //   Constants.expoConfig?.ios?.buildNumber ??
   //   Constants.expoConfig?.android?.versionCode?.toString() ??

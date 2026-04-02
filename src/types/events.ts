@@ -18,7 +18,7 @@ export interface Event {
   starts_at: string;
   ends_at: string | null;
   location: string | null;
-  hero_image_url: string | null;
+  cover_image: string | null;
   organizer_name: string | null;
   organizer_avatar: string | null;
   is_featured: boolean;

@@ -61,6 +61,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 <Text style={styles.position} numberOfLines={1}>
                   {member.position}
                 </Text>
+                <Text className='text-muted/25 text-[10px]'>Tap to view</Text>
               </View>
             </Card>
           </View>

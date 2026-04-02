@@ -330,8 +330,8 @@ export function EventScreen() {
         <View className="relative" style={{ height: imageHeight }}>
           <Image
             source={
-              event.hero_image_url
-                ? { uri: event.hero_image_url }
+              event.cover_image
+                ? { uri: event.cover_image }
                 : require('@/assets/images/events/img.png')
             }
             style={{ width: '100%', height: '100%' }}
