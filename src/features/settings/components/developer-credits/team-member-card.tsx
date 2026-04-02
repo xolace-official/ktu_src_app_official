@@ -1,66 +1,77 @@
 import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
-import { Card } from 'heroui-native';
+import { BottomSheet, Card, PressableFeedback } from 'heroui-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { TeamMember } from './team-data';
+import { MemberSheetContent } from './member-bottom-sheet';
 
 interface TeamMemberCardProps {
   member: TeamMember;
 }
 
-export const CARD_HORIZONTAL_PADDING = 16;
+export const CARD_HORIZONTAL_PADDING = 14;
 export const CARD_GAP = 16;
 
 export function TeamMemberCard({ member }: TeamMemberCardProps) {
   const { width } = useWindowDimensions();
   const cardWidth = (width - CARD_HORIZONTAL_PADDING * 2 - CARD_GAP) / 2;
-
   return (
-    <View style={{ width: cardWidth, aspectRatio: 3 / 4 }}>
-      <Card className="flex-1 overflow-hidden p-0" style={{ borderCurve: 'continuous' }}>
-        {/* Background: photo or per-member gradient */}
-        {member.imageUrl ? (
-          <Image
-            source={{ uri: member.imageUrl }}
-            style={StyleSheet.absoluteFill}
-            contentFit="cover"
-            transition={300}
-          />
-        ) : (
-          <LinearGradient
-            colors={member.gradientColors ?? ['#3c87f7', '#6366f1']}
-            style={StyleSheet.absoluteFill}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-          />
-        )}
+    <BottomSheet>
+      <BottomSheet.Trigger asChild>
+        <PressableFeedback>
+          <View style={{ width: cardWidth, aspectRatio: 3 / 4 }}>
+            <Card className="flex-1 overflow-hidden p-0" style={{ borderCurve: 'continuous' }}>
+              {/* Background: photo or per-member gradient */}
+              {member.imageUrl ? (
+                <Image
+                  source={{ uri: member.imageUrl }}
+                  style={StyleSheet.absoluteFill}
+                  contentFit="cover"
+                  transition={300}
+                />
+              ) : (
+                <LinearGradient
+                  colors={member.gradientColors ?? ['#3c87f7', '#6366f1']}
+                  style={StyleSheet.absoluteFill}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                />
+              )}
 
-        {/* Bottom scrim for text legibility */}
-        <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.72)']}
-          style={[StyleSheet.absoluteFill, { top: '40%' }]}
-        />
+              {/* Bottom scrim for text legibility */}
+              <LinearGradient
+                colors={['transparent', 'rgba(0,0,0,0.72)']}
+                style={[StyleSheet.absoluteFill, { top: '40%' }]}
+              />
 
-        {/* Large initials centered when no photo */}
-        {!member.imageUrl && (
-          <View
-            style={[StyleSheet.absoluteFill, styles.initialsContainer]}
-          >
-            <Text style={styles.initials}>{member.initials}</Text>
+              {/* Large initials centered when no photo */}
+              {!member.imageUrl && (
+                <View
+                  style={[StyleSheet.absoluteFill, styles.initialsContainer]}
+                >
+                  <Text style={styles.initials}>{member.initials}</Text>
+                </View>
+              )}
+
+              {/* Name + role pinned to the bottom */}
+              <View style={styles.infoContainer}>
+                <Text style={styles.name} numberOfLines={1}>
+                  {member.name}
+                </Text>
+                <Text style={styles.position} numberOfLines={1}>
+                  {member.position}
+                </Text>
+                <Text className='text-muted/25 text-[10px]'>Tap to view</Text>
+              </View>
+            </Card>
           </View>
-        )}
-
-        {/* Name + role pinned to the bottom */}
-        <View style={styles.infoContainer}>
-          <Text style={styles.name} numberOfLines={1}>
-            {member.name}
-          </Text>
-          <Text style={styles.position} numberOfLines={1}>
-            {member.position}
-          </Text>
-        </View>
-      </Card>
-    </View>
+        </PressableFeedback>
+      </BottomSheet.Trigger>
+      <BottomSheet.Portal>
+        <BottomSheet.Overlay />
+        <MemberSheetContent member={member} />
+      </BottomSheet.Portal>
+    </BottomSheet>
   );
 }
 

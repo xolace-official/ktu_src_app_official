@@ -221,7 +221,7 @@ export function HostelDetailsScreen() {
             </View>
 
             {/* Map placeholder */}
-            <View
+            {/* <View
               className="mt-5 h-52 w-full items-center justify-center rounded-xl"
               style={{
                 backgroundColor: theme.backgroundElement,
@@ -232,7 +232,7 @@ export function HostelDetailsScreen() {
               <ThemedText themeColor="textSecondary" className="mt-2">
                 Map view
               </ThemedText>
-            </View>
+            </View> */}
           </View>
 
           {/* Android: Booking bar inside scroll content */}

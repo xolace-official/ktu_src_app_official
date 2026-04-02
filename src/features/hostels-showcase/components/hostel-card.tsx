@@ -87,7 +87,7 @@ export const HostelCard = memo(function HostelCard({ hostel, onPress }: HostelCa
 
         <View className="mt-2 flex-row items-center justify-between">
           <ThemedText className="text-base font-bold" themeColor="accent">
-            {formattedPrice}
+            {hostel.price_range ? `Gh₵${hostel.price_range}` : formattedPrice}
           </ThemedText>
         </View>
       </View>

@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import { PressableFeedback } from 'heroui-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Code, Rocket, Lightbulb } from 'lucide-react-native';
+import { Code, Rocket, Lightbulb, ChevronRight } from 'lucide-react-native';
 import { router } from 'expo-router';
 
 export function DeveloperCreditsCard() {
@@ -29,9 +29,10 @@ export function DeveloperCreditsCard() {
           <Text className="mt-1 text-center text-base font-semibold text-white">
             SRC Tech & Innovations Committee
           </Text>
-          <Text className="mt-2 text-center text-xs text-white/60">
-            Students building for students
-          </Text>
+          <View className="mt-3 flex-row items-center justify-center gap-1">
+            <Text className="text-xs text-white/60">Tap to meet the team</Text>
+            <ChevronRight size={14} color="rgba(255,255,255,0.6)" />
+          </View>
         </LinearGradient>
       </PressableFeedback>
     </View>

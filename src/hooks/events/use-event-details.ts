@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/lib/supabase/use-supabase';
 import { useAppStore } from '@/store/store';
-import type { EventDetails } from '@/types/events';
+import type { EventDetails, EventAttendanceStatus } from '@/types/events';
 import { STALE_TIME_1_HOUR } from '@/constants/query';
 
 
@@ -52,7 +52,11 @@ export function useEventDetails(eventId: string) {
 
       return {
         ...eventData,
-        user_attendance_status: userAttendanceStatus,
+        hero_image_url: eventData.cover_image,
+        organizer_name: eventData.organizer?.full_name ?? null,
+        organizer_avatar: eventData.organizer?.avatar_url ?? null,
+        attendees_count: eventData.going_count ?? 0,
+        user_attendance_status: userAttendanceStatus as EventAttendanceStatus,
       } as EventDetails;
     },
   });

@@ -453,6 +453,7 @@ export type Database = {
             | Database["public"]["Enums"]["hostel_payment_term"]
             | null
           price: number
+          price_range: string | null
           rating: number | null
           type: string
           updated_at: string
@@ -477,6 +478,7 @@ export type Database = {
             | Database["public"]["Enums"]["hostel_payment_term"]
             | null
           price: number
+          price_range?: string | null
           rating?: number | null
           type?: string
           updated_at?: string
@@ -501,6 +503,7 @@ export type Database = {
             | Database["public"]["Enums"]["hostel_payment_term"]
             | null
           price?: number
+          price_range?: string | null
           rating?: number | null
           type?: string
           updated_at?: string
