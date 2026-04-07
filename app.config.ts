@@ -39,6 +39,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ( {
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/ktu-src.icon",
+      "usesAppleSignIn": true,
       "bundleIdentifier": getUniqueIdentifier(),
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
