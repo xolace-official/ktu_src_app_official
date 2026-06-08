@@ -3,7 +3,7 @@ import { z } from 'zod';
 const ktuEmail = z
   .email('Please enter a valid email address')
   .refine((val) => val.trim().toLowerCase(), {
-    message: 'Only KTU institutional emails (@ktu.edu.gh) are accepted',
+    message: 'KTU institutional emails (@ktu.edu.gh) are accepted for students and any valid mail for others',
   });
 
 export const SignupSchema = z
